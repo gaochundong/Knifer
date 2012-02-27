@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading;
 using System.Windows;
+using System.Windows.Documents;
+using System.Windows.Media;
 using System.Windows.Threading;
 using Gimela.Toolkit.CommandLines.Foundation;
 using Gimela.Toolkit.CommandLines.Tail;
@@ -117,7 +119,40 @@ namespace Gimela.Toolkit.CommandLines.TailUI
       this.Dispatcher.Invoke(DispatcherPriority.Normal,
         new Action(() =>
         {
-          tbFileData.AppendText(e.Data);
+          string[] list = e.Data.TrimEnd(new char[] { '\n' }).Replace("\r", "").Split(new char[] { '\n' });
+          for (int i = 0; i < list.Length; i++)
+          {
+            if (list[i].ToUpperInvariant().Contains(@"EXCEPTION"))
+            {
+              tbFileData.Document.Blocks.Add(new Paragraph(new Run(list[i]) { Foreground = Brushes.Red }));
+              tbFileData.Document.Blocks.Add(new Paragraph(new Run()));
+            }
+            else if (list[i].ToUpperInvariant().Contains(@"ERROR"))
+            {
+              tbFileData.Document.Blocks.Add(new Paragraph(new Run(list[i]) { Foreground = Brushes.Yellow }));
+              tbFileData.Document.Blocks.Add(new Paragraph(new Run()));
+            }
+            else
+            {
+              if (i == list.Length - 1)
+              {
+                if (string.IsNullOrEmpty(list[i]))
+                {
+                  tbFileData.AppendText(Environment.NewLine);
+                }
+                else
+                {
+                  tbFileData.AppendText(list[i]);
+                }
+              }
+              else
+              {
+                tbFileData.AppendText(list[i]);
+                tbFileData.AppendText(Environment.NewLine);
+              }
+            }
+          }
+
           tbFileData.ScrollToEnd();
         }));
     }

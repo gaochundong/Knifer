@@ -139,6 +139,10 @@ namespace Gimela.Toolkit.CommandLines.Tail
     {
       if (fileSystemWatcher != null)
       {
+        fileSystemWatcher.Created -= new FileSystemEventHandler(OnFileCreated);
+        fileSystemWatcher.Deleted -= new FileSystemEventHandler(OnFileDeleted);
+        fileSystemWatcher.Renamed -= new RenamedEventHandler(OnFileRenamed);
+        fileSystemWatcher.Changed -= new FileSystemEventHandler(OnFileChanged);
         fileSystemWatcher.EnableRaisingEvents = false;
         fileSystemWatcher.Dispose();
         fileSystemWatcher = null;
