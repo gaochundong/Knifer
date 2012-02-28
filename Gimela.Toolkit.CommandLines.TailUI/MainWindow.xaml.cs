@@ -24,7 +24,7 @@ namespace Gimela.Toolkit.CommandLines.TailUI
     private void OnOpenFileButtonClick(object sender, RoutedEventArgs e)
     {
       Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-      dlg.Filter = "Log files (*.log)|*.log|Text documents (*.txt)|*.txt|All files (*.*)|*.*"; 
+      dlg.Filter = "Log files (*.log)|*.log|Text documents (*.txt)|*.txt|All files (*.*)|*.*";
       dlg.FilterIndex = 3;
 
       Nullable<bool> result = dlg.ShowDialog();
@@ -127,27 +127,33 @@ namespace Gimela.Toolkit.CommandLines.TailUI
               tbFileData.Document.Blocks.Add(new Paragraph(new Run(list[i]) { Foreground = Brushes.Red }));
               tbFileData.Document.Blocks.Add(new Paragraph(new Run()));
             }
-            else if (list[i].ToUpperInvariant().Contains(@"ERROR"))
+            else if (list[i].ToUpperInvariant().Contains(@"CANNOT"))
+            {
+              tbFileData.Document.Blocks.Add(new Paragraph(new Run(list[i]) { Foreground = Brushes.Yellow }));
+              tbFileData.Document.Blocks.Add(new Paragraph(new Run()));
+            }
+            else if (list[i].ToUpperInvariant().Contains(@"CAN NOT"))
+            {
+              tbFileData.Document.Blocks.Add(new Paragraph(new Run(list[i]) { Foreground = Brushes.Yellow }));
+              tbFileData.Document.Blocks.Add(new Paragraph(new Run()));
+            }
+            else if (list[i].ToUpperInvariant().Contains(@"COULD NOT"))
             {
               tbFileData.Document.Blocks.Add(new Paragraph(new Run(list[i]) { Foreground = Brushes.Yellow }));
               tbFileData.Document.Blocks.Add(new Paragraph(new Run()));
             }
             else
             {
-              if (i == list.Length - 1)
+              if (i == list.Length - 1 && !e.Data.EndsWith("\n", StringComparison.CurrentCulture))
               {
-                if (string.IsNullOrEmpty(list[i]))
-                {
-                  tbFileData.AppendText(Environment.NewLine);
-                }
-                else
-                {
-                  tbFileData.AppendText(list[i]);
-                }
+                tbFileData.AppendText(list[i]);
               }
               else
               {
-                tbFileData.AppendText(list[i]);
+                if (!string.IsNullOrEmpty(list[i]))
+                {
+                  tbFileData.AppendText(list[i]);
+                }
                 tbFileData.AppendText(Environment.NewLine);
               }
             }

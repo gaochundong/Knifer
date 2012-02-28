@@ -73,6 +73,11 @@
           <Style TargetType="{x:Type Paragraph}">
             <Setter Property="Margin" Value="0"/>
             <Setter Property="LineHeight" Value="13" />
+            <Setter Property="BreakPageBefore" Value="False" />
+            <Setter Property="BreakColumnBefore" Value="False" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="KeepTogether" Value="True" />
+            <Setter Property="KeepWithNext" Value="True" />
           </Style>
         </RichTextBox.Resources>
       </RichTextBox>
