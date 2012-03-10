@@ -71,8 +71,6 @@ DESCRIPTION
 
 OPTIONS
 
-	Matching Control
-
 	-i FILE, --input-file=FILE
 	{0}{0}Specify the input file.
 	-o FILE, --output-file=FILE
