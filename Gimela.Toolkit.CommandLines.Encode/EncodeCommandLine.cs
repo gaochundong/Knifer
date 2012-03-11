@@ -73,12 +73,20 @@ namespace Gimela.Toolkit.CommandLines.Encode
 
         if (encodeOptions.IsSetInputFile)
         {
-          if (WildcardCharacterHelper.IsContainsWildcard(encodeOptions.InputFile))
+          string path = encodeOptions.InputFile.Replace(@"/", @"\\");
+          if (path.StartsWith(@"." + Path.DirectorySeparatorChar, StringComparison.CurrentCulture))
           {
-            FileInfo[] files = currentDirectory.GetFiles();
+            path = (currentDirectory.FullName
+              + Path.DirectorySeparatorChar
+              + path.TrimStart('.', Path.DirectorySeparatorChar)).Replace(@"\\", @"\");
+          }
+
+          if (WildcardCharacterHelper.IsContainsWildcard(path))
+          {
+            FileInfo[] files = new DirectoryInfo(Path.GetDirectoryName(path)).GetFiles();
             foreach (var file in files)
             {
-              Regex r = new Regex(WildcardCharacterHelper.WildcardToRegex(encodeOptions.InputFile));
+              Regex r = new Regex(WildcardCharacterHelper.WildcardToRegex(path));
               if (r.IsMatch(file.FullName) || r.IsMatch(file.Name))
               {
                 EncodeFile(file.FullName);
@@ -87,18 +95,22 @@ namespace Gimela.Toolkit.CommandLines.Encode
           }
           else
           {
-            EncodeFile(encodeOptions.InputFile);
+            EncodeFile(path);
           }
         }
 
         if (encodeOptions.IsSetDirectory)
         {
           string path = encodeOptions.Directory.Replace(@"/", @"\\");
-          if (path.StartsWith(@"." + Path.DirectorySeparatorChar, StringComparison.CurrentCulture))
+          if (path == @".")
           {
-            path = currentDirectory.FullName
+            path = currentDirectory.FullName;
+          }
+          else if (path.StartsWith(@"." + Path.DirectorySeparatorChar, StringComparison.CurrentCulture))
+          {
+            path = (currentDirectory.FullName
               + Path.DirectorySeparatorChar
-              + path.TrimStart('.', Path.DirectorySeparatorChar);
+              + path.TrimStart('.', Path.DirectorySeparatorChar)).Replace(@"\\", @"\");
           }
 
           EncodeDirectory(path);

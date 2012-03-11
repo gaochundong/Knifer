@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Gimela.Toolkit.CommandLines.Foundation;
+using System.Reflection;
 
 namespace Gimela.Toolkit.CommandLines.Grep
 {
@@ -18,6 +19,7 @@ namespace Gimela.Toolkit.CommandLines.Grep
     #region Fields
 
     private GrepCommandLineOptions grepOptions;
+    private readonly string executingFile = Assembly.GetExecutingAssembly().Location;
 
     #endregion
 
@@ -75,11 +77,15 @@ namespace Gimela.Toolkit.CommandLines.Grep
         foreach (var item in grepOptions.FilePaths)
         {
           string path = item.Replace(@"/", @"\\");
-          if (path.StartsWith(@"." + Path.DirectorySeparatorChar, StringComparison.CurrentCulture))
+          if (path == @".")
           {
-            path = currentDirectory.FullName
+            path = currentDirectory.FullName;
+          }
+          else if (path.StartsWith(@"." + Path.DirectorySeparatorChar, StringComparison.CurrentCulture))
+          {
+            path = (currentDirectory.FullName
               + Path.DirectorySeparatorChar
-              + path.TrimStart('.', Path.DirectorySeparatorChar);
+              + path.TrimStart('.', Path.DirectorySeparatorChar)).Replace(@"\\", @"\");
           }
 
           if (grepOptions.IsSetDirectory)
@@ -90,7 +96,7 @@ namespace Gimela.Toolkit.CommandLines.Grep
           {
             if (WildcardCharacterHelper.IsContainsWildcard(path))
             {
-              FileInfo[] files = currentDirectory.GetFiles();
+              FileInfo[] files = new DirectoryInfo(Path.GetDirectoryName(path)).GetFiles();
               foreach (var file in files)
               {
                 Regex r = new Regex(WildcardCharacterHelper.WildcardToRegex(path));
@@ -170,7 +176,15 @@ namespace Gimela.Toolkit.CommandLines.Grep
     {
       bool result = false;
 
-      if (grepOptions.IsSetIncludeFiles)
+      if (executingFile == file)
+      {
+        result = false;
+      }
+      else if (file.ToUpperInvariant().EndsWith(".EXE"))
+      {
+        result = false;
+      }
+      else if (grepOptions.IsSetIncludeFiles)
       {
         Regex r = new Regex(WildcardCharacterHelper.WildcardToRegex(grepOptions.IncludeFilesPattern));
         if (r.IsMatch(file))

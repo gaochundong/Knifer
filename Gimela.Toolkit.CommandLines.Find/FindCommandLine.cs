@@ -9,23 +9,21 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Gimela.Toolkit.CommandLines.Foundation;
 
-namespace Gimela.Toolkit.CommandLines.Count
+namespace Gimela.Toolkit.CommandLines.Find
 {
-  public class CountCommandLine : CommandLine
+  public class FindCommandLine : CommandLine
   {
     #region Fields
 
-    private CountCommandLineOptions countOptions;
-    private readonly IDictionary<string, int> countSummary;
+    private FindCommandLineOptions findOptions;
 
     #endregion
 
     #region Constructors
 
-    public CountCommandLine(string[] args)
+    public FindCommandLine(string[] args)
     {
       this.Arguments = new ReadOnlyCollection<string>(args);
-      this.countSummary = new Dictionary<string, int>();
     }
 
     #endregion
@@ -42,22 +40,22 @@ namespace Gimela.Toolkit.CommandLines.Count
     {
       base.Execute();
 
-      List<string> singleOptionList = CountOptions.GetSingleOptions();
+      List<string> singleOptionList = FindOptions.GetSingleOptions();
       CommandLineOptions options = CommandLineParser.Parse(Arguments.ToArray<string>(), singleOptionList.ToArray());
-      countOptions = ParseOptions(options);
-      CheckOptions(countOptions);
+      findOptions = ParseOptions(options);
+      CheckOptions(findOptions);
 
-      if (countOptions.IsSetHelp)
+      if (findOptions.IsSetHelp)
       {
-        RaiseCommandLineUsage(this, CountOptions.Usage);
+        RaiseCommandLineUsage(this, FindOptions.Usage);
       }
-      else if (countOptions.IsSetVersion)
+      else if (findOptions.IsSetVersion)
       {
-        RaiseCommandLineUsage(this, CountOptions.Version);
+        RaiseCommandLineUsage(this, FindOptions.Version);
       }
       else
       {
-        StartCount();
+        StartFind();
       }
 
       Terminate();
@@ -67,18 +65,15 @@ namespace Gimela.Toolkit.CommandLines.Count
 
     #region Private Methods
 
-    [SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Gimela.Toolkit.CommandLines.Count.CountCommandLine.OutputText(System.String)"), 
-     SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase"), 
-     SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "FileType")]
-    private void StartCount()
+    private void StartFind()
     {
       try
       {
         DirectoryInfo currentDirectory = new DirectoryInfo(Environment.CurrentDirectory);
 
-        if (countOptions.IsSetDirectory)
+        if (findOptions.IsSetDirectory)
         {
-          string path = countOptions.Directory.Replace(@"/", @"\\");
+          string path = findOptions.Directory.Replace(@"/", @"\\");
           if (path == @".")
           {
             path = currentDirectory.FullName;
@@ -90,12 +85,7 @@ namespace Gimela.Toolkit.CommandLines.Count
               + path.TrimStart('.', Path.DirectorySeparatorChar)).Replace(@"\\", @"\");
           }
 
-          CountDirectory(path);
-        }
-
-        foreach (var item in countSummary.OrderByDescending(t => t.Value).ThenBy(w => w.Key))
-        {
-          OutputText(string.Format(CultureInfo.CurrentCulture, "FileType: {0,-30}Count: {1}", item.Key.ToLowerInvariant(), item.Value));
+          FindDirectory(path);
         }
       }
       catch (CommandLineException ex)
@@ -104,7 +94,7 @@ namespace Gimela.Toolkit.CommandLines.Count
       }
     }
     
-    private void CountDirectory(string path)
+    private void FindDirectory(string path)
     {
       DirectoryInfo directory = new DirectoryInfo(path);
       if (!directory.Exists)
@@ -117,38 +107,26 @@ namespace Gimela.Toolkit.CommandLines.Count
         FileInfo[] files = directory.GetFiles();
         foreach (var file in files)
         {
-          CountFile(file.FullName);
+          FindFile(file.DirectoryName, file.Name);
         }
 
-        if (countOptions.IsSetRecursive)
+        if (findOptions.IsSetRecursive)
         {
           DirectoryInfo[] directories = directory.GetDirectories();
           foreach (var item in directories)
           {
-            CountDirectory(item.FullName);
+            FindDirectory(item.FullName);
           }
         }
       }
     }
 
-    private void CountFile(string path)
+    private void FindFile(string directoryName, string fileName)
     {
-      FileInfo file = new FileInfo(path);
-      if (!file.Exists)
+      Regex r = new Regex(WildcardCharacterHelper.WildcardToRegex(findOptions.RegexPattern));
+      if (r.IsMatch(fileName))
       {
-        throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
-          "No such file -- {0}", file.FullName));
-      }
-      else
-      {
-        if (countSummary.ContainsKey(file.Extension.ToUpperInvariant()))
-        {
-          countSummary[file.Extension.ToUpperInvariant()]++;
-        }
-        else
-        {
-          countSummary.Add(file.Extension.ToUpperInvariant(), 1);
-        }
+        OutputText(Path.Combine(directoryName, fileName));
       }
     }
 
@@ -164,37 +142,41 @@ namespace Gimela.Toolkit.CommandLines.Count
 
     [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "BigEndianUnicode"), 
      SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
-    private static CountCommandLineOptions ParseOptions(CommandLineOptions options)
+    private static FindCommandLineOptions ParseOptions(CommandLineOptions options)
     {
       if (options == null)
         throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
           "Option used in invalid context -- {0}", "must specify a option."));
 
-      CountCommandLineOptions targetOptions = new CountCommandLineOptions();
+      FindCommandLineOptions targetOptions = new FindCommandLineOptions();
 
       if (options.Arguments.Count >= 0)
       {
         foreach (var arg in options.Arguments.Keys)
         {
-          CountOptionType optionType = CountOptions.GetOptionType(arg);
-          if (optionType == CountOptionType.None)
+          FindOptionType optionType = FindOptions.GetOptionType(arg);
+          if (optionType == FindOptionType.None)
             throw new CommandLineException(
               string.Format(CultureInfo.CurrentCulture, "Option used in invalid context -- {0}",
               string.Format(CultureInfo.CurrentCulture, "cannot parse the command line argument : [{0}].", arg)));
 
           switch (optionType)
           {
-            case CountOptionType.Directory:
+            case FindOptionType.RegexPattern:
+              targetOptions.IsSetRegexPattern = true;
+              targetOptions.RegexPattern = options.Arguments[arg];
+              break;
+            case FindOptionType.Directory:
               targetOptions.IsSetDirectory = true;
               targetOptions.Directory = options.Arguments[arg];
               break;
-            case CountOptionType.Recursive:
+            case FindOptionType.Recursive:
               targetOptions.IsSetRecursive = true;
               break;
-            case CountOptionType.Help:
+            case FindOptionType.Help:
               targetOptions.IsSetHelp = true;
               break;
-            case CountOptionType.Version:
+            case FindOptionType.Version:
               targetOptions.IsSetVersion = true;
               break;
           }
@@ -208,19 +190,43 @@ namespace Gimela.Toolkit.CommandLines.Count
           targetOptions.IsSetDirectory = true;
           targetOptions.Directory = options.Parameters.First();
         }
+
+        if (options.Parameters.Count >= 2)
+        {
+          if (!targetOptions.IsSetRegexPattern)
+          {
+            targetOptions.IsSetRegexPattern = true;
+            targetOptions.RegexPattern = options.Parameters.ElementAt(1);
+          }
+        }
       }
 
       return targetOptions;
     }
 
-    private static void CheckOptions(CountCommandLineOptions options)
+    private static void CheckOptions(FindCommandLineOptions options)
     {
       if (!options.IsSetHelp && !options.IsSetVersion)
       {
-        if (!options.IsSetDirectory || string.IsNullOrEmpty(options.Directory))
+        if (!options.IsSetDirectory)
         {
           throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
             "Option used in invalid context -- {0}", "must specify a directory."));
+        }
+        if (string.IsNullOrEmpty(options.Directory))
+        {
+          throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+            "Option used in invalid context -- {0}", "must specify a directory."));
+        }
+        if (!options.IsSetRegexPattern)
+        {
+          throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+            "Option used in invalid context -- {0}", "must specify regex pattern for matching."));
+        }
+        if (string.IsNullOrEmpty(options.RegexPattern))
+        {
+          throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+            "Option used in invalid context -- {0}", "must specify regex pattern for matching."));
         }
       }
     }

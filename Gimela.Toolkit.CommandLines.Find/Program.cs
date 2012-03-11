@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Gimela.Toolkit.CommandLines.Foundation;
 
 namespace Gimela.Toolkit.CommandLines.Find
 {
@@ -9,6 +6,10 @@ namespace Gimela.Toolkit.CommandLines.Find
   {
     static void Main(string[] args)
     {
+      using (CommandLine command = new FindCommandLine(args))
+      {
+        CommandLineBootstrap.Start(command);
+      }
     }
   }
 }
