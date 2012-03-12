@@ -93,7 +93,7 @@ namespace Gimela.Toolkit.CommandLines.Find
         RaiseCommandLineException(this, ex);
       }
     }
-    
+
     private void FindDirectory(string path)
     {
       DirectoryInfo directory = new DirectoryInfo(path);
@@ -140,19 +140,18 @@ namespace Gimela.Toolkit.CommandLines.Find
 
     #region Parse Options
 
-    [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "BigEndianUnicode"), 
-     SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
-    private static FindCommandLineOptions ParseOptions(CommandLineOptions options)
+    [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
+    private static FindCommandLineOptions ParseOptions(CommandLineOptions commandLineOptions)
     {
-      if (options == null)
+      if (commandLineOptions == null)
         throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
           "Option used in invalid context -- {0}", "must specify a option."));
 
       FindCommandLineOptions targetOptions = new FindCommandLineOptions();
 
-      if (options.Arguments.Count >= 0)
+      if (commandLineOptions.Arguments.Count >= 0)
       {
-        foreach (var arg in options.Arguments.Keys)
+        foreach (var arg in commandLineOptions.Arguments.Keys)
         {
           FindOptionType optionType = FindOptions.GetOptionType(arg);
           if (optionType == FindOptionType.None)
@@ -164,11 +163,11 @@ namespace Gimela.Toolkit.CommandLines.Find
           {
             case FindOptionType.RegexPattern:
               targetOptions.IsSetRegexPattern = true;
-              targetOptions.RegexPattern = options.Arguments[arg];
+              targetOptions.RegexPattern = commandLineOptions.Arguments[arg];
               break;
             case FindOptionType.Directory:
               targetOptions.IsSetDirectory = true;
-              targetOptions.Directory = options.Arguments[arg];
+              targetOptions.Directory = commandLineOptions.Arguments[arg];
               break;
             case FindOptionType.Recursive:
               targetOptions.IsSetRecursive = true;
@@ -183,20 +182,20 @@ namespace Gimela.Toolkit.CommandLines.Find
         }
       }
 
-      if (options.Parameters.Count > 0)
+      if (commandLineOptions.Parameters.Count > 0)
       {
         if (!targetOptions.IsSetDirectory)
         {
           targetOptions.IsSetDirectory = true;
-          targetOptions.Directory = options.Parameters.First();
+          targetOptions.Directory = commandLineOptions.Parameters.First();
         }
 
-        if (options.Parameters.Count >= 2)
+        if (commandLineOptions.Parameters.Count >= 2)
         {
           if (!targetOptions.IsSetRegexPattern)
           {
             targetOptions.IsSetRegexPattern = true;
-            targetOptions.RegexPattern = options.Parameters.ElementAt(1);
+            targetOptions.RegexPattern = commandLineOptions.Parameters.ElementAt(1);
           }
         }
       }
@@ -204,26 +203,16 @@ namespace Gimela.Toolkit.CommandLines.Find
       return targetOptions;
     }
 
-    private static void CheckOptions(FindCommandLineOptions options)
+    private static void CheckOptions(FindCommandLineOptions checkedOptions)
     {
-      if (!options.IsSetHelp && !options.IsSetVersion)
+      if (!checkedOptions.IsSetHelp && !checkedOptions.IsSetVersion)
       {
-        if (!options.IsSetDirectory)
+        if (!checkedOptions.IsSetDirectory || string.IsNullOrEmpty(checkedOptions.Directory))
         {
           throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
             "Option used in invalid context -- {0}", "must specify a directory."));
         }
-        if (string.IsNullOrEmpty(options.Directory))
-        {
-          throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
-            "Option used in invalid context -- {0}", "must specify a directory."));
-        }
-        if (!options.IsSetRegexPattern)
-        {
-          throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
-            "Option used in invalid context -- {0}", "must specify regex pattern for matching."));
-        }
-        if (string.IsNullOrEmpty(options.RegexPattern))
+        if (!checkedOptions.IsSetRegexPattern || string.IsNullOrEmpty(checkedOptions.RegexPattern))
         {
           throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
             "Option used in invalid context -- {0}", "must specify regex pattern for matching."));

@@ -15,7 +15,7 @@ namespace Gimela.Toolkit.CommandLines.Encode
   {
     #region Fields
 
-    private EncodeCommandLineOptions encodeOptions;
+    private EncodeCommandLineOptions options;
 
     #endregion
 
@@ -41,15 +41,15 @@ namespace Gimela.Toolkit.CommandLines.Encode
       base.Execute();
 
       List<string> singleOptionList = EncodeOptions.GetSingleOptions();
-      CommandLineOptions options = CommandLineParser.Parse(Arguments.ToArray<string>(), singleOptionList.ToArray());
-      encodeOptions = ParseOptions(options);
-      CheckOptions(encodeOptions);
+      CommandLineOptions cloptions = CommandLineParser.Parse(Arguments.ToArray<string>(), singleOptionList.ToArray());
+      options = ParseOptions(cloptions);
+      CheckOptions(options);
 
-      if (encodeOptions.IsSetHelp)
+      if (options.IsSetHelp)
       {
         RaiseCommandLineUsage(this, EncodeOptions.Usage);
       }
-      else if (encodeOptions.IsSetVersion)
+      else if (options.IsSetVersion)
       {
         RaiseCommandLineUsage(this, EncodeOptions.Version);
       }
@@ -71,9 +71,9 @@ namespace Gimela.Toolkit.CommandLines.Encode
       {
         DirectoryInfo currentDirectory = new DirectoryInfo(Environment.CurrentDirectory);
 
-        if (encodeOptions.IsSetInputFile)
+        if (options.IsSetInputFile)
         {
-          string path = encodeOptions.InputFile.Replace(@"/", @"\\");
+          string path = options.InputFile.Replace(@"/", @"\\");
           if (path.StartsWith(@"." + Path.DirectorySeparatorChar, StringComparison.CurrentCulture))
           {
             path = (currentDirectory.FullName
@@ -99,9 +99,9 @@ namespace Gimela.Toolkit.CommandLines.Encode
           }
         }
 
-        if (encodeOptions.IsSetDirectory)
+        if (options.IsSetDirectory)
         {
-          string path = encodeOptions.Directory.Replace(@"/", @"\\");
+          string path = options.Directory.Replace(@"/", @"\\");
           if (path == @".")
           {
             path = currentDirectory.FullName;
@@ -132,9 +132,9 @@ namespace Gimela.Toolkit.CommandLines.Encode
       }
       else
       {
-        if (encodeOptions.IsSetOutputFile)
+        if (options.IsSetOutputFile)
         {
-          ConvertFile(path, encodeOptions.OutputFile);
+          ConvertFile(path, options.OutputFile);
         }
         else
         {
@@ -159,7 +159,7 @@ namespace Gimela.Toolkit.CommandLines.Encode
           EncodeFile(file.FullName);
         }
 
-        if (encodeOptions.IsSetRecursive)
+        if (options.IsSetRecursive)
         {
           DirectoryInfo[] directories = directory.GetDirectories();
           foreach (var item in directories)
@@ -179,7 +179,7 @@ namespace Gimela.Toolkit.CommandLines.Encode
       try
       {
         fileReadStream = new FileStream(fromFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-        using (StreamReader sr = new StreamReader(fileReadStream, encodeOptions.FromEncoding))
+        using (StreamReader sr = new StreamReader(fileReadStream, options.FromEncoding))
         {
           fileReadStream = null;
           text = sr.ReadToEnd();
@@ -196,7 +196,7 @@ namespace Gimela.Toolkit.CommandLines.Encode
       try
       {
         fileWriteStream = new FileStream(toFile, FileMode.Create, FileAccess.ReadWrite, FileShare.Read);
-        using (StreamWriter sw = new StreamWriter(fileWriteStream, encodeOptions.ToEncoding))
+        using (StreamWriter sw = new StreamWriter(fileWriteStream, options.ToEncoding))
         {
           fileWriteStream = null;
           sw.AutoFlush = true;
@@ -211,9 +211,9 @@ namespace Gimela.Toolkit.CommandLines.Encode
       }
 
       OutputFileInformation(string.Format(CultureInfo.CurrentCulture,
-        "From {0,-20} file : {1}", encodeOptions.FromEncoding.EncodingName, fromFile));
+        "From {0,-20} file : {1}", options.FromEncoding.EncodingName, fromFile));
       OutputFileInformation(string.Format(CultureInfo.CurrentCulture,
-        "To   {0,-20} file : {1}", encodeOptions.ToEncoding.EncodingName, toFile));
+        "To   {0,-20} file : {1}", options.ToEncoding.EncodingName, toFile));
     }
 
     private void OutputFileInformation(string information)
@@ -226,19 +226,19 @@ namespace Gimela.Toolkit.CommandLines.Encode
 
     #region Parse Options
 
-    [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "BigEndianUnicode"), 
+    [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "BigEndianUnicode"),
      SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
-    private static EncodeCommandLineOptions ParseOptions(CommandLineOptions options)
+    private static EncodeCommandLineOptions ParseOptions(CommandLineOptions commandLineOptions)
     {
-      if (options == null)
+      if (commandLineOptions == null)
         throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
           "Option used in invalid context -- {0}", "must specify a option."));
 
       EncodeCommandLineOptions targetOptions = new EncodeCommandLineOptions();
 
-      if (options.Arguments.Count >= 0)
+      if (commandLineOptions.Arguments.Count >= 0)
       {
-        foreach (var arg in options.Arguments.Keys)
+        foreach (var arg in commandLineOptions.Arguments.Keys)
         {
           EncodeOptionType optionType = EncodeOptions.GetOptionType(arg);
           if (optionType == EncodeOptionType.None)
@@ -250,35 +250,35 @@ namespace Gimela.Toolkit.CommandLines.Encode
           {
             case EncodeOptionType.InputFile:
               targetOptions.IsSetInputFile = true;
-              targetOptions.InputFile = options.Arguments[arg];
+              targetOptions.InputFile = commandLineOptions.Arguments[arg];
               break;
             case EncodeOptionType.OutputFile:
               targetOptions.IsSetOutputFile = true;
-              targetOptions.OutputFile = options.Arguments[arg];
+              targetOptions.OutputFile = commandLineOptions.Arguments[arg];
               break;
             case EncodeOptionType.FromEncoding:
               targetOptions.IsSetFromEncoding = true;
-              if (options.Arguments[arg].ToUpperInvariant() == @"ASCII")
+              if (commandLineOptions.Arguments[arg].ToUpperInvariant() == @"ASCII")
               {
                 targetOptions.FromEncoding = Encoding.ASCII;
               }
-              else if (options.Arguments[arg].ToUpperInvariant() == @"UTF7")
+              else if (commandLineOptions.Arguments[arg].ToUpperInvariant() == @"UTF7")
               {
                 targetOptions.FromEncoding = Encoding.UTF7;
               }
-              else if (options.Arguments[arg].ToUpperInvariant() == @"UTF8")
+              else if (commandLineOptions.Arguments[arg].ToUpperInvariant() == @"UTF8")
               {
                 targetOptions.FromEncoding = Encoding.UTF8;
               }
-              else if (options.Arguments[arg].ToUpperInvariant() == @"UNICODE")
+              else if (commandLineOptions.Arguments[arg].ToUpperInvariant() == @"UNICODE")
               {
                 targetOptions.FromEncoding = Encoding.Unicode;
               }
-              else if (options.Arguments[arg].ToUpperInvariant() == @"UTF32")
+              else if (commandLineOptions.Arguments[arg].ToUpperInvariant() == @"UTF32")
               {
                 targetOptions.FromEncoding = Encoding.UTF32;
               }
-              else if (options.Arguments[arg].ToUpperInvariant() == @"BIGENDIANUNICODE")
+              else if (commandLineOptions.Arguments[arg].ToUpperInvariant() == @"BIGENDIANUNICODE")
               {
                 targetOptions.FromEncoding = Encoding.BigEndianUnicode;
               }
@@ -290,27 +290,27 @@ namespace Gimela.Toolkit.CommandLines.Encode
               break;
             case EncodeOptionType.ToEncoding:
               targetOptions.IsSetToEncoding = true;
-              if (options.Arguments[arg].ToUpperInvariant() == @"ASCII")
+              if (commandLineOptions.Arguments[arg].ToUpperInvariant() == @"ASCII")
               {
                 targetOptions.ToEncoding = Encoding.ASCII;
               }
-              else if (options.Arguments[arg].ToUpperInvariant() == @"UTF7")
+              else if (commandLineOptions.Arguments[arg].ToUpperInvariant() == @"UTF7")
               {
                 targetOptions.ToEncoding = Encoding.UTF7;
               }
-              else if (options.Arguments[arg].ToUpperInvariant() == @"UTF8")
+              else if (commandLineOptions.Arguments[arg].ToUpperInvariant() == @"UTF8")
               {
                 targetOptions.ToEncoding = Encoding.UTF8;
               }
-              else if (options.Arguments[arg].ToUpperInvariant() == @"UNICODE")
+              else if (commandLineOptions.Arguments[arg].ToUpperInvariant() == @"UNICODE")
               {
                 targetOptions.ToEncoding = Encoding.Unicode;
               }
-              else if (options.Arguments[arg].ToUpperInvariant() == @"UTF32")
+              else if (commandLineOptions.Arguments[arg].ToUpperInvariant() == @"UTF32")
               {
                 targetOptions.ToEncoding = Encoding.UTF32;
               }
-              else if (options.Arguments[arg].ToUpperInvariant() == @"BIGENDIANUNICODE")
+              else if (commandLineOptions.Arguments[arg].ToUpperInvariant() == @"BIGENDIANUNICODE")
               {
                 targetOptions.ToEncoding = Encoding.BigEndianUnicode;
               }
@@ -322,7 +322,7 @@ namespace Gimela.Toolkit.CommandLines.Encode
               break;
             case EncodeOptionType.Directory:
               targetOptions.IsSetDirectory = true;
-              targetOptions.Directory = options.Arguments[arg];
+              targetOptions.Directory = commandLineOptions.Arguments[arg];
               break;
             case EncodeOptionType.Recursive:
               targetOptions.IsSetRecursive = true;
@@ -337,44 +337,44 @@ namespace Gimela.Toolkit.CommandLines.Encode
         }
       }
 
-      if (options.Parameters.Count > 0)
+      if (commandLineOptions.Parameters.Count > 0)
       {
         if (!targetOptions.IsSetInputFile)
         {
           targetOptions.IsSetInputFile = true;
-          targetOptions.InputFile = options.Parameters.First();
+          targetOptions.InputFile = commandLineOptions.Parameters.First();
         }
       }
 
       return targetOptions;
     }
 
-    private static void CheckOptions(EncodeCommandLineOptions options)
+    private static void CheckOptions(EncodeCommandLineOptions checkedOptions)
     {
-      if (!options.IsSetHelp && !options.IsSetVersion)
+      if (!checkedOptions.IsSetHelp && !checkedOptions.IsSetVersion)
       {
-        if (!options.IsSetInputFile && !options.IsSetDirectory)
+        if (!checkedOptions.IsSetInputFile && !checkedOptions.IsSetDirectory)
         {
           throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
             "Option used in invalid context -- {0}", "must specify a input file or a directory."));
         }
-        if (!options.IsSetFromEncoding)
+        if (!checkedOptions.IsSetFromEncoding)
         {
           throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
             "Option used in invalid context -- {0}", "must specify the input file current encoding."));
         }
-        if (!options.IsSetToEncoding)
+        if (!checkedOptions.IsSetToEncoding)
         {
           throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
             "Option used in invalid context -- {0}", "must specify the output file target encoding."));
         }
-        if (options.IsSetInputFile && WildcardCharacterHelper.IsContainsWildcard(options.InputFile) 
-          && options.IsSetOutputFile)
+        if (checkedOptions.IsSetInputFile && WildcardCharacterHelper.IsContainsWildcard(checkedOptions.InputFile)
+          && checkedOptions.IsSetOutputFile)
         {
           throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
             "Option used in invalid context -- {0}", "output file path has been set, so can only set one input file."));
         }
-        if (options.IsSetDirectory && options.IsSetOutputFile)
+        if (checkedOptions.IsSetDirectory && checkedOptions.IsSetOutputFile)
         {
           throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
             "Option used in invalid context -- {0}", "output file path has been set, so can not set a input directory."));

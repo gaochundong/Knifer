@@ -15,7 +15,7 @@ namespace Gimela.Toolkit.CommandLines.Count
   {
     #region Fields
 
-    private CountCommandLineOptions countOptions;
+    private CountCommandLineOptions options;
     private readonly IDictionary<string, int> countSummary;
 
     #endregion
@@ -43,15 +43,15 @@ namespace Gimela.Toolkit.CommandLines.Count
       base.Execute();
 
       List<string> singleOptionList = CountOptions.GetSingleOptions();
-      CommandLineOptions options = CommandLineParser.Parse(Arguments.ToArray<string>(), singleOptionList.ToArray());
-      countOptions = ParseOptions(options);
-      CheckOptions(countOptions);
+      CommandLineOptions cloptions = CommandLineParser.Parse(Arguments.ToArray<string>(), singleOptionList.ToArray());
+      options = ParseOptions(cloptions);
+      CheckOptions(options);
 
-      if (countOptions.IsSetHelp)
+      if (options.IsSetHelp)
       {
         RaiseCommandLineUsage(this, CountOptions.Usage);
       }
-      else if (countOptions.IsSetVersion)
+      else if (options.IsSetVersion)
       {
         RaiseCommandLineUsage(this, CountOptions.Version);
       }
@@ -67,8 +67,8 @@ namespace Gimela.Toolkit.CommandLines.Count
 
     #region Private Methods
 
-    [SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Gimela.Toolkit.CommandLines.Count.CountCommandLine.OutputText(System.String)"), 
-     SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase"), 
+    [SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Gimela.Toolkit.CommandLines.Count.CountCommandLine.OutputText(System.String)"),
+     SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase"),
      SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "FileType")]
     private void StartCount()
     {
@@ -76,9 +76,9 @@ namespace Gimela.Toolkit.CommandLines.Count
       {
         DirectoryInfo currentDirectory = new DirectoryInfo(Environment.CurrentDirectory);
 
-        if (countOptions.IsSetDirectory)
+        if (options.IsSetDirectory)
         {
-          string path = countOptions.Directory.Replace(@"/", @"\\");
+          string path = options.Directory.Replace(@"/", @"\\");
           if (path == @".")
           {
             path = currentDirectory.FullName;
@@ -103,7 +103,7 @@ namespace Gimela.Toolkit.CommandLines.Count
         RaiseCommandLineException(this, ex);
       }
     }
-    
+
     private void CountDirectory(string path)
     {
       DirectoryInfo directory = new DirectoryInfo(path);
@@ -120,7 +120,7 @@ namespace Gimela.Toolkit.CommandLines.Count
           CountFile(file.FullName);
         }
 
-        if (countOptions.IsSetRecursive)
+        if (options.IsSetRecursive)
         {
           DirectoryInfo[] directories = directory.GetDirectories();
           foreach (var item in directories)
@@ -162,19 +162,18 @@ namespace Gimela.Toolkit.CommandLines.Count
 
     #region Parse Options
 
-    [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "BigEndianUnicode"), 
-     SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
-    private static CountCommandLineOptions ParseOptions(CommandLineOptions options)
+    [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
+    private static CountCommandLineOptions ParseOptions(CommandLineOptions commandLineOptions)
     {
-      if (options == null)
+      if (commandLineOptions == null)
         throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
           "Option used in invalid context -- {0}", "must specify a option."));
 
       CountCommandLineOptions targetOptions = new CountCommandLineOptions();
 
-      if (options.Arguments.Count >= 0)
+      if (commandLineOptions.Arguments.Count >= 0)
       {
-        foreach (var arg in options.Arguments.Keys)
+        foreach (var arg in commandLineOptions.Arguments.Keys)
         {
           CountOptionType optionType = CountOptions.GetOptionType(arg);
           if (optionType == CountOptionType.None)
@@ -186,7 +185,7 @@ namespace Gimela.Toolkit.CommandLines.Count
           {
             case CountOptionType.Directory:
               targetOptions.IsSetDirectory = true;
-              targetOptions.Directory = options.Arguments[arg];
+              targetOptions.Directory = commandLineOptions.Arguments[arg];
               break;
             case CountOptionType.Recursive:
               targetOptions.IsSetRecursive = true;
@@ -201,23 +200,23 @@ namespace Gimela.Toolkit.CommandLines.Count
         }
       }
 
-      if (options.Parameters.Count > 0)
+      if (commandLineOptions.Parameters.Count > 0)
       {
         if (!targetOptions.IsSetDirectory)
         {
           targetOptions.IsSetDirectory = true;
-          targetOptions.Directory = options.Parameters.First();
+          targetOptions.Directory = commandLineOptions.Parameters.First();
         }
       }
 
       return targetOptions;
     }
 
-    private static void CheckOptions(CountCommandLineOptions options)
+    private static void CheckOptions(CountCommandLineOptions checkedOptions)
     {
-      if (!options.IsSetHelp && !options.IsSetVersion)
+      if (!checkedOptions.IsSetHelp && !checkedOptions.IsSetVersion)
       {
-        if (!options.IsSetDirectory || string.IsNullOrEmpty(options.Directory))
+        if (!checkedOptions.IsSetDirectory || string.IsNullOrEmpty(checkedOptions.Directory))
         {
           throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
             "Option used in invalid context -- {0}", "must specify a directory."));

@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{288097BF-DAE4-4134-8ADA-10FE45C53C1D}</ProjectGuid>
+    <ProjectGuid>{F74772F9-D25C-4EC6-A7D3-4E2934ED53E0}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Gimela.Toolkit.CommandLines.CheckSum</RootNamespace>
-    <AssemblyName>checksum</AssemblyName>
+    <RootNamespace>Gimela.Toolkit.CommandLines.Base64</RootNamespace>
+    <AssemblyName>base64</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -42,12 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChecksumCommandLine.cs" />
-    <Compile Include="ChecksumCommandLineOptions.cs" />
-    <Compile Include="ChecksumOptions.cs" />
-    <Compile Include="ChecksumOptionType.cs" />
-    <Compile Include="CRC64CryptoServiceProvider.cs" />
-    <Compile Include="CRC32CryptoServiceProvider.cs" />
+    <Compile Include="Base64CommandLine.cs" />
+    <Compile Include="Base64CommandLineOptions.cs" />
+    <Compile Include="Base64Options.cs" />
+    <Compile Include="Base64OptionType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

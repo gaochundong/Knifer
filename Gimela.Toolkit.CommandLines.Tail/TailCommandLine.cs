@@ -15,7 +15,7 @@ namespace Gimela.Toolkit.CommandLines.Tail
   {
     #region Fields
 
-    private TailCommandLineOptions tailOptions;
+    private TailCommandLineOptions options;
     private Timer monitoringFileTimer = null;
     private object monitoringFileLocker = new object();
     private volatile bool isMonitoring = false;
@@ -51,15 +51,15 @@ namespace Gimela.Toolkit.CommandLines.Tail
       base.Execute();
 
       List<string> singleOptionList = TailOptions.GetSingleOptions();
-      CommandLineOptions options = CommandLineParser.Parse(Arguments.ToArray<string>(), singleOptionList.ToArray());
-      tailOptions = ParseOptions(options);
+      CommandLineOptions cloptions = CommandLineParser.Parse(Arguments.ToArray<string>(), singleOptionList.ToArray());
+      options = ParseOptions(cloptions);
 
-      if (tailOptions.IsSetHelp)
+      if (options.IsSetHelp)
       {
         RaiseCommandLineUsage(this, TailOptions.Usage);
         Terminate();
       }
-      else if (tailOptions.IsSetVersion)
+      else if (options.IsSetVersion)
       {
         RaiseCommandLineUsage(this, TailOptions.Version);
         Terminate();
@@ -85,7 +85,7 @@ namespace Gimela.Toolkit.CommandLines.Tail
     {
       try
       {
-        FileInfo targetFile = new FileInfo(tailOptions.File);
+        FileInfo targetFile = new FileInfo(options.File);
 
         previousSeekPosition = 0;
 
@@ -102,26 +102,26 @@ namespace Gimela.Toolkit.CommandLines.Tail
 
         if (targetFile.Exists)
         {
-          while (targetFile.Length > readBytesCount && readLineCount < tailOptions.OutputLines)
+          while (targetFile.Length > readBytesCount && readLineCount < options.OutputLines)
           {
             ReadFile();
           }
         }
         else
         {
-          if (!tailOptions.IsSetRetry)
+          if (!options.IsSetRetry)
           {
             throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
-              "No such file -- {0}", tailOptions.File));
+              "No such file -- {0}", options.File));
           }
         }
 
-        if (tailOptions.IsSetFollow)
+        if (options.IsSetFollow)
         {
           if (monitoringFileTimer == null)
           {
-            monitoringFileTimer = new Timer((TimerCallback)OnMonitoringTimerCallback, tailOptions.File,
-                TimeSpan.Zero, TimeSpan.FromSeconds(tailOptions.SleepInterval));
+            monitoringFileTimer = new Timer((TimerCallback)OnMonitoringTimerCallback, options.File,
+                TimeSpan.Zero, TimeSpan.FromSeconds(options.SleepInterval));
           }
         }
         else
@@ -180,7 +180,7 @@ namespace Gimela.Toolkit.CommandLines.Tail
       int numReadBytes = 0;
 
       this.previousSeekPosition = 0;
-      using (FileStream fs = new FileStream(tailOptions.File, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+      using (FileStream fs = new FileStream(options.File, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
       {
         if (fs.Length > 0)
         {
@@ -231,7 +231,7 @@ namespace Gimela.Toolkit.CommandLines.Tail
           if (isNewLineEqual)
           {
             readLineCount++;
-            if (readLineCount - 1 >= tailOptions.OutputLines)
+            if (readLineCount - 1 >= options.OutputLines)
             {
               break;
             }
@@ -259,7 +259,7 @@ namespace Gimela.Toolkit.CommandLines.Tail
       byte[] readBytes = new byte[maxReadBytes];
       int numReadBytes = 0;
 
-      using (FileStream fs = new FileStream(tailOptions.File, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+      using (FileStream fs = new FileStream(options.File, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
       {
         if (fs.Length > this.previousSeekPosition)
         {
@@ -368,7 +368,7 @@ namespace Gimela.Toolkit.CommandLines.Tail
           FileInfo targetFile = new FileInfo(state.ToString());
           if (targetFile.Exists)
           {
-            if (tailOptions.IsSetFollow)
+            if (options.IsSetFollow)
             {
               if (targetFile.Length > this.previousSeekPosition)
               {
@@ -377,7 +377,7 @@ namespace Gimela.Toolkit.CommandLines.Tail
             }
             else
             {
-              if (targetFile.Length > readBytesCount && readLineCount < tailOptions.OutputLines)
+              if (targetFile.Length > readBytesCount && readLineCount < options.OutputLines)
               {
                 ReadFile();
               }
@@ -412,17 +412,17 @@ namespace Gimela.Toolkit.CommandLines.Tail
     #region Parse Options
 
     [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
-    private static TailCommandLineOptions ParseOptions(CommandLineOptions options)
+    private static TailCommandLineOptions ParseOptions(CommandLineOptions commandLineOptions)
     {
-      if (options == null)
+      if (commandLineOptions == null)
         throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
           "Option used in invalid context -- {0}", "must specify a option."));
 
       TailCommandLineOptions targetOptions = new TailCommandLineOptions();
 
-      if (options.Arguments.Count > 0)
+      if (commandLineOptions.Arguments.Count > 0)
       {
-        foreach (var arg in options.Arguments.Keys)
+        foreach (var arg in commandLineOptions.Arguments.Keys)
         {
           TailOptionType optionType = TailOptions.GetOptionType(arg);
           if (optionType == TailOptionType.None)
@@ -437,16 +437,16 @@ namespace Gimela.Toolkit.CommandLines.Tail
               break;
             case TailOptionType.Follow:
               targetOptions.IsSetFollow = true;
-              targetOptions.File = options.Arguments[arg];
+              targetOptions.File = commandLineOptions.Arguments[arg];
               break;
             case TailOptionType.FollowRetry:
               targetOptions.IsSetFollow = true;
               targetOptions.IsSetRetry = true;
-              targetOptions.File = options.Arguments[arg];
+              targetOptions.File = commandLineOptions.Arguments[arg];
               break;
             case TailOptionType.OutputLines:
               long outputLines = 0;
-              if (!long.TryParse(options.Arguments[arg], out outputLines))
+              if (!long.TryParse(commandLineOptions.Arguments[arg], out outputLines))
               {
                 throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
                   "Option used in invalid context -- {0}", "invalid output lines option value."));
@@ -460,7 +460,7 @@ namespace Gimela.Toolkit.CommandLines.Tail
               break;
             case TailOptionType.SleepInterval:
               long sleepInterval = 0;
-              if (!long.TryParse(options.Arguments[arg], out sleepInterval))
+              if (!long.TryParse(commandLineOptions.Arguments[arg], out sleepInterval))
               {
                 throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
                   "Option used in invalid context -- {0}", "invalid sleep interval option value."));
@@ -486,18 +486,18 @@ namespace Gimela.Toolkit.CommandLines.Tail
       {
         if (string.IsNullOrEmpty(targetOptions.File))
         {
-          if (options.Parameters.Count <= 0)
+          if (commandLineOptions.Parameters.Count <= 0)
             throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
               "Option used in invalid context -- {0}", "must follow a file."));
-          if (options.Parameters.Count > 1)
+          if (commandLineOptions.Parameters.Count > 1)
             throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
               "Option used in invalid context -- {0}", "can only follow one file."));
 
-          targetOptions.File = options.Parameters.First();
+          targetOptions.File = commandLineOptions.Parameters.First();
         }
         else
         {
-          if (options.Parameters.Count > 0)
+          if (commandLineOptions.Parameters.Count > 0)
             throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
               "Option used in invalid context -- {0}", "can only follow one file."));
         }

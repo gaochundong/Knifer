@@ -10,6 +10,10 @@ Command List
 + tail
 + grep
 + encode
++ checksum
++ base64
++ count
++ find
 
 
 Environment Requirement

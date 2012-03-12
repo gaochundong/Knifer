@@ -5,9 +5,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using Gimela.Toolkit.CommandLines.Foundation;
-using System.Reflection;
 
 namespace Gimela.Toolkit.CommandLines.Grep
 {
@@ -18,7 +18,7 @@ namespace Gimela.Toolkit.CommandLines.Grep
   {
     #region Fields
 
-    private GrepCommandLineOptions grepOptions;
+    private GrepCommandLineOptions options;
     private readonly string executingFile = Assembly.GetExecutingAssembly().Location;
 
     #endregion
@@ -45,15 +45,15 @@ namespace Gimela.Toolkit.CommandLines.Grep
       base.Execute();
 
       List<string> singleOptionList = GrepOptions.GetSingleOptions();
-      CommandLineOptions options = CommandLineParser.Parse(Arguments.ToArray<string>(), singleOptionList.ToArray());
-      grepOptions = ParseOptions(options);
-      CheckOptions(grepOptions);
+      CommandLineOptions cloptions = CommandLineParser.Parse(Arguments.ToArray<string>(), singleOptionList.ToArray());
+      options = ParseOptions(cloptions);
+      CheckOptions(options);
 
-      if (grepOptions.IsSetHelp)
+      if (options.IsSetHelp)
       {
         RaiseCommandLineUsage(this, GrepOptions.Usage);
       }
-      else if (grepOptions.IsSetVersion)
+      else if (options.IsSetVersion)
       {
         RaiseCommandLineUsage(this, GrepOptions.Version);
       }
@@ -74,7 +74,7 @@ namespace Gimela.Toolkit.CommandLines.Grep
       try
       {
         DirectoryInfo currentDirectory = new DirectoryInfo(Environment.CurrentDirectory);
-        foreach (var item in grepOptions.FilePaths)
+        foreach (var item in options.FilePaths)
         {
           string path = item.Replace(@"/", @"\\");
           if (path == @".")
@@ -88,7 +88,7 @@ namespace Gimela.Toolkit.CommandLines.Grep
               + path.TrimStart('.', Path.DirectorySeparatorChar)).Replace(@"\\", @"\");
           }
 
-          if (grepOptions.IsSetDirectory)
+          if (options.IsSetDirectory)
           {
             GrepDirectory(path);
           }
@@ -126,7 +126,7 @@ namespace Gimela.Toolkit.CommandLines.Grep
         FileInfo file = new FileInfo(path);
         if (!file.Exists)
         {
-          if (!grepOptions.IsSetNoMessages)
+          if (!options.IsSetNoMessages)
           {
             throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
               "No such file -- {0}", file.FullName));
@@ -146,7 +146,7 @@ namespace Gimela.Toolkit.CommandLines.Grep
         DirectoryInfo directory = new DirectoryInfo(path);
         if (!directory.Exists)
         {
-          if (!grepOptions.IsSetNoMessages)
+          if (!options.IsSetNoMessages)
           {
             throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
               "No such directory -- {0}", directory.FullName));
@@ -160,7 +160,7 @@ namespace Gimela.Toolkit.CommandLines.Grep
             GrepFile(file.FullName);
           }
 
-          if (grepOptions.IsSetRecursive)
+          if (options.IsSetRecursive)
           {
             DirectoryInfo[] directories = directory.GetDirectories();
             foreach (var item in directories)
@@ -176,7 +176,11 @@ namespace Gimela.Toolkit.CommandLines.Grep
     {
       bool result = false;
 
-      if (executingFile == file)
+      if (string.IsNullOrEmpty(file))
+      {
+        result = false;
+      }
+      else if (executingFile == file)
       {
         result = false;
       }
@@ -184,17 +188,17 @@ namespace Gimela.Toolkit.CommandLines.Grep
       {
         result = false;
       }
-      else if (grepOptions.IsSetIncludeFiles)
+      else if (options.IsSetIncludeFiles)
       {
-        Regex r = new Regex(WildcardCharacterHelper.WildcardToRegex(grepOptions.IncludeFilesPattern));
+        Regex r = new Regex(WildcardCharacterHelper.WildcardToRegex(options.IncludeFilesPattern));
         if (r.IsMatch(file))
         {
           result = true;
         }
       }
-      else if (grepOptions.IsSetExcludeFiles)
+      else if (options.IsSetExcludeFiles)
       {
-        Regex r = new Regex(WildcardCharacterHelper.WildcardToRegex(grepOptions.ExcludeFilesPattern));
+        Regex r = new Regex(WildcardCharacterHelper.WildcardToRegex(options.ExcludeFilesPattern));
         if (!r.IsMatch(file))
         {
           result = true;
@@ -212,9 +216,13 @@ namespace Gimela.Toolkit.CommandLines.Grep
     {
       bool result = false;
 
-      if (grepOptions.IsSetExcludeDirectories)
+      if (string.IsNullOrEmpty(directory))
       {
-        Regex r = new Regex(WildcardCharacterHelper.WildcardToRegex(grepOptions.ExcludeDirectoriesPattern));
+        result = false;
+      }
+      else if (options.IsSetExcludeDirectories)
+      {
+        Regex r = new Regex(WildcardCharacterHelper.WildcardToRegex(options.ExcludeDirectoriesPattern));
         if (!r.IsMatch(directory))
         {
           result = true;
@@ -253,84 +261,92 @@ namespace Gimela.Toolkit.CommandLines.Grep
       int matchingLineCount = 0;
       for (int i = 0; i < readText.Count; i++)
       {
-        if (grepOptions.IsSetFixedStrings)
+        if (options.IsSetFixedStrings)
         {
-          if (grepOptions.IsSetInvertMatch)
+          if (options.IsSetInvertMatch)
           {
-            if (!readText[i].Contains(grepOptions.RegexPattern))
+            if (!readText[i].Contains(options.RegexPattern))
             {
               matchingLineCount++;
-              if (!grepOptions.IsSetCount)
+              if (!options.IsSetCount)
               {
-                OutputFileData(path, i+1, readText[i]);
+                OutputFileData(path, i + 1, readText[i]);
               }
             }
           }
           else
           {
-            if (readText[i].Contains(grepOptions.RegexPattern))
+            if (readText[i].Contains(options.RegexPattern))
             {
               matchingLineCount++;
-              if (!grepOptions.IsSetCount)
+              if (!options.IsSetCount)
               {
-                OutputFileData(path, i+1, readText[i]);
+                OutputFileData(path, i + 1, readText[i]);
               }
             }
           }
         }
         else
         {
-          Regex r = null;
-          if (grepOptions.IsSetIgnoreCase)
+          try
           {
-            r = new Regex(grepOptions.RegexPattern, RegexOptions.IgnoreCase);
-          }
-          else
-          {
-            r = new Regex(grepOptions.RegexPattern, RegexOptions.None);
-          }
+            Regex r = null;
+            if (options.IsSetIgnoreCase)
+            {
+              r = new Regex(options.RegexPattern, RegexOptions.IgnoreCase);
+            }
+            else
+            {
+              r = new Regex(options.RegexPattern, RegexOptions.None);
+            }
 
-          Match m = r.Match(readText[i]);
-          if (grepOptions.IsSetInvertMatch)
-          {
-            if (!m.Success)
+            Match m = r.Match(readText[i]);
+            if (options.IsSetInvertMatch)
             {
-              matchingLineCount++;
-              if (!grepOptions.IsSetCount)
+              if (!m.Success)
               {
-                OutputFileData(path, i+1, readText[i]);
+                matchingLineCount++;
+                if (!options.IsSetCount)
+                {
+                  OutputFileData(path, i + 1, readText[i]);
+                }
+              }
+            }
+            else
+            {
+              if (m.Success)
+              {
+                matchingLineCount++;
+                if (!options.IsSetCount)
+                {
+                  OutputFileData(path, i + 1, readText[i]);
+                }
               }
             }
           }
-          else
+          catch (ArgumentException ex)
           {
-            if (m.Success)
-            {
-              matchingLineCount++;
-              if (!grepOptions.IsSetCount)
-              {
-                OutputFileData(path, i+1, readText[i]);
-              }
-            }
+            throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+              "Bad regex pattern -- {0}, {1}", options.RegexPattern, ex.Message));
           }
         }
       }
 
-      if (grepOptions.IsSetFilesWithoutMatch)
+      if (options.IsSetFilesWithoutMatch)
       {
         if (matchingLineCount == 0)
         {
           OutputFilesWithoutMatch(path);
         }
       }
-      else if (grepOptions.IsSetFilesWithMatchs)
+      else if (options.IsSetFilesWithMatchs)
       {
         if (matchingLineCount > 0)
         {
           OutputFilesWithMatch(path);
         }
       }
-      else if (grepOptions.IsSetCount)
+      else if (options.IsSetCount)
       {
         OutputFileMatchingLineCount(path, matchingLineCount);
       }
@@ -356,9 +372,9 @@ namespace Gimela.Toolkit.CommandLines.Grep
 
     private void OutputFileData(string path, int lineNumber, string lineText)
     {
-      if (grepOptions.IsSetWithFileName)
+      if (options.IsSetWithFileName)
       {
-        if (grepOptions.IsSetLineNumber)
+        if (options.IsSetLineNumber)
         {
           RaiseCommandLineDataChanged(this, string.Format(CultureInfo.CurrentCulture,
             "{0}:{1}:{2}{3}", path, lineNumber, lineText, Environment.NewLine));
@@ -369,9 +385,9 @@ namespace Gimela.Toolkit.CommandLines.Grep
             "{0}:{1}{2}", path, lineText, Environment.NewLine));
         }
       }
-      else if (grepOptions.IsSetNoFileName)
+      else if (options.IsSetNoFileName)
       {
-        if (grepOptions.IsSetLineNumber)
+        if (options.IsSetLineNumber)
         {
           RaiseCommandLineDataChanged(this, string.Format(CultureInfo.CurrentCulture,
             "{0}:{1}{2}", lineNumber, lineText, Environment.NewLine));
@@ -384,7 +400,7 @@ namespace Gimela.Toolkit.CommandLines.Grep
       }
       else
       {
-        if (grepOptions.IsSetLineNumber)
+        if (options.IsSetLineNumber)
         {
           RaiseCommandLineDataChanged(this, string.Format(CultureInfo.CurrentCulture,
             "{0}:{1}:{2}{3}", path, lineNumber, lineText, Environment.NewLine));
@@ -400,19 +416,19 @@ namespace Gimela.Toolkit.CommandLines.Grep
     #endregion
 
     #region Parse Options
-    
+
     [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
-    private static GrepCommandLineOptions ParseOptions(CommandLineOptions options)
+    private static GrepCommandLineOptions ParseOptions(CommandLineOptions commandLineOptions)
     {
-      if (options == null)
+      if (commandLineOptions == null)
         throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
           "Option used in invalid context -- {0}", "must specify a option."));
 
       GrepCommandLineOptions targetOptions = new GrepCommandLineOptions();
 
-      if (options.Arguments.Count >= 0)
+      if (commandLineOptions.Arguments.Count >= 0)
       {
-        foreach (var arg in options.Arguments.Keys)
+        foreach (var arg in commandLineOptions.Arguments.Keys)
         {
           GrepOptionType optionType = GrepOptions.GetOptionType(arg);
           if (optionType == GrepOptionType.None)
@@ -424,11 +440,11 @@ namespace Gimela.Toolkit.CommandLines.Grep
           {
             case GrepOptionType.RegexPattern:
               targetOptions.IsSetRegexPattern = true;
-              targetOptions.RegexPattern = options.Arguments[arg];
+              targetOptions.RegexPattern = commandLineOptions.Arguments[arg];
               break;
             case GrepOptionType.File:
               targetOptions.IsSetPath = true;
-              targetOptions.FilePaths.Add(options.Arguments[arg]);
+              targetOptions.FilePaths.Add(commandLineOptions.Arguments[arg]);
               break;
             case GrepOptionType.FixedStrings:
               targetOptions.IsSetFixedStrings = true;
@@ -465,15 +481,15 @@ namespace Gimela.Toolkit.CommandLines.Grep
               break;
             case GrepOptionType.ExcludeFiles:
               targetOptions.IsSetExcludeFiles = true;
-              targetOptions.ExcludeFilesPattern = options.Arguments[arg];
+              targetOptions.ExcludeFilesPattern = commandLineOptions.Arguments[arg];
               break;
             case GrepOptionType.ExcludeDirectories:
               targetOptions.IsSetExcludeDirectories = true;
-              targetOptions.ExcludeDirectoriesPattern = options.Arguments[arg];
+              targetOptions.ExcludeDirectoriesPattern = commandLineOptions.Arguments[arg];
               break;
             case GrepOptionType.IncludeFiles:
               targetOptions.IsSetIncludeFiles = true;
-              targetOptions.IncludeFilesPattern = options.Arguments[arg];
+              targetOptions.IncludeFilesPattern = commandLineOptions.Arguments[arg];
               break;
             case GrepOptionType.Recursive:
               targetOptions.IsSetRecursive = true;
@@ -488,17 +504,17 @@ namespace Gimela.Toolkit.CommandLines.Grep
         }
       }
 
-      if (options.Parameters.Count > 0)
+      if (commandLineOptions.Parameters.Count > 0)
       {
         if (!targetOptions.IsSetRegexPattern)
         {
           targetOptions.IsSetRegexPattern = true;
-          targetOptions.RegexPattern = options.Parameters.First();
+          targetOptions.RegexPattern = commandLineOptions.Parameters.First();
 
-          for (int i = 1; i < options.Parameters.Count; i++)
+          for (int i = 1; i < commandLineOptions.Parameters.Count; i++)
           {
             targetOptions.IsSetPath = true;
-            targetOptions.FilePaths.Add(options.Parameters.ElementAt(i));
+            targetOptions.FilePaths.Add(commandLineOptions.Parameters.ElementAt(i));
           }
         }
         else
@@ -506,7 +522,7 @@ namespace Gimela.Toolkit.CommandLines.Grep
           if (!targetOptions.IsSetPath)
           {
             targetOptions.IsSetPath = true;
-            foreach (var item in options.Parameters)
+            foreach (var item in commandLineOptions.Parameters)
             {
               targetOptions.FilePaths.Add(item);
             }
@@ -517,26 +533,16 @@ namespace Gimela.Toolkit.CommandLines.Grep
       return targetOptions;
     }
 
-    private static void CheckOptions(GrepCommandLineOptions options)
+    private static void CheckOptions(GrepCommandLineOptions checkedOptions)
     {
-      if (!options.IsSetHelp && !options.IsSetVersion)
+      if (!checkedOptions.IsSetHelp && !checkedOptions.IsSetVersion)
       {
-        if (!options.IsSetRegexPattern)
+        if (!checkedOptions.IsSetRegexPattern || string.IsNullOrEmpty(checkedOptions.RegexPattern))
         {
           throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
             "Option used in invalid context -- {0}", "must specify regex pattern for matching."));
         }
-        if (string.IsNullOrEmpty(options.RegexPattern))
-        {
-          throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
-            "Option used in invalid context -- {0}", "must specify regex pattern for matching."));
-        }
-        if (!options.IsSetPath)
-        {
-          throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
-            "Option used in invalid context -- {0}", "must specify a path for grep."));
-        }
-        if (options.FilePaths.Count <= 0)
+        if (!checkedOptions.IsSetPath || checkedOptions.FilePaths.Count <= 0)
         {
           throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
             "Option used in invalid context -- {0}", "must specify a path for grep."));

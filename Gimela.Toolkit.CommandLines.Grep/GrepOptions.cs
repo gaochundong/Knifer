@@ -193,8 +193,20 @@ OPTIONS
 EXAMPLES
 
 	grep 'chundong' *.txt
-	Search all .txt files in the current directory, and print the file 
-	name and lines that contain 'chundong'.
+	Search all .txt files in the current directory, and print the 
+	file name and lines that contain 'chundong'.
+
+	grep 'chundong' 'C:\Logs' -d -F -n
+	Search all files in 'C:\Logs' directory, and print the 
+	file name and lines number that contain 'chundong'.
+
+	grep 'chundong' 'C:\Logs' -d -F -c
+	Search all files in 'C:\Logs' directory, and print the 
+	file name and lines count that contain 'chundong'.
+
+	grep -e 'chundong.*' 'C:\Logs' -d -c
+	Search all files in 'C:\Logs' directory, and print the 
+	file name and lines count that match regex 'chundong.*'.
 
 AUTHOR
 

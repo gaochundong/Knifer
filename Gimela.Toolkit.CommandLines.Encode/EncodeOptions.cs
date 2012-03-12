@@ -66,8 +66,8 @@ SYNOPSIS
 
 DESCRIPTION
 
-	The encode utility converts the encoding of characters in inputfile 
-	from one coded character set to another.
+	The encode utility converts the encoding of characters in input 
+	file from one coded character set to another.
 
 OPTIONS
 
@@ -87,6 +87,16 @@ OPTIONS
 	{0}{0}Display this help and exit.
 	-v, --version
 	{0}{0}Output version information and exit.
+
+EXAMPLES
+
+	encode -i a.txt -o b.txt -f ascii -t utf8
+	In the above command the system would encode the file 'a.txt' 
+	ascii encoding to the file 'b.txt' utf8 encoding.
+
+	encode -d 'C:\Logs' -f ascii -t utf8
+	In the above command the system would encode the all the files 
+	in the 'C:\Logs' directory from ascii encoding to utf8 encoding.
 
 AUTHOR
 

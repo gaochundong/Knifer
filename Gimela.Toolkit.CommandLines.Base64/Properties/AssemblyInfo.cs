@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Gimela.Toolkit.CommandLines.Checksum")]
-[assembly: AssemblyDescription("Gimela.Toolkit.CommandLines.Checksum")]
+[assembly: AssemblyTitle("Gimela.Toolkit.CommandLines.Base64")]
+[assembly: AssemblyDescription("Gimela.Toolkit.CommandLines.Base64")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Chundong Gao")]
 [assembly: AssemblyProduct("Gimela Toolkit")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("09fc2cf6-86ac-4594-844a-49d814d2d328")]
+[assembly: Guid("1107a84a-d12e-4153-a048-eb02d5c577f1")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -36,7 +36,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA2210:AssembliesShouldHaveValidStrongNames")]
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "checksum")]
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Gimela", Scope = "namespace", Target = "Gimela.Toolkit.CommandLines.Checksum")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "base")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Gimela", Scope = "namespace", Target = "Gimela.Toolkit.CommandLines.Base64")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1014:MarkAssembliesWithClsCompliant")]
-
