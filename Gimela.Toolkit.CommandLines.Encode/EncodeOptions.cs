@@ -108,7 +108,7 @@ REPORTING BUGS
 
 COPYRIGHT
 
-	Copyright (C) 2012 Chundong Gao. All Rights Reserved.
+	Copyright (C) 2011-2012 Chundong Gao. All Rights Reserved.
 ", @" ");
 
 		#endregion
