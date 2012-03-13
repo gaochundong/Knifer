@@ -1,5 +1,4 @@
-﻿using System.Text;
-
+﻿
 namespace Gimela.Toolkit.CommandLines.Checksum
 {
   internal class ChecksumCommandLineOptions

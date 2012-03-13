@@ -1,5 +1,4 @@
-﻿using System.Text;
-
+﻿
 namespace Gimela.Toolkit.CommandLines.Find
 {
   internal class FindCommandLineOptions

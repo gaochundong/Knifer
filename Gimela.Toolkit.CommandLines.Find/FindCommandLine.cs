@@ -5,7 +5,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using Gimela.Toolkit.CommandLines.Foundation;
 
@@ -15,7 +14,7 @@ namespace Gimela.Toolkit.CommandLines.Find
   {
     #region Fields
 
-    private FindCommandLineOptions findOptions;
+    private FindCommandLineOptions options;
 
     #endregion
 
@@ -41,15 +40,15 @@ namespace Gimela.Toolkit.CommandLines.Find
       base.Execute();
 
       List<string> singleOptionList = FindOptions.GetSingleOptions();
-      CommandLineOptions options = CommandLineParser.Parse(Arguments.ToArray<string>(), singleOptionList.ToArray());
-      findOptions = ParseOptions(options);
-      CheckOptions(findOptions);
+      CommandLineOptions cloptions = CommandLineParser.Parse(Arguments.ToArray<string>(), singleOptionList.ToArray());
+      options = ParseOptions(cloptions);
+      CheckOptions(options);
 
-      if (findOptions.IsSetHelp)
+      if (options.IsSetHelp)
       {
         RaiseCommandLineUsage(this, FindOptions.Usage);
       }
-      else if (findOptions.IsSetVersion)
+      else if (options.IsSetVersion)
       {
         RaiseCommandLineUsage(this, FindOptions.Version);
       }
@@ -71,9 +70,9 @@ namespace Gimela.Toolkit.CommandLines.Find
       {
         DirectoryInfo currentDirectory = new DirectoryInfo(Environment.CurrentDirectory);
 
-        if (findOptions.IsSetDirectory)
+        if (options.IsSetDirectory)
         {
-          string path = findOptions.Directory.Replace(@"/", @"\\");
+          string path = options.Directory.Replace(@"/", @"\\");
           if (path == @".")
           {
             path = currentDirectory.FullName;
@@ -110,7 +109,7 @@ namespace Gimela.Toolkit.CommandLines.Find
           FindFile(file.DirectoryName, file.Name);
         }
 
-        if (findOptions.IsSetRecursive)
+        if (options.IsSetRecursive)
         {
           DirectoryInfo[] directories = directory.GetDirectories();
           foreach (var item in directories)
@@ -123,7 +122,7 @@ namespace Gimela.Toolkit.CommandLines.Find
 
     private void FindFile(string directoryName, string fileName)
     {
-      Regex r = new Regex(WildcardCharacterHelper.WildcardToRegex(findOptions.RegexPattern));
+      Regex r = new Regex(WildcardCharacterHelper.WildcardToRegex(options.RegexPattern));
       if (r.IsMatch(fileName))
       {
         OutputText(Path.Combine(directoryName, fileName));

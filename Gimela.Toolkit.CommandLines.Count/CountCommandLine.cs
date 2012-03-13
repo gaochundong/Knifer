@@ -5,8 +5,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using Gimela.Toolkit.CommandLines.Foundation;
 
 namespace Gimela.Toolkit.CommandLines.Count

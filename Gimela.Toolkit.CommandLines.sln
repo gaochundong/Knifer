@@ -21,8 +21,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gimela.Toolkit.CommandLines
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gimela.Toolkit.CommandLines.Head", "Gimela.Toolkit.CommandLines.Head\Gimela.Toolkit.CommandLines.Head.csproj", "{4B65182C-E710-4008-9A39-1AB2DAA78C85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gimela.Toolkit.CommandLines.Curl", "Gimela.Toolkit.CommandLines.Curl\Gimela.Toolkit.CommandLines.Curl.csproj", "{4D2AF53A-6CFB-4B3A-9920-B50B9A26D018}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gimela.Toolkit.CommandLines.Count", "Gimela.Toolkit.CommandLines.Count\Gimela.Toolkit.CommandLines.Count.csproj", "{B8B850E2-1F3F-4461-BBA0-AD206EEFA2C5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gimela.Toolkit.CommandLines.Find", "Gimela.Toolkit.CommandLines.Find\Gimela.Toolkit.CommandLines.Find.csproj", "{F256E027-D5FA-4781-B417-B49B24EB5CD4}"
@@ -142,16 +140,6 @@ Global
 		{4B65182C-E710-4008-9A39-1AB2DAA78C85}.Release|Mixed Platforms.Build.0 = Release|x86
 		{4B65182C-E710-4008-9A39-1AB2DAA78C85}.Release|x86.ActiveCfg = Release|x86
 		{4B65182C-E710-4008-9A39-1AB2DAA78C85}.Release|x86.Build.0 = Release|x86
-		{4D2AF53A-6CFB-4B3A-9920-B50B9A26D018}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{4D2AF53A-6CFB-4B3A-9920-B50B9A26D018}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{4D2AF53A-6CFB-4B3A-9920-B50B9A26D018}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{4D2AF53A-6CFB-4B3A-9920-B50B9A26D018}.Debug|x86.ActiveCfg = Debug|x86
-		{4D2AF53A-6CFB-4B3A-9920-B50B9A26D018}.Debug|x86.Build.0 = Debug|x86
-		{4D2AF53A-6CFB-4B3A-9920-B50B9A26D018}.Release|Any CPU.ActiveCfg = Release|x86
-		{4D2AF53A-6CFB-4B3A-9920-B50B9A26D018}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{4D2AF53A-6CFB-4B3A-9920-B50B9A26D018}.Release|Mixed Platforms.Build.0 = Release|x86
-		{4D2AF53A-6CFB-4B3A-9920-B50B9A26D018}.Release|x86.ActiveCfg = Release|x86
-		{4D2AF53A-6CFB-4B3A-9920-B50B9A26D018}.Release|x86.Build.0 = Release|x86
 		{B8B850E2-1F3F-4461-BBA0-AD206EEFA2C5}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{B8B850E2-1F3F-4461-BBA0-AD206EEFA2C5}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{B8B850E2-1F3F-4461-BBA0-AD206EEFA2C5}.Debug|Mixed Platforms.Build.0 = Debug|x86

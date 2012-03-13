@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-
+﻿
 namespace Gimela.Toolkit.CommandLines.Split
 {
   internal class SplitCommandLineOptions
