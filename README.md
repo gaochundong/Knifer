@@ -8,6 +8,7 @@ Command List
 -----------------------
 
 + tail
++ head
 + grep
 + encode
 + checksum
