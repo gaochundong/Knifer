@@ -9,6 +9,7 @@ namespace Gimela.Toolkit.CommandLines.Grep
     FixedStrings,
     IgnoreCase,
     InvertMatch,
+    OutputFile,
     Count,
     FilesWithoutMatch,
     FilesWithMatchs,

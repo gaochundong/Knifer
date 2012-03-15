@@ -12,6 +12,7 @@ namespace Gimela.Toolkit.CommandLines.Grep
 		public static readonly ReadOnlyCollection<string> FixedStringsOptions;
 		public static readonly ReadOnlyCollection<string> IgnoreCaseOptions;
 		public static readonly ReadOnlyCollection<string> InvertMatchOptions;
+		public static readonly ReadOnlyCollection<string> OutputFileOptions;
 		public static readonly ReadOnlyCollection<string> CountOptions;
 		public static readonly ReadOnlyCollection<string> FilesWithoutMatchOptions;
 		public static readonly ReadOnlyCollection<string> FilesWithMatchsOptions;
@@ -37,6 +38,7 @@ namespace Gimela.Toolkit.CommandLines.Grep
 			FixedStringsOptions = new ReadOnlyCollection<string>(new string[] { "F", "fixed-strings" });
 			IgnoreCaseOptions = new ReadOnlyCollection<string>(new string[] { "i", "ignore-case" });
 			InvertMatchOptions = new ReadOnlyCollection<string>(new string[] { "V", "invert-match" });
+			OutputFileOptions = new ReadOnlyCollection<string>(new string[] { "o", "output" });
 			CountOptions = new ReadOnlyCollection<string>(new string[] { "c", "count" });
 			FilesWithoutMatchOptions = new ReadOnlyCollection<string>(new string[] { "L", "files-without-match" });
 			FilesWithMatchsOptions = new ReadOnlyCollection<string>(new string[] { "l", "files-with-matches" });
@@ -58,6 +60,7 @@ namespace Gimela.Toolkit.CommandLines.Grep
 			Options.Add(GrepOptionType.FixedStrings, FixedStringsOptions);
 			Options.Add(GrepOptionType.IgnoreCase, IgnoreCaseOptions);
 			Options.Add(GrepOptionType.InvertMatch, InvertMatchOptions);
+			Options.Add(GrepOptionType.OutputFile, OutputFileOptions);
 			Options.Add(GrepOptionType.Count, CountOptions);
 			Options.Add(GrepOptionType.FilesWithoutMatch, FilesWithoutMatchOptions);
 			Options.Add(GrepOptionType.FilesWithMatchs, FilesWithMatchsOptions);
@@ -155,6 +158,8 @@ OPTIONS
 	{0}{0}file from which output would normally have been printed.
 	-s, --no-messages
 	{0}{0}Suppress error messages about nonexistent or unreadable files. 
+	-o, --output=FILE
+	{0}{0}Write all the output lines into target output file. 
 
 	Output Line Prefix Control
 
@@ -207,6 +212,10 @@ EXAMPLES
 	grep -e 'chundong.*' 'C:\Logs' -d -c
 	Search all files in 'C:\Logs' directory, and print the 
 	file name and lines count that match regex 'chundong.*'.
+
+	grep -e 'Exception' -d 'C:\Logs' -o 'C:\exceptions.log' -n -F
+	Search all files in 'C:\Logs' directory, and print the 
+	file name and lines number that match string 'Exception'.
 
 AUTHOR
 

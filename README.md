@@ -15,6 +15,9 @@ Command List
 + base64
 + count
 + find
++ env
++ split
++ join
 
 
 Environment Requirement

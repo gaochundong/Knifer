@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{AB881F8B-2A8B-4F6F-93F5-89F52C5391C2}</ProjectGuid>
+    <ProjectGuid>{A3790B10-1805-4F1D-862E-579C933717A2}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Gimela.Toolkit.CommandLines.Join</RootNamespace>
-    <AssemblyName>join</AssemblyName>
+    <RootNamespace>Gimela.Toolkit.CommandLines.Environment</RootNamespace>
+    <AssemblyName>env</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -23,8 +23,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -42,12 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnvironmentCommandLine.cs" />
+    <Compile Include="EnvironmentCommandLineOptions.cs" />
+    <Compile Include="EnvironmentOptions.cs" />
+    <Compile Include="EnvironmentOptionType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="JoinCommandLine.cs" />
-    <Compile Include="JoinCommandLineOptions.cs" />
-    <Compile Include="JoinOptions.cs" />
-    <Compile Include="JoinOptionType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gimela.Toolkit.CommandLines.Foundation\Gimela.Toolkit.CommandLines.Foundation.csproj">

@@ -4,9 +4,13 @@ namespace Gimela.Toolkit.CommandLines.Split
   internal enum SplitOptionType
   {
     None = 0,
+    File,
+    Prefix,
     SuffixLength,
     Bytes,
-    Lines,
+    Directory,
+    Timestamp,
+    Overwrite,
     Help,
     Version,
   }

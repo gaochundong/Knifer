@@ -18,6 +18,10 @@ namespace Gimela.Toolkit.CommandLines.Grep
     public bool IsSetFixedStrings { get; set; }
     public bool IsSetIgnoreCase { get; set; }
     public bool IsSetInvertMatch { get; set; }
+
+    public bool IsSetOutputFile { get; set; }
+    public string OutputFile { get; set; }
+
     public bool IsSetCount { get; set; }
     public bool IsSetFilesWithoutMatch { get; set; }
     public bool IsSetFilesWithMatchs { get; set; }

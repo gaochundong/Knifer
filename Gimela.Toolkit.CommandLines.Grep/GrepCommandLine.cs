@@ -6,6 +6,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security;
 using System.Text.RegularExpressions;
 using Gimela.Toolkit.CommandLines.Foundation;
 
@@ -59,6 +60,11 @@ namespace Gimela.Toolkit.CommandLines.Grep
       }
       else
       {
+        if (options.IsSetOutputFile)
+        {
+          DeleteOutputFile();
+        }
+
         StartGrep();
       }
 
@@ -354,62 +360,139 @@ namespace Gimela.Toolkit.CommandLines.Grep
 
     private void OutputFilesWithoutMatch(string path)
     {
-      RaiseCommandLineDataChanged(this, string.Format(CultureInfo.CurrentCulture,
-        "{0}{1}", path, Environment.NewLine));
+      string data = string.Format(CultureInfo.CurrentCulture, "{0}{1}", path, Environment.NewLine);
+      RaiseCommandLineDataChanged(this, data);
+      WriteOutputFile(data);
     }
 
     private void OutputFilesWithMatch(string path)
     {
-      RaiseCommandLineDataChanged(this, string.Format(CultureInfo.CurrentCulture,
-        "{0}{1}", path, Environment.NewLine));
+      string data = string.Format(CultureInfo.CurrentCulture, "{0}{1}", path, Environment.NewLine);
+      RaiseCommandLineDataChanged(this, data);
+      WriteOutputFile(data);
     }
 
     private void OutputFileMatchingLineCount(string path, int matchingLineCount)
     {
-      RaiseCommandLineDataChanged(this, string.Format(CultureInfo.CurrentCulture,
-        "{0}:{1} matches.{2}", path, matchingLineCount, Environment.NewLine));
+      string data = string.Format(CultureInfo.CurrentCulture, "{0} : {1} matches.{2}", path, matchingLineCount, Environment.NewLine);
+      RaiseCommandLineDataChanged(this, data);
+      WriteOutputFile(data);
     }
 
     private void OutputFileData(string path, int lineNumber, string lineText)
     {
+      string data = string.Empty;
+
       if (options.IsSetWithFileName)
       {
         if (options.IsSetLineNumber)
         {
-          RaiseCommandLineDataChanged(this, string.Format(CultureInfo.CurrentCulture,
-            "{0}:{1}:{2}{3}", path, lineNumber, lineText, Environment.NewLine));
+          data = string.Format(CultureInfo.CurrentCulture, "{0} : {1, -10} : {2}{3}", path, lineNumber, lineText, Environment.NewLine);
+          RaiseCommandLineDataChanged(this, data);
         }
         else
         {
-          RaiseCommandLineDataChanged(this, string.Format(CultureInfo.CurrentCulture,
-            "{0}:{1}{2}", path, lineText, Environment.NewLine));
+          data = string.Format(CultureInfo.CurrentCulture, "{0} : {1}{2}", path, lineText, Environment.NewLine);
+          RaiseCommandLineDataChanged(this, data);
         }
       }
       else if (options.IsSetNoFileName)
       {
         if (options.IsSetLineNumber)
         {
-          RaiseCommandLineDataChanged(this, string.Format(CultureInfo.CurrentCulture,
-            "{0}:{1}{2}", lineNumber, lineText, Environment.NewLine));
+          data = string.Format(CultureInfo.CurrentCulture, "{0, -10} : {1}{2}", lineNumber, lineText, Environment.NewLine);
+          RaiseCommandLineDataChanged(this, data);
         }
         else
         {
-          RaiseCommandLineDataChanged(this, string.Format(CultureInfo.CurrentCulture,
-            "{0}{1}", lineText, Environment.NewLine));
+          data = string.Format(CultureInfo.CurrentCulture, "{0}{1}", lineText, Environment.NewLine);
+          RaiseCommandLineDataChanged(this, data);
         }
       }
       else
       {
         if (options.IsSetLineNumber)
         {
-          RaiseCommandLineDataChanged(this, string.Format(CultureInfo.CurrentCulture,
-            "{0}:{1}:{2}{3}", path, lineNumber, lineText, Environment.NewLine));
+          data = string.Format(CultureInfo.CurrentCulture, "{0} : {1, -10} : {2}{3}", path, lineNumber, lineText, Environment.NewLine);
+          RaiseCommandLineDataChanged(this, data);
         }
         else
         {
-          RaiseCommandLineDataChanged(this, string.Format(CultureInfo.CurrentCulture,
-            "{0}:{1}{2}", path, lineText, Environment.NewLine));
+          data = string.Format(CultureInfo.CurrentCulture, "{0} : {1}{2}", path, lineText, Environment.NewLine);
+          RaiseCommandLineDataChanged(this, data);
         }
+      }
+
+      WriteOutputFile(data);
+    }
+
+    private void WriteOutputFile(string data)
+    {
+      try
+      {
+        using (StreamWriter sw = new StreamWriter(options.OutputFile, true, System.Text.Encoding.UTF8))
+        {
+          sw.AutoFlush = true;
+          sw.Write(data);
+        }
+      }
+      catch (DirectoryNotFoundException ex)
+      {
+        throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+          "Write output file failed -- {0}, {1}", options.OutputFile, ex.Message));
+      }
+      catch (PathTooLongException ex)
+      {
+        throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+          "Write output file failed -- {0}, {1}", options.OutputFile, ex.Message));
+      }
+      catch (IOException ex)
+      {
+        throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+          "Write output file failed -- {0}, {1}", options.OutputFile, ex.Message));
+      }
+      catch (SecurityException ex)
+      {
+        throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+          "Write output file failed -- {0}, {1}", options.OutputFile, ex.Message));
+      }
+      catch (UnauthorizedAccessException ex)
+      {
+        throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+          "Write output file failed -- {0}, {1}", options.OutputFile, ex.Message));
+      }
+    }
+
+    private void DeleteOutputFile()
+    {
+      FileInfo file = new FileInfo(options.OutputFile);
+
+      try
+      {
+        if (file.Exists)
+        {
+          file.Delete();
+        }
+
+        if (!file.Directory.Exists)
+        {
+          file.Directory.Create();
+        }
+      }
+      catch (IOException ex)
+      {
+        throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+          "Delete output file failed -- {0}, {1}", options.OutputFile, ex.Message));
+      }
+      catch (SecurityException ex)
+      {
+        throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+          "Delete output file failed -- {0}, {1}", options.OutputFile, ex.Message));
+      }
+      catch (UnauthorizedAccessException ex)
+      {
+        throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+          "Delete output file failed -- {0}, {1}", options.OutputFile, ex.Message));
       }
     }
 
@@ -454,6 +537,10 @@ namespace Gimela.Toolkit.CommandLines.Grep
               break;
             case GrepOptionType.InvertMatch:
               targetOptions.IsSetInvertMatch = true;
+              break;
+            case GrepOptionType.OutputFile:
+              targetOptions.IsSetOutputFile = true;
+              targetOptions.OutputFile = commandLineOptions.Arguments[arg];
               break;
             case GrepOptionType.Count:
               targetOptions.IsSetCount = true;
@@ -546,6 +633,11 @@ namespace Gimela.Toolkit.CommandLines.Grep
         {
           throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
             "Option used in invalid context -- {0}", "must specify a path for grep."));
+        }
+        if (checkedOptions.IsSetOutputFile && string.IsNullOrEmpty(checkedOptions.OutputFile))
+        {
+          throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+            "Option used in invalid context -- {0}", "bad output file path format."));
         }
       }
     }
