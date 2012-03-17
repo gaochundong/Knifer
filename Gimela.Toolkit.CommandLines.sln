@@ -29,6 +29,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gimela.Toolkit.CommandLines
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gimela.Toolkit.CommandLines.Environment", "Gimela.Toolkit.CommandLines.Environment\Gimela.Toolkit.CommandLines.Environment.csproj", "{A3790B10-1805-4F1D-862E-579C933717A2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gimela.Toolkit.CommandLines.RemoveDirectory", "Gimela.Toolkit.CommandLines.RemoveDirectory\Gimela.Toolkit.CommandLines.RemoveDirectory.csproj", "{EB4B7037-6AD8-45E9-AC1B-98F03DC99C07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gimela.Toolkit.CommandLines.AddText", "Gimela.Toolkit.CommandLines.AddText\Gimela.Toolkit.CommandLines.AddText.csproj", "{5A0F494E-1389-459F-B022-A86B501CE8BD}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Gimela.Toolkit.CommandLines.vsmdi
@@ -182,6 +186,26 @@ Global
 		{A3790B10-1805-4F1D-862E-579C933717A2}.Release|Mixed Platforms.Build.0 = Release|x86
 		{A3790B10-1805-4F1D-862E-579C933717A2}.Release|x86.ActiveCfg = Release|x86
 		{A3790B10-1805-4F1D-862E-579C933717A2}.Release|x86.Build.0 = Release|x86
+		{EB4B7037-6AD8-45E9-AC1B-98F03DC99C07}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{EB4B7037-6AD8-45E9-AC1B-98F03DC99C07}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{EB4B7037-6AD8-45E9-AC1B-98F03DC99C07}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{EB4B7037-6AD8-45E9-AC1B-98F03DC99C07}.Debug|x86.ActiveCfg = Debug|x86
+		{EB4B7037-6AD8-45E9-AC1B-98F03DC99C07}.Debug|x86.Build.0 = Debug|x86
+		{EB4B7037-6AD8-45E9-AC1B-98F03DC99C07}.Release|Any CPU.ActiveCfg = Release|x86
+		{EB4B7037-6AD8-45E9-AC1B-98F03DC99C07}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{EB4B7037-6AD8-45E9-AC1B-98F03DC99C07}.Release|Mixed Platforms.Build.0 = Release|x86
+		{EB4B7037-6AD8-45E9-AC1B-98F03DC99C07}.Release|x86.ActiveCfg = Release|x86
+		{EB4B7037-6AD8-45E9-AC1B-98F03DC99C07}.Release|x86.Build.0 = Release|x86
+		{5A0F494E-1389-459F-B022-A86B501CE8BD}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{5A0F494E-1389-459F-B022-A86B501CE8BD}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{5A0F494E-1389-459F-B022-A86B501CE8BD}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{5A0F494E-1389-459F-B022-A86B501CE8BD}.Debug|x86.ActiveCfg = Debug|x86
+		{5A0F494E-1389-459F-B022-A86B501CE8BD}.Debug|x86.Build.0 = Debug|x86
+		{5A0F494E-1389-459F-B022-A86B501CE8BD}.Release|Any CPU.ActiveCfg = Release|x86
+		{5A0F494E-1389-459F-B022-A86B501CE8BD}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{5A0F494E-1389-459F-B022-A86B501CE8BD}.Release|Mixed Platforms.Build.0 = Release|x86
+		{5A0F494E-1389-459F-B022-A86B501CE8BD}.Release|x86.ActiveCfg = Release|x86
+		{5A0F494E-1389-459F-B022-A86B501CE8BD}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
