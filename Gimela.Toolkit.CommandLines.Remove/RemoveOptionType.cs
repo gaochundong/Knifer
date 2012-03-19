@@ -5,6 +5,8 @@ namespace Gimela.Toolkit.CommandLines.Remove
   {
     None = 0,
     File,
+    Directory,
+    Recursive,
     Help,
     Version,
   }

@@ -63,15 +63,56 @@ namespace Gimela.Toolkit.CommandLines.Remove
     {
       try
       {
-        foreach (var item in options.Files)
+        if (options.IsSetDirectory)
         {
-          string path = WildcardCharacterHelper.TranslateWildcardFilePath(item);
-          RemoveFile(path);
+          string path = WildcardCharacterHelper.TranslateWildcardFilePath(options.Directory);
+          SearchFiles(path);
+        }
+        else
+        {
+          foreach (var item in options.Files)
+          {
+            string path = WildcardCharacterHelper.TranslateWildcardFilePath(item);
+            RemoveFile(path);
+          }
         }
       }
       catch (CommandLineException ex)
       {
         RaiseCommandLineException(this, ex);
+      }
+    }
+
+    private void SearchFiles(string path)
+    {
+      DirectoryInfo directory = new DirectoryInfo(path);
+      if (!directory.Exists)
+      {
+        throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+          "No such directory -- {0}", directory.FullName));
+      }
+      else
+      {
+        FileInfo[] files = directory.GetFiles();
+        foreach (var file in files)
+        {
+          foreach (var item in options.Files)
+          {
+            if (item == file.Name)
+            {
+              RemoveFile(file.FullName);
+            }
+          }
+        }
+
+        if (options.IsSetRecursive)
+        {
+          DirectoryInfo[] directories = directory.GetDirectories();
+          foreach (var item in directories)
+          {
+            SearchFiles(item.FullName);
+          }
+        }
       }
     }
 
@@ -129,6 +170,13 @@ namespace Gimela.Toolkit.CommandLines.Remove
 
           switch (optionType)
           {
+            case RemoveOptionType.Directory:
+              targetOptions.IsSetDirectory = true;
+              targetOptions.Directory = commandLineOptions.Arguments[arg];
+              break;
+            case RemoveOptionType.Recursive:
+              targetOptions.IsSetRecursive = true;
+              break;
             case RemoveOptionType.Help:
               targetOptions.IsSetHelp = true;
               break;
@@ -157,7 +205,12 @@ namespace Gimela.Toolkit.CommandLines.Remove
         if (checkedOptions.Files.Count <= 0)
         {
           throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
-            "Option used in invalid context -- {0}", "must specify a file."));
+            "Option used in invalid context -- {0}", "must specify a file to be removed."));
+        }
+        if (checkedOptions.IsSetDirectory && string.IsNullOrEmpty(checkedOptions.Directory))
+        {
+          throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+            "Option used in invalid context -- {0}", "bad directory path."));
         }
       }
     }

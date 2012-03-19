@@ -11,6 +11,10 @@ namespace Gimela.Toolkit.CommandLines.Remove
 
     public IList<string> Files { get; set; }
 
+    public bool IsSetDirectory { get; set; }
+    public string Directory { get; set; }
+    public bool IsSetRecursive { get; set; }
+
     public bool IsSetHelp { get; set; }
     public bool IsSetVersion { get; set; }
   }
