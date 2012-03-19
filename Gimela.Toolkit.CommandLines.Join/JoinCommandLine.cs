@@ -23,15 +23,9 @@ namespace Gimela.Toolkit.CommandLines.Join
     #region Constructors
 
     public JoinCommandLine(string[] args)
+      : base(args)
     {
-      this.Arguments = new ReadOnlyCollection<string>(args);
     }
-
-    #endregion
-
-    #region Properties
-
-    public ReadOnlyCollection<string> Arguments { get; private set; }
 
     #endregion
 
@@ -71,16 +65,7 @@ namespace Gimela.Toolkit.CommandLines.Join
     {
       try
       {
-        DirectoryInfo currentDirectory = new DirectoryInfo(Environment.CurrentDirectory);
-
-        string outputFile = options.OutputFile.Replace(@"/", @"\\");
-        if (outputFile.StartsWith(@"." + Path.DirectorySeparatorChar, StringComparison.CurrentCulture))
-        {
-          outputFile = (currentDirectory.FullName
-            + Path.DirectorySeparatorChar
-            + outputFile.TrimStart('.', Path.DirectorySeparatorChar)).Replace(@"\\", @"\");
-        }
-
+        string outputFile = WildcardCharacterHelper.TranslateWildcardFilePath(options.OutputFile);
         FileInfo outputFileInfo = new FileInfo(outputFile);
         if (outputFileInfo.Exists)
         {
@@ -92,14 +77,7 @@ namespace Gimela.Toolkit.CommandLines.Join
         IList<string> inputFiles = new List<string>();
         foreach (var item in options.InputFiles)
         {
-          string inputFile = item.Replace(@"/", @"\\");
-          if (inputFile.StartsWith(@"." + Path.DirectorySeparatorChar, StringComparison.CurrentCulture))
-          {
-            inputFile = (currentDirectory.FullName
-              + Path.DirectorySeparatorChar
-              + inputFile.TrimStart('.', Path.DirectorySeparatorChar)).Replace(@"\\", @"\");
-          }
-
+          string inputFile = WildcardCharacterHelper.TranslateWildcardFilePath(item);
           if (!File.Exists(inputFile))
           {
             throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
@@ -166,12 +144,6 @@ namespace Gimela.Toolkit.CommandLines.Join
         throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
           "Write output file failed -- {0}, {1}", options.OutputFile, ex.Message));
       }
-    }
-
-    private void OutputText(string text)
-    {
-      RaiseCommandLineDataChanged(this, string.Format(CultureInfo.CurrentCulture,
-        "{0}{1}", text, Environment.NewLine));
     }
 
     #endregion

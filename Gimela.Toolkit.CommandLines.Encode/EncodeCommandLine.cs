@@ -22,15 +22,9 @@ namespace Gimela.Toolkit.CommandLines.Encode
     #region Constructors
 
     public EncodeCommandLine(string[] args)
+      : base(args)
     {
-      this.Arguments = new ReadOnlyCollection<string>(args);
     }
-
-    #endregion
-
-    #region Properties
-
-    public ReadOnlyCollection<string> Arguments { get; private set; }
 
     #endregion
 
@@ -69,24 +63,15 @@ namespace Gimela.Toolkit.CommandLines.Encode
     {
       try
       {
-        DirectoryInfo currentDirectory = new DirectoryInfo(Environment.CurrentDirectory);
-
         if (options.IsSetInputFile)
         {
-          string path = options.InputFile.Replace(@"/", @"\\");
-          if (path.StartsWith(@"." + Path.DirectorySeparatorChar, StringComparison.CurrentCulture))
-          {
-            path = (currentDirectory.FullName
-              + Path.DirectorySeparatorChar
-              + path.TrimStart('.', Path.DirectorySeparatorChar)).Replace(@"\\", @"\");
-          }
-
+          string path = WildcardCharacterHelper.TranslateWildcardFilePath(options.InputFile);
           if (WildcardCharacterHelper.IsContainsWildcard(path))
           {
             FileInfo[] files = new DirectoryInfo(Path.GetDirectoryName(path)).GetFiles();
             foreach (var file in files)
             {
-              Regex r = new Regex(WildcardCharacterHelper.WildcardToRegex(path));
+              Regex r = new Regex(WildcardCharacterHelper.TranslateWildcardToRegex(path));
               if (r.IsMatch(file.FullName) || r.IsMatch(file.Name))
               {
                 EncodeFile(file.FullName);
@@ -101,18 +86,7 @@ namespace Gimela.Toolkit.CommandLines.Encode
 
         if (options.IsSetDirectory)
         {
-          string path = options.Directory.Replace(@"/", @"\\");
-          if (path == @".")
-          {
-            path = currentDirectory.FullName;
-          }
-          else if (path.StartsWith(@"." + Path.DirectorySeparatorChar, StringComparison.CurrentCulture))
-          {
-            path = (currentDirectory.FullName
-              + Path.DirectorySeparatorChar
-              + path.TrimStart('.', Path.DirectorySeparatorChar)).Replace(@"\\", @"\");
-          }
-
+          string path = WildcardCharacterHelper.TranslateWildcardDirectoryPath(options.Directory);
           EncodeDirectory(path);
         }
       }

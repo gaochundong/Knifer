@@ -1,10 +1,27 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 
 namespace Gimela.Toolkit.CommandLines.Foundation
 {
   public abstract class CommandLine : ICommandLine
   {
+    #region Ctors
+
+    protected CommandLine(string[] args)
+    {
+      this.Arguments = new ReadOnlyCollection<string>(args);
+    }
+
+    #endregion
+
+    #region Properties
+
+    public ReadOnlyCollection<string> Arguments { get; private set; }
+
+    #endregion
+
     #region ICommandLine Members
 
     public virtual void Execute()
@@ -72,6 +89,16 @@ namespace Gimela.Toolkit.CommandLines.Foundation
       {
         handler(sender, new CommandLineExceptionEventArgs(exception));
       }
+    }
+
+    #endregion
+
+    #region Output
+
+    protected virtual void OutputText(string text)
+    {
+      RaiseCommandLineDataChanged(this, string.Format(CultureInfo.CurrentCulture,
+        "{0}{1}", text, Environment.NewLine));
     }
 
     #endregion

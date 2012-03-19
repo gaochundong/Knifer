@@ -23,15 +23,9 @@ namespace Gimela.Toolkit.CommandLines.Environment
     #region Constructors
 
     public EnvironmentCommandLine(string[] args)
+      : base(args)
     {
-      this.Arguments = new ReadOnlyCollection<string>(args);
     }
-
-    #endregion
-
-    #region Properties
-
-    public ReadOnlyCollection<string> Arguments { get; private set; }
 
     #endregion
 
@@ -82,12 +76,6 @@ namespace Gimela.Toolkit.CommandLines.Environment
       {
         OutputText(string.Format(CultureInfo.CurrentCulture, "{0, -25} : {1}", item.Key, item.Value));
       }
-    }
-
-    private void OutputText(string text)
-    {
-      RaiseCommandLineDataChanged(this, string.Format(CultureInfo.CurrentCulture,
-        "{0}{1}", text, System.Environment.NewLine));
     }
 
     #endregion

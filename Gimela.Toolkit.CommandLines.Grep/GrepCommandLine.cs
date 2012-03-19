@@ -27,15 +27,9 @@ namespace Gimela.Toolkit.CommandLines.Grep
     #region Constructors
 
     public GrepCommandLine(string[] args)
+      : base(args)
     {
-      this.Arguments = new ReadOnlyCollection<string>(args);
     }
-
-    #endregion
-
-    #region Properties
-
-    public ReadOnlyCollection<string> Arguments { get; private set; }
 
     #endregion
 
@@ -79,21 +73,9 @@ namespace Gimela.Toolkit.CommandLines.Grep
     {
       try
       {
-        DirectoryInfo currentDirectory = new DirectoryInfo(Environment.CurrentDirectory);
         foreach (var item in options.FilePaths)
         {
-          string path = item.Replace(@"/", @"\\");
-          if (path == @".")
-          {
-            path = currentDirectory.FullName;
-          }
-          else if (path.StartsWith(@"." + Path.DirectorySeparatorChar, StringComparison.CurrentCulture))
-          {
-            path = (currentDirectory.FullName
-              + Path.DirectorySeparatorChar
-              + path.TrimStart('.', Path.DirectorySeparatorChar)).Replace(@"\\", @"\");
-          }
-
+          string path = WildcardCharacterHelper.TranslateWildcardDirectoryPath(item);
           if (options.IsSetDirectory)
           {
             GrepDirectory(path);
@@ -105,7 +87,7 @@ namespace Gimela.Toolkit.CommandLines.Grep
               FileInfo[] files = new DirectoryInfo(Path.GetDirectoryName(path)).GetFiles();
               foreach (var file in files)
               {
-                Regex r = new Regex(WildcardCharacterHelper.WildcardToRegex(path));
+                Regex r = new Regex(WildcardCharacterHelper.TranslateWildcardToRegex(path));
                 if (r.IsMatch(file.FullName) || r.IsMatch(file.Name))
                 {
                   GrepFile(file.FullName);
@@ -196,7 +178,7 @@ namespace Gimela.Toolkit.CommandLines.Grep
       }
       else if (options.IsSetIncludeFiles)
       {
-        Regex r = new Regex(WildcardCharacterHelper.WildcardToRegex(options.IncludeFilesPattern));
+        Regex r = new Regex(WildcardCharacterHelper.TranslateWildcardToRegex(options.IncludeFilesPattern));
         if (r.IsMatch(file))
         {
           result = true;
@@ -204,7 +186,7 @@ namespace Gimela.Toolkit.CommandLines.Grep
       }
       else if (options.IsSetExcludeFiles)
       {
-        Regex r = new Regex(WildcardCharacterHelper.WildcardToRegex(options.ExcludeFilesPattern));
+        Regex r = new Regex(WildcardCharacterHelper.TranslateWildcardToRegex(options.ExcludeFilesPattern));
         if (!r.IsMatch(file))
         {
           result = true;
@@ -228,7 +210,7 @@ namespace Gimela.Toolkit.CommandLines.Grep
       }
       else if (options.IsSetExcludeDirectories)
       {
-        Regex r = new Regex(WildcardCharacterHelper.WildcardToRegex(options.ExcludeDirectoriesPattern));
+        Regex r = new Regex(WildcardCharacterHelper.TranslateWildcardToRegex(options.ExcludeDirectoriesPattern));
         if (!r.IsMatch(directory))
         {
           result = true;

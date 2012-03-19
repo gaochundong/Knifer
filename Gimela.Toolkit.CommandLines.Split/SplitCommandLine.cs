@@ -25,15 +25,9 @@ namespace Gimela.Toolkit.CommandLines.Split
     #region Constructors
 
     public SplitCommandLine(string[] args)
+      : base(args)
     {
-      this.Arguments = new ReadOnlyCollection<string>(args);
     }
-
-    #endregion
-
-    #region Properties
-
-    public ReadOnlyCollection<string> Arguments { get; private set; }
 
     #endregion
 
@@ -72,30 +66,10 @@ namespace Gimela.Toolkit.CommandLines.Split
     {
       try
       {
-        DirectoryInfo currentDirectory = new DirectoryInfo(Environment.CurrentDirectory);
-
         if (options.IsSetFile)
         {
-          string file = options.File.Replace(@"/", @"\\");
-          if (file.StartsWith(@"." + Path.DirectorySeparatorChar, StringComparison.CurrentCulture))
-          {
-            file = (currentDirectory.FullName
-              + Path.DirectorySeparatorChar
-              + file.TrimStart('.', Path.DirectorySeparatorChar)).Replace(@"\\", @"\");
-          }
-
-          string folder = options.Directory.Replace(@"/", @"\\");
-          if (folder == @".")
-          {
-            folder = currentDirectory.FullName;
-          }
-          else if (folder.StartsWith(@"." + Path.DirectorySeparatorChar, StringComparison.CurrentCulture))
-          {
-            folder = (currentDirectory.FullName
-              + Path.DirectorySeparatorChar
-              + folder.TrimStart('.', Path.DirectorySeparatorChar)).Replace(@"\\", @"\");
-          }
-
+          string file = WildcardCharacterHelper.TranslateWildcardFilePath(options.File);
+          string folder = WildcardCharacterHelper.TranslateWildcardDirectoryPath(options.Directory);
           SplitFile(file, folder);
         }
       }
@@ -268,12 +242,6 @@ namespace Gimela.Toolkit.CommandLines.Split
         throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
           "Create output folder failed -- {0}, {1}", outputFolder, ex.Message));
       }
-    }
-
-    private void OutputText(string text)
-    {
-      RaiseCommandLineDataChanged(this, string.Format(CultureInfo.CurrentCulture,
-        "{0}{1}", text, Environment.NewLine));
     }
 
     #endregion

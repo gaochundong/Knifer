@@ -1,13 +1,13 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Diagnostics.CodeAnalysis;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Gimela.Toolkit.CommandLines.AddText")]
-[assembly: AssemblyDescription("Gimela.Toolkit.CommandLines.AddText")]
+[assembly: AssemblyTitle("Gimela.Toolkit.CommandLines.Remove")]
+[assembly: AssemblyDescription("Gimela.Toolkit.CommandLines.Remove")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Chundong Gao")]
 [assembly: AssemblyProduct("Gimela Toolkit")]
@@ -21,7 +21,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("e99bab65-4f41-4906-801e-456f01608bd8")]
+[assembly: Guid("aa3a8b39-b73c-4fbb-b06f-565190759187")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -37,7 +37,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
 [assembly: SuppressMessage("Microsoft.Design", "CA1014:MarkAssembliesWithClsCompliant")]
-[assembly: SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Gimela", Scope = "namespace", Target = "Gimela.Toolkit.CommandLines.AddText")]
-[assembly: SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "addtext")]
-[assembly: SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "addtext")]
+[assembly: SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Gimela", Scope = "namespace", Target = "Gimela.Toolkit.CommandLines.Remove")]
+[assembly: SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "rm")]
+[assembly: SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "rm")]
 [assembly: SuppressMessage("Microsoft.Design", "CA2210:AssembliesShouldHaveValidStrongNames")]

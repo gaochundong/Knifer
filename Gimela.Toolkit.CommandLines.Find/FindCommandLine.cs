@@ -21,15 +21,9 @@ namespace Gimela.Toolkit.CommandLines.Find
     #region Constructors
 
     public FindCommandLine(string[] args)
+      : base(args)
     {
-      this.Arguments = new ReadOnlyCollection<string>(args);
     }
-
-    #endregion
-
-    #region Properties
-
-    public ReadOnlyCollection<string> Arguments { get; private set; }
 
     #endregion
 
@@ -68,22 +62,9 @@ namespace Gimela.Toolkit.CommandLines.Find
     {
       try
       {
-        DirectoryInfo currentDirectory = new DirectoryInfo(Environment.CurrentDirectory);
-
         if (options.IsSetDirectory)
         {
-          string path = options.Directory.Replace(@"/", @"\\");
-          if (path == @".")
-          {
-            path = currentDirectory.FullName;
-          }
-          else if (path.StartsWith(@"." + Path.DirectorySeparatorChar, StringComparison.CurrentCulture))
-          {
-            path = (currentDirectory.FullName
-              + Path.DirectorySeparatorChar
-              + path.TrimStart('.', Path.DirectorySeparatorChar)).Replace(@"\\", @"\");
-          }
-
+          string path = WildcardCharacterHelper.TranslateWildcardDirectoryPath(options.Directory);
           FindDirectory(path);
         }
       }
@@ -122,17 +103,11 @@ namespace Gimela.Toolkit.CommandLines.Find
 
     private void FindFile(string directoryName, string fileName)
     {
-      Regex r = new Regex(WildcardCharacterHelper.WildcardToRegex(options.RegexPattern));
+      Regex r = new Regex(WildcardCharacterHelper.TranslateWildcardToRegex(options.RegexPattern));
       if (r.IsMatch(fileName))
       {
         OutputText(Path.Combine(directoryName, fileName));
       }
-    }
-
-    private void OutputText(string text)
-    {
-      RaiseCommandLineDataChanged(this, string.Format(CultureInfo.CurrentCulture,
-        "{0}{1}", text, Environment.NewLine));
     }
 
     #endregion

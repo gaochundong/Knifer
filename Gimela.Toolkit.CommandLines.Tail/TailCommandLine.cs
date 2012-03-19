@@ -32,15 +32,9 @@ namespace Gimela.Toolkit.CommandLines.Tail
     #region Constructors
 
     public TailCommandLine(string[] args)
+      : base(args)
     {
-      this.Arguments = new ReadOnlyCollection<string>(args);
     }
-
-    #endregion
-
-    #region Properties
-
-    public ReadOnlyCollection<string> Arguments { get; private set; }
 
     #endregion
 

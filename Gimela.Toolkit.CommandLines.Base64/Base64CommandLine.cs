@@ -21,15 +21,9 @@ namespace Gimela.Toolkit.CommandLines.Base64
     #region Constructors
 
     public Base64CommandLine(string[] args)
+      : base(args)
     {
-      this.Arguments = new ReadOnlyCollection<string>(args);
     }
-
-    #endregion
-
-    #region Properties
-
-    public ReadOnlyCollection<string> Arguments { get; private set; }
 
     #endregion
 
@@ -141,12 +135,6 @@ namespace Gimela.Toolkit.CommandLines.Base64
         throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
           "Bad format -- {0}", ex.Message));
       }
-    }
-
-    private void OutputText(string text)
-    {
-      RaiseCommandLineDataChanged(this, string.Format(CultureInfo.CurrentCulture,
-        "{0}{1}", text, Environment.NewLine));
     }
 
     #endregion

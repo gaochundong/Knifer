@@ -22,15 +22,9 @@ namespace Gimela.Toolkit.CommandLines.Checksum
     #region Constructors
 
     public ChecksumCommandLine(string[] args)
+      : base(args)
     {
-      this.Arguments = new ReadOnlyCollection<string>(args);
     }
-
-    #endregion
-
-    #region Properties
-
-    public ReadOnlyCollection<string> Arguments { get; private set; }
 
     #endregion
 
@@ -198,12 +192,6 @@ namespace Gimela.Toolkit.CommandLines.Checksum
           OutputText(string.Format(CultureInfo.CurrentCulture, "{0}", sb.ToString()));
         }
       }
-    }
-
-    private void OutputText(string text)
-    {
-      RaiseCommandLineDataChanged(this, string.Format(CultureInfo.CurrentCulture,
-        "{0}{1}", text, Environment.NewLine));
     }
 
     #endregion

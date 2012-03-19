@@ -21,16 +21,10 @@ namespace Gimela.Toolkit.CommandLines.Count
     #region Constructors
 
     public CountCommandLine(string[] args)
+      : base(args)
     {
-      this.Arguments = new ReadOnlyCollection<string>(args);
       this.countSummary = new Dictionary<string, int>();
     }
-
-    #endregion
-
-    #region Properties
-
-    public ReadOnlyCollection<string> Arguments { get; private set; }
 
     #endregion
 
@@ -72,22 +66,9 @@ namespace Gimela.Toolkit.CommandLines.Count
     {
       try
       {
-        DirectoryInfo currentDirectory = new DirectoryInfo(Environment.CurrentDirectory);
-
         if (options.IsSetDirectory)
         {
-          string path = options.Directory.Replace(@"/", @"\\");
-          if (path == @".")
-          {
-            path = currentDirectory.FullName;
-          }
-          else if (path.StartsWith(@"." + Path.DirectorySeparatorChar, StringComparison.CurrentCulture))
-          {
-            path = (currentDirectory.FullName
-              + Path.DirectorySeparatorChar
-              + path.TrimStart('.', Path.DirectorySeparatorChar)).Replace(@"\\", @"\");
-          }
-
+          string path = WildcardCharacterHelper.TranslateWildcardDirectoryPath(options.Directory);
           CountDirectory(path);
         }
 
@@ -148,12 +129,6 @@ namespace Gimela.Toolkit.CommandLines.Count
           countSummary.Add(file.Extension.ToUpperInvariant(), 1);
         }
       }
-    }
-
-    private void OutputText(string text)
-    {
-      RaiseCommandLineDataChanged(this, string.Format(CultureInfo.CurrentCulture,
-        "{0}{1}", text, Environment.NewLine));
     }
 
     #endregion

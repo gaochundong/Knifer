@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.IO;
+using System.Text.RegularExpressions;
 
 namespace Gimela.Toolkit.CommandLines.Foundation
 {
@@ -8,21 +10,66 @@ namespace Gimela.Toolkit.CommandLines.Foundation
     {
       bool result = false;
 
-      if (path.Contains(@"*"))
+      if (!string.IsNullOrEmpty(path))
       {
-        result = true;
-      }
-      else if (path.Contains(@"?"))
-      {
-        result = true;
+        if (path.Contains(@"*"))
+        {
+          result = true;
+        }
+        else if (path.Contains(@"?"))
+        {
+          result = true;
+        }
       }
 
       return result;
     }
 
-    public static string WildcardToRegex(string pattern)
+    public static string TranslateWildcardToRegex(string pattern)
     {
       return Regex.Escape(pattern).Replace(@"\*", @".*").Replace(@"\?", @".");
+    }
+
+    public static string TranslateWildcardFilePath(string file)
+    {
+      string path = string.Empty;
+
+      if (!string.IsNullOrEmpty(file))
+      {
+        DirectoryInfo currentDirectory = new DirectoryInfo(Environment.CurrentDirectory);
+        path = file.Replace(@"/", @"\\");
+        if (path.StartsWith(@"." + Path.DirectorySeparatorChar, StringComparison.CurrentCulture))
+        {
+          path = (currentDirectory.FullName
+            + Path.DirectorySeparatorChar
+            + path.TrimStart('.', Path.DirectorySeparatorChar)).Replace(@"\\", @"\");
+        }
+      }
+
+      return path;
+    }
+
+    public static string TranslateWildcardDirectoryPath(string directory)
+    {
+      string path = string.Empty;
+
+      if (!string.IsNullOrEmpty(directory))
+      {
+        DirectoryInfo currentDirectory = new DirectoryInfo(Environment.CurrentDirectory);
+        path = directory.Replace(@"/", @"\\");
+        if (path == @".")
+        {
+          path = currentDirectory.FullName;
+        }
+        else if (path.StartsWith(@"." + Path.DirectorySeparatorChar, StringComparison.CurrentCulture))
+        {
+          path = (currentDirectory.FullName
+            + Path.DirectorySeparatorChar
+            + path.TrimStart('.', Path.DirectorySeparatorChar)).Replace(@"\\", @"\");
+        }
+      }
+
+      return path;
     }
   }
 }

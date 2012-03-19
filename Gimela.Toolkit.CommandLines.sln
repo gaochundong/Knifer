@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gimela.Toolkit.CommandLines
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gimela.Toolkit.CommandLines.AddText", "Gimela.Toolkit.CommandLines.AddText\Gimela.Toolkit.CommandLines.AddText.csproj", "{5A0F494E-1389-459F-B022-A86B501CE8BD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gimela.Toolkit.CommandLines.Remove", "Gimela.Toolkit.CommandLines.Remove\Gimela.Toolkit.CommandLines.Remove.csproj", "{64377D17-0E0E-4848-B973-8E931CCA3261}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Gimela.Toolkit.CommandLines.vsmdi
@@ -206,6 +208,16 @@ Global
 		{5A0F494E-1389-459F-B022-A86B501CE8BD}.Release|Mixed Platforms.Build.0 = Release|x86
 		{5A0F494E-1389-459F-B022-A86B501CE8BD}.Release|x86.ActiveCfg = Release|x86
 		{5A0F494E-1389-459F-B022-A86B501CE8BD}.Release|x86.Build.0 = Release|x86
+		{64377D17-0E0E-4848-B973-8E931CCA3261}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{64377D17-0E0E-4848-B973-8E931CCA3261}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{64377D17-0E0E-4848-B973-8E931CCA3261}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{64377D17-0E0E-4848-B973-8E931CCA3261}.Debug|x86.ActiveCfg = Debug|x86
+		{64377D17-0E0E-4848-B973-8E931CCA3261}.Debug|x86.Build.0 = Debug|x86
+		{64377D17-0E0E-4848-B973-8E931CCA3261}.Release|Any CPU.ActiveCfg = Release|x86
+		{64377D17-0E0E-4848-B973-8E931CCA3261}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{64377D17-0E0E-4848-B973-8E931CCA3261}.Release|Mixed Platforms.Build.0 = Release|x86
+		{64377D17-0E0E-4848-B973-8E931CCA3261}.Release|x86.ActiveCfg = Release|x86
+		{64377D17-0E0E-4848-B973-8E931CCA3261}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

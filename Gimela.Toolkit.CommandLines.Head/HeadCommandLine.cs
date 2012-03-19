@@ -20,15 +20,9 @@ namespace Gimela.Toolkit.CommandLines.Head
     #region Constructors
 
     public HeadCommandLine(string[] args)
+      : base(args)
     {
-      this.Arguments = new ReadOnlyCollection<string>(args);
     }
-
-    #endregion
-
-    #region Properties
-
-    public ReadOnlyCollection<string> Arguments { get; private set; }
 
     #endregion
 
@@ -67,18 +61,9 @@ namespace Gimela.Toolkit.CommandLines.Head
     {
       try
       {
-        DirectoryInfo currentDirectory = new DirectoryInfo(Environment.CurrentDirectory);
-
         if (options.IsSetFile)
         {
-          string path = options.File.Replace(@"/", @"\\");
-          if (path.StartsWith(@"." + Path.DirectorySeparatorChar, StringComparison.CurrentCulture))
-          {
-            path = (currentDirectory.FullName
-              + Path.DirectorySeparatorChar
-              + path.TrimStart('.', Path.DirectorySeparatorChar)).Replace(@"\\", @"\");
-          }
-
+          string path = WildcardCharacterHelper.TranslateWildcardFilePath(options.File);
           HeadFile(path, options.Number);
         }
       }
@@ -129,12 +114,6 @@ namespace Gimela.Toolkit.CommandLines.Head
       {
         OutputText(item);
       }
-    }
-
-    private void OutputText(string text)
-    {
-      RaiseCommandLineDataChanged(this, string.Format(CultureInfo.CurrentCulture,
-        "{0}{1}", text, Environment.NewLine));
     }
 
     #endregion
