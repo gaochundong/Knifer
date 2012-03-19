@@ -7,8 +7,8 @@ namespace Gimela.Toolkit.CommandLines.Remove
 {
 	internal static class RemoveOptions
 	{
-    public static readonly ReadOnlyCollection<string> DirectoryOptions;
-    public static readonly ReadOnlyCollection<string> RecursiveOptions;
+		public static readonly ReadOnlyCollection<string> DirectoryOptions;
+		public static readonly ReadOnlyCollection<string> RecursiveOptions;
 		public static readonly ReadOnlyCollection<string> HelpOptions;
 		public static readonly ReadOnlyCollection<string> VersionOptions;
 
@@ -17,14 +17,14 @@ namespace Gimela.Toolkit.CommandLines.Remove
 		[SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
 		static RemoveOptions()
 		{
-      DirectoryOptions = new ReadOnlyCollection<string>(new string[] { "d", "D", "directory" });
-      RecursiveOptions = new ReadOnlyCollection<string>(new string[] { "r", "R", "recursive" });
+			DirectoryOptions = new ReadOnlyCollection<string>(new string[] { "d", "D", "directory" });
+			RecursiveOptions = new ReadOnlyCollection<string>(new string[] { "r", "R", "recursive" });
 			HelpOptions = new ReadOnlyCollection<string>(new string[] { "h", "help" });
 			VersionOptions = new ReadOnlyCollection<string>(new string[] { "v", "version" });
 
 			Options = new Dictionary<RemoveOptionType, ICollection<string>>();
-      Options.Add(RemoveOptionType.Directory, DirectoryOptions);
-      Options.Add(RemoveOptionType.Recursive, RecursiveOptions);
+			Options.Add(RemoveOptionType.Directory, DirectoryOptions);
+			Options.Add(RemoveOptionType.Recursive, RecursiveOptions);
 			Options.Add(RemoveOptionType.Help, HelpOptions);
 			Options.Add(RemoveOptionType.Version, VersionOptions);
 		}
