@@ -35,6 +35,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gimela.Toolkit.CommandLines
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gimela.Toolkit.CommandLines.Remove", "Gimela.Toolkit.CommandLines.Remove\Gimela.Toolkit.CommandLines.Remove.csproj", "{64377D17-0E0E-4848-B973-8E931CCA3261}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gimela.Toolkit.CommandLines.Replace", "Gimela.Toolkit.CommandLines.Replace\Gimela.Toolkit.CommandLines.Replace.csproj", "{94452BD8-793D-42BA-8119-0664D7F8232C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gimela.Toolkit.CommandLines.Sort", "Gimela.Toolkit.CommandLines.Sort\Gimela.Toolkit.CommandLines.Sort.csproj", "{4EFE839A-F3DA-4A23-9B96-D9C8A8E4CDDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gimela.Toolkit.CommandLines.Unique", "Gimela.Toolkit.CommandLines.Unique\Gimela.Toolkit.CommandLines.Unique.csproj", "{50B80170-3A8F-4E71-B465-D0BB3AF6BBEE}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Gimela.Toolkit.CommandLines.vsmdi
@@ -218,6 +224,36 @@ Global
 		{64377D17-0E0E-4848-B973-8E931CCA3261}.Release|Mixed Platforms.Build.0 = Release|x86
 		{64377D17-0E0E-4848-B973-8E931CCA3261}.Release|x86.ActiveCfg = Release|x86
 		{64377D17-0E0E-4848-B973-8E931CCA3261}.Release|x86.Build.0 = Release|x86
+		{94452BD8-793D-42BA-8119-0664D7F8232C}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{94452BD8-793D-42BA-8119-0664D7F8232C}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{94452BD8-793D-42BA-8119-0664D7F8232C}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{94452BD8-793D-42BA-8119-0664D7F8232C}.Debug|x86.ActiveCfg = Debug|x86
+		{94452BD8-793D-42BA-8119-0664D7F8232C}.Debug|x86.Build.0 = Debug|x86
+		{94452BD8-793D-42BA-8119-0664D7F8232C}.Release|Any CPU.ActiveCfg = Release|x86
+		{94452BD8-793D-42BA-8119-0664D7F8232C}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{94452BD8-793D-42BA-8119-0664D7F8232C}.Release|Mixed Platforms.Build.0 = Release|x86
+		{94452BD8-793D-42BA-8119-0664D7F8232C}.Release|x86.ActiveCfg = Release|x86
+		{94452BD8-793D-42BA-8119-0664D7F8232C}.Release|x86.Build.0 = Release|x86
+		{4EFE839A-F3DA-4A23-9B96-D9C8A8E4CDDC}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{4EFE839A-F3DA-4A23-9B96-D9C8A8E4CDDC}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{4EFE839A-F3DA-4A23-9B96-D9C8A8E4CDDC}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{4EFE839A-F3DA-4A23-9B96-D9C8A8E4CDDC}.Debug|x86.ActiveCfg = Debug|x86
+		{4EFE839A-F3DA-4A23-9B96-D9C8A8E4CDDC}.Debug|x86.Build.0 = Debug|x86
+		{4EFE839A-F3DA-4A23-9B96-D9C8A8E4CDDC}.Release|Any CPU.ActiveCfg = Release|x86
+		{4EFE839A-F3DA-4A23-9B96-D9C8A8E4CDDC}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{4EFE839A-F3DA-4A23-9B96-D9C8A8E4CDDC}.Release|Mixed Platforms.Build.0 = Release|x86
+		{4EFE839A-F3DA-4A23-9B96-D9C8A8E4CDDC}.Release|x86.ActiveCfg = Release|x86
+		{4EFE839A-F3DA-4A23-9B96-D9C8A8E4CDDC}.Release|x86.Build.0 = Release|x86
+		{50B80170-3A8F-4E71-B465-D0BB3AF6BBEE}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{50B80170-3A8F-4E71-B465-D0BB3AF6BBEE}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{50B80170-3A8F-4E71-B465-D0BB3AF6BBEE}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{50B80170-3A8F-4E71-B465-D0BB3AF6BBEE}.Debug|x86.ActiveCfg = Debug|x86
+		{50B80170-3A8F-4E71-B465-D0BB3AF6BBEE}.Debug|x86.Build.0 = Debug|x86
+		{50B80170-3A8F-4E71-B465-D0BB3AF6BBEE}.Release|Any CPU.ActiveCfg = Release|x86
+		{50B80170-3A8F-4E71-B465-D0BB3AF6BBEE}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{50B80170-3A8F-4E71-B465-D0BB3AF6BBEE}.Release|Mixed Platforms.Build.0 = Release|x86
+		{50B80170-3A8F-4E71-B465-D0BB3AF6BBEE}.Release|x86.ActiveCfg = Release|x86
+		{50B80170-3A8F-4E71-B465-D0BB3AF6BBEE}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

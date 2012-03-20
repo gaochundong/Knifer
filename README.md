@@ -7,20 +7,23 @@ This toolkit includes a set of tools that can be run from the Windows command-li
 Command List
 -----------------------
 
-+ tail - show the last parts of a file
-+ head - show the top parts of a file
-+ grep - search a regex pattern in a file
-+ encode - encode or change the encoding of a file
-+ checksum - get checksum value of a text or file
-+ base64 - translate string to base64 text
-+ count - count number of file types in a folder
-+ find - file a file in directory
-+ env - show system environments
-+ split - split a file to multi-files
-+ join - join multi-files to a single file
-+ rm - remove a file
-+ removedir - remove a folder
-+ addtext - add text on the beginning of a file
++ tail 		- show the last parts of a file
++ head 		- show the top parts of a file
++ grep 		- search a regex pattern in a file
++ encode 	- encode or change the encoding of a file
++ checksum 	- checksum value of a text or file
++ base64 	- translate string to base64 text
++ count 	- count number of file types in a folder
++ find 		- find a file in directory
++ env 		- show system environments
++ split 	- split a file to multi-files
++ join 		- join multi-files to a single file
++ rm 		- remove a file
++ removedir - remove a directory
++ addtext 	- add text on the beginning of a file
++ replace 	- replace string in place in a file
++ sort 		- sort lines of text files
++ uniq 		- remove duplicate lines from a file
 
 
 Environment Requirement
@@ -33,7 +36,7 @@ Bug tracker
 
 Have a bug? Please create an issue here on GitHub!
 
-+ https://github.com/gaochundong/CommandLineToolkit/issues
++ https://github.com/gaochundong/Gimela.Toolkit.CommandLines/issues
 
 
 Authors

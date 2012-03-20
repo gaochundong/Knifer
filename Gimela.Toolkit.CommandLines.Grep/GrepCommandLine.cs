@@ -344,21 +344,30 @@ namespace Gimela.Toolkit.CommandLines.Grep
     {
       string data = string.Format(CultureInfo.CurrentCulture, "{0}{1}", path, Environment.NewLine);
       RaiseCommandLineDataChanged(this, data);
-      WriteOutputFile(data);
+      if (options.IsSetOutputFile)
+      {
+        WriteOutputFile(data);
+      }
     }
 
     private void OutputFilesWithMatch(string path)
     {
       string data = string.Format(CultureInfo.CurrentCulture, "{0}{1}", path, Environment.NewLine);
       RaiseCommandLineDataChanged(this, data);
-      WriteOutputFile(data);
+      if (options.IsSetOutputFile)
+      {
+        WriteOutputFile(data);
+      }
     }
 
     private void OutputFileMatchingLineCount(string path, int matchingLineCount)
     {
       string data = string.Format(CultureInfo.CurrentCulture, "{0} : {1} matches.{2}", path, matchingLineCount, Environment.NewLine);
       RaiseCommandLineDataChanged(this, data);
-      WriteOutputFile(data);
+      if (options.IsSetOutputFile)
+      {
+        WriteOutputFile(data);
+      }
     }
 
     private void OutputFileData(string path, int lineNumber, string lineText)
@@ -405,7 +414,10 @@ namespace Gimela.Toolkit.CommandLines.Grep
         }
       }
 
-      WriteOutputFile(data);
+      if (options.IsSetOutputFile)
+      {
+        WriteOutputFile(data);
+      }
     }
 
     private void WriteOutputFile(string data)
