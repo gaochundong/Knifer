@@ -6,12 +6,12 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Gimela.Toolkit.CommandLines.Environment")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Gimela.Toolkit.CommandLines.Environment")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("IGT")]
-[assembly: AssemblyProduct("Gimela.Toolkit.CommandLines.Environment")]
-[assembly: AssemblyCopyright("Copyright © IGT 2012")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCompany("Chundong Gao")]
+[assembly: AssemblyProduct("Gimela Toolkit")]
+[assembly: AssemblyCopyright("Copyright © 2011-2012 Chundong Gao. All rights reserved.")]
+[assembly: AssemblyTrademark("Gimela")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
