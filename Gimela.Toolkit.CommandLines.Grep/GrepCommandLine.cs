@@ -199,7 +199,7 @@ namespace Gimela.Toolkit.CommandLines.Grep
       {
         result = false;
       }
-      else if (file.ToUpperInvariant().EndsWith(".EXE"))
+      else if (file.ToUpperInvariant().EndsWith(".EXE", StringComparison.CurrentCulture))
       {
         result = false;
       }
