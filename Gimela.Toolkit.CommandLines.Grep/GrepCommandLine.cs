@@ -112,7 +112,7 @@ namespace Gimela.Toolkit.CommandLines.Grep
             if (WildcardCharacterHelper.IsContainsWildcard(path))
             {
               FileInfo[] files = new DirectoryInfo(Path.GetDirectoryName(path)).GetFiles();
-              foreach (var file in files)
+              foreach (var file in files.OrderBy(f => f.Name))
               {
                 Regex r = new Regex(WildcardCharacterHelper.TranslateWildcardToRegex(path));
                 if (r.IsMatch(file.FullName) || r.IsMatch(file.Name))
@@ -170,7 +170,7 @@ namespace Gimela.Toolkit.CommandLines.Grep
         else
         {
           FileInfo[] files = directory.GetFiles();
-          foreach (var file in files)
+          foreach (var file in files.OrderBy(f => f.Name))
           {
             GrepFile(file.FullName);
           }
@@ -178,7 +178,7 @@ namespace Gimela.Toolkit.CommandLines.Grep
           if (options.IsSetRecursive)
           {
             DirectoryInfo[] directories = directory.GetDirectories();
-            foreach (var item in directories)
+            foreach (var item in directories.OrderBy(d => d.Name))
             {
               GrepDirectory(item.FullName);
             }
