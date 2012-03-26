@@ -24,6 +24,7 @@ Command List
 + replace 	- replace string in place in a file
 + sort 		- sort lines of text files
 + uniq 		- remove duplicate lines from a file
++ extract 	- extract regex matches to files
 
 
 Environment Requirement
