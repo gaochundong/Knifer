@@ -36,6 +36,7 @@ namespace Gimela.Toolkit.CommandLines.Extract
     {
       InputFileExtensionFilter = new List<string>();
       OutputFileExtension = ".txt";
+      Excludes = new List<string>();
     }
 
     public string RegexPattern { get; set; }
@@ -46,6 +47,7 @@ namespace Gimela.Toolkit.CommandLines.Extract
 
     public string OutputDirectory { get; set; }
     public string OutputFileExtension { get; set; }
+    public List<string> Excludes { get; private set; }
 
     public bool IsSetHelp { get; set; }
     public bool IsSetVersion { get; set; }

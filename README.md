@@ -25,6 +25,7 @@ Command List
 + sort 		- sort lines of text files
 + uniq 		- remove duplicate lines from a file
 + extract 	- extract regex matches to files
++ rename 	- rename specified files specified format
 
 
 Environment Requirement

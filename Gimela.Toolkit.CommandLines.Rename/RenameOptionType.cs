@@ -26,18 +26,15 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace Gimela.Toolkit.CommandLines.Extract
+namespace Gimela.Toolkit.CommandLines.Rename
 {
-  internal enum ExtractOptionType
+  internal enum RenameOptionType
   {
     None = 0,
     RegexPattern,
     InputDirectory,
     Recursive,
-    InputFileExtensionFilter,
-    OutputDirectory,
-    OutputFileExtension,
-    Exclude,
+    PadString,
     Help,
     Version,
   }

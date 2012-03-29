@@ -41,6 +41,7 @@ namespace Gimela.Toolkit.CommandLines.Extract
 		public static readonly ReadOnlyCollection<string> InputFileExtensionFilterOptions;
 		public static readonly ReadOnlyCollection<string> OutputDirectoryOptions;
 		public static readonly ReadOnlyCollection<string> OutputFileExtensionOptions;
+		public static readonly ReadOnlyCollection<string> ExcludeOptions;
 		public static readonly ReadOnlyCollection<string> HelpOptions;
 		public static readonly ReadOnlyCollection<string> VersionOptions;
 
@@ -54,7 +55,8 @@ namespace Gimela.Toolkit.CommandLines.Extract
 			RecursiveOptions = new ReadOnlyCollection<string>(new string[] { "r", "recursive" });
 			InputFileExtensionFilterOptions = new ReadOnlyCollection<string>(new string[] { "f", "filter" });
 			OutputDirectoryOptions = new ReadOnlyCollection<string>(new string[] { "o", "output" });
-			OutputFileExtensionOptions = new ReadOnlyCollection<string>(new string[] { "x", "extension" });
+			OutputFileExtensionOptions = new ReadOnlyCollection<string>(new string[] { "t", "extension" });
+			ExcludeOptions = new ReadOnlyCollection<string>(new string[] { "x", "exclude" });
 			HelpOptions = new ReadOnlyCollection<string>(new string[] { "h", "help" });
 			VersionOptions = new ReadOnlyCollection<string>(new string[] { "v", "version" });
 
@@ -65,6 +67,7 @@ namespace Gimela.Toolkit.CommandLines.Extract
 			Options.Add(ExtractOptionType.InputFileExtensionFilter, InputFileExtensionFilterOptions);
 			Options.Add(ExtractOptionType.OutputDirectory, OutputDirectoryOptions);
 			Options.Add(ExtractOptionType.OutputFileExtension, OutputFileExtensionOptions);
+			Options.Add(ExtractOptionType.Exclude, ExcludeOptions);
 			Options.Add(ExtractOptionType.Help, HelpOptions);
 			Options.Add(ExtractOptionType.Version, VersionOptions);
 		}
@@ -109,8 +112,10 @@ OPTIONS
 	{0}{0}Splits filter string to list with ',' or ';'.
 	-o, --output=FILE
 	{0}{0}The FILE represents the output file.
-	-x, --extension=OUTPUT_EXTENSION
+	-t, --extension=OUTPUT_EXTENSION
 	{0}{0}Name all the output files with extension OUTPUT_EXTENSION.
+	-x, --exclude=EXCLUDE_LIST
+	{0}{0}Filter and exclude the matches string with EXCLUDE_LIST.
 	-h, --help 
 	{0}{0}Display this help and exit.
 	-v, --version

@@ -26,19 +26,22 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace Gimela.Toolkit.CommandLines.Extract
+using System.Collections.Generic;
+
+namespace Gimela.Toolkit.CommandLines.Rename
 {
-  internal enum ExtractOptionType
+  internal class RenameCommandLineOptions
   {
-    None = 0,
-    RegexPattern,
-    InputDirectory,
-    Recursive,
-    InputFileExtensionFilter,
-    OutputDirectory,
-    OutputFileExtension,
-    Exclude,
-    Help,
-    Version,
+    public RenameCommandLineOptions()
+    {
+    }
+
+    public string RegexPattern { get; set; }
+    public string InputDirectory { get; set; }
+    public bool IsSetRecursive { get; set; }
+    public string PadString { get; set; }
+
+    public bool IsSetHelp { get; set; }
+    public bool IsSetVersion { get; set; }
   }
 }

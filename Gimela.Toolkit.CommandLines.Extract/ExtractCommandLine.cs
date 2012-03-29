@@ -93,8 +93,19 @@ namespace Gimela.Toolkit.CommandLines.Extract
     {
       try
       {
+        DateTime executeBeginTime = DateTime.Now;
+
         string path = WildcardCharacterHelper.TranslateWildcardDirectoryPath(options.InputDirectory);
         ExtractDirectory(path);
+
+        DateTime executeEndTime = DateTime.Now;
+        TimeSpan duration = executeEndTime - executeBeginTime;
+        OutputText(Environment.NewLine);
+        OutputText(string.Format(CultureInfo.CurrentCulture, "Extract Begin Time : {0}", executeBeginTime.ToString(@"yyyy-MM-dd HH:mm:ss")));
+        OutputText(string.Format(CultureInfo.CurrentCulture, "Extract End   Time : {0}", executeEndTime.ToString(@"yyyy-MM-dd HH:mm:ss")));
+        OutputText(string.Format(CultureInfo.CurrentCulture, "Extract Total Time : {0}", 
+          string.Format("{0:D2}h:{1:D2}m:{2:D2}s:{3:D3}ms", 
+          duration.Hours, duration.Minutes, duration.Seconds, duration.Milliseconds)));
       }
       catch (CommandLineException ex)
       {
@@ -176,9 +187,12 @@ namespace Gimela.Toolkit.CommandLines.Extract
           Match matchSalt = regexSalt.Match(readText[i]);
           if (matchSalt.Success)
           {
-            if (!matchSaltList.Contains(matchSalt.Groups[1].ToString()))
+            if (!options.Excludes.Contains(matchSalt.Groups[1].ToString()))
             {
-              matchSaltList.Add(matchSalt.Groups[1].ToString());
+              if (!matchSaltList.Contains(matchSalt.Groups[1].ToString()))
+              {
+                matchSaltList.Add(matchSalt.Groups[1].ToString());
+              }
             }
           }
 
@@ -333,6 +347,10 @@ namespace Gimela.Toolkit.CommandLines.Extract
               break;
             case ExtractOptionType.OutputFileExtension:
               targetOptions.OutputFileExtension = commandLineOptions.Arguments[arg].Trim();
+              break;
+            case ExtractOptionType.Exclude:
+              targetOptions.Excludes.AddRange(
+                commandLineOptions.Arguments[arg].Trim().Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries).ToList());
               break;
             case ExtractOptionType.Help:
               targetOptions.IsSetHelp = true;

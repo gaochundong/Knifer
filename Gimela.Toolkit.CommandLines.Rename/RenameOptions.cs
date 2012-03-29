@@ -31,71 +31,75 @@ using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
-namespace Gimela.Toolkit.CommandLines.RemoveDirectory
+namespace Gimela.Toolkit.CommandLines.Rename
 {
-	internal static class RemoveDirectoryOptions
+	internal static class RenameOptions
 	{
-		public static readonly ReadOnlyCollection<string> DirectoryOptions;
-		public static readonly ReadOnlyCollection<string> RecursiveOptions;
 		public static readonly ReadOnlyCollection<string> RegexPatternOptions;
+		public static readonly ReadOnlyCollection<string> InputDirectoryOptions;
+		public static readonly ReadOnlyCollection<string> RecursiveOptions;
+		public static readonly ReadOnlyCollection<string> PadStringOptions;
 		public static readonly ReadOnlyCollection<string> HelpOptions;
 		public static readonly ReadOnlyCollection<string> VersionOptions;
 
-		public static readonly IDictionary<RemoveDirectoryOptionType, ICollection<string>> Options;
+		public static readonly IDictionary<RenameOptionType, ICollection<string>> Options;
 
 		[SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
-		static RemoveDirectoryOptions()
+		static RenameOptions()
 		{
-			DirectoryOptions = new ReadOnlyCollection<string>(new string[] { "d", "D", "directory" });
-			RecursiveOptions = new ReadOnlyCollection<string>(new string[] { "r", "R", "recursive" });
 			RegexPatternOptions = new ReadOnlyCollection<string>(new string[] { "e", "regex" });
+			InputDirectoryOptions = new ReadOnlyCollection<string>(new string[] { "d", "dir", "directory" });
+			RecursiveOptions = new ReadOnlyCollection<string>(new string[] { "r", "recursive" });
+			PadStringOptions = new ReadOnlyCollection<string>(new string[] { "p", "pad" });
 			HelpOptions = new ReadOnlyCollection<string>(new string[] { "h", "help" });
 			VersionOptions = new ReadOnlyCollection<string>(new string[] { "v", "version" });
 
-			Options = new Dictionary<RemoveDirectoryOptionType, ICollection<string>>();
-			Options.Add(RemoveDirectoryOptionType.Directory, DirectoryOptions);
-			Options.Add(RemoveDirectoryOptionType.Recursive, RecursiveOptions);
-			Options.Add(RemoveDirectoryOptionType.RegexPattern, RegexPatternOptions);
-			Options.Add(RemoveDirectoryOptionType.Help, HelpOptions);
-			Options.Add(RemoveDirectoryOptionType.Version, VersionOptions);
+			Options = new Dictionary<RenameOptionType, ICollection<string>>();
+			Options.Add(RenameOptionType.RegexPattern, RegexPatternOptions);
+			Options.Add(RenameOptionType.InputDirectory, InputDirectoryOptions);
+			Options.Add(RenameOptionType.Recursive, RecursiveOptions);
+			Options.Add(RenameOptionType.PadString, PadStringOptions);
+			Options.Add(RenameOptionType.Help, HelpOptions);
+			Options.Add(RenameOptionType.Version, VersionOptions);
 		}
 
 		public static List<string> GetSingleOptions()
 		{
 			List<string> singleOptionList = new List<string>();
 
-			singleOptionList.AddRange(RemoveDirectoryOptions.RecursiveOptions);
-			singleOptionList.AddRange(RemoveDirectoryOptions.HelpOptions);
-			singleOptionList.AddRange(RemoveDirectoryOptions.VersionOptions);
+			singleOptionList.AddRange(RenameOptions.RecursiveOptions);
+			singleOptionList.AddRange(RenameOptions.HelpOptions);
+			singleOptionList.AddRange(RenameOptions.VersionOptions);
 
 			return singleOptionList;
 		}
 
 		#region Usage
 
-		public const string Version = @"RemoveDirectory v1.0";
+		public const string Version = @"Rename v1.0";
 		public static readonly string Usage = string.Format(CultureInfo.CurrentCulture, @"
 NAME
 
-	rmdir - remove directories 
+	rename - rename files
 
 SYNOPSIS
 
-	rmdir [OPTION]... DIRECTORY...
+	extract [OPTION] [REGEX] [INPUT_DIRECTORY] [PAD_STRING]
 
 DESCRIPTION
 
-	Remove the DIRECTORY(ies).
+	Rename will rename the specified files specified format.
 
 OPTIONS
 
-	-d, -D, --directory=DIRECTORY
-	{0}{0}Specify a directory, a path name of a starting point 
-	{0}{0}in the directory hierarchy.
-	-r, -R, --recursive
-	{0}{0}Remove the contents of directories recursively.
-	-e, --regex=PATTERN
-	{0}{0}Directory name matches regular expression pattern. 
+	-e PATTERN, --regex=PATTERN
+	{0}{0}Use PATTERN as the pattern.
+	-d, --dir, --directory=DIRECTORY
+	{0}{0}The input directory, read files in this directory.
+	-r, --recursive
+	{0}{0}Read all files under each directory recursively.
+	-p, --pad=PAD_STRING
+	{0}{0}Pad a number with leading zeros.
 	-h, --help 
 	{0}{0}Display this help and exit.
 	-v, --version
@@ -103,9 +107,9 @@ OPTIONS
 
 EXAMPLES
 
-	removedir -d . -r -e object
-	Remove all the 'object' directories in the current directory
-	and any subdirectory.
+	rename -e '^(.*\.)(\d+)(\.log)$' -d 'C:\Logs' -p '00000'
+	Search all files in directory 'C:\Logs', match the regex '^.*\.(\d+)\.log$',
+	and rename the files pad the integer with leading zeros '00000'.
 
 AUTHOR
 
@@ -122,9 +126,9 @@ COPYRIGHT
 
 		#endregion
 
-		public static RemoveDirectoryOptionType GetOptionType(string option)
+		public static RenameOptionType GetOptionType(string option)
 		{
-			RemoveDirectoryOptionType optionType = RemoveDirectoryOptionType.None;
+			RenameOptionType optionType = RenameOptionType.None;
 
 			foreach (var pair in Options)
 			{

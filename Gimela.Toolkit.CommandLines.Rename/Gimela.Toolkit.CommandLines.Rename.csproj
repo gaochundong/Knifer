@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{EB4B7037-6AD8-45E9-AC1B-98F03DC99C07}</ProjectGuid>
+    <ProjectGuid>{8D0B9322-D62A-4C8F-84C5-920D55109A8A}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Gimela.Toolkit.CommandLines.RemoveDirectory</RootNamespace>
-    <AssemblyName>rmdir</AssemblyName>
+    <RootNamespace>Gimela.Toolkit.CommandLines.Rename</RootNamespace>
+    <AssemblyName>rename</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -23,8 +23,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -42,10 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RemoveDirectoryCommandLine.cs" />
-    <Compile Include="RemoveDirectoryCommandLineOptions.cs" />
-    <Compile Include="RemoveDirectoryOptions.cs" />
-    <Compile Include="RemoveDirectoryOptionType.cs" />
+    <Compile Include="RenameCommandLine.cs" />
+    <Compile Include="RenameCommandLineOptions.cs" />
+    <Compile Include="RenameOptions.cs" />
+    <Compile Include="RenameOptionType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
