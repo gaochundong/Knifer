@@ -25,6 +25,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+using System.Collections.Generic;
 
 namespace Gimela.Toolkit.CommandLines.Replace
 {
@@ -32,6 +33,7 @@ namespace Gimela.Toolkit.CommandLines.Replace
   {
     public ReplaceCommandLineOptions()
     {
+      Extensions = new List<string>();
     }
 
     public string InputFile { get; set; }
@@ -41,6 +43,11 @@ namespace Gimela.Toolkit.CommandLines.Replace
 
     public string FromText { get; set; }
     public string ToText { get; set; }
+
+    public string InputDirectory { get; set; }
+    public bool IsSetInputDirectory { get; set; }
+    public bool IsSetRecursive { get; set; }
+    public List<string> Extensions { get; set; }
 
     public bool IsSetHelp { get; set; }
     public bool IsSetVersion { get; set; }

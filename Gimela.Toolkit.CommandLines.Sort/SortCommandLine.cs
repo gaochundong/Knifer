@@ -127,7 +127,7 @@ namespace Gimela.Toolkit.CommandLines.Sort
             readText.Reverse();
           }
 
-          using (StreamWriter sw = new StreamWriter(renamedFile, false))
+          using (StreamWriter sw = new StreamWriter(renamedFile, false, System.Text.Encoding.UTF8))
           {
             foreach (var item in readText)
             {

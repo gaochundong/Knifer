@@ -39,6 +39,9 @@ namespace Gimela.Toolkit.CommandLines.Replace
 		public static readonly ReadOnlyCollection<string> OutputFileOptions;
 		public static readonly ReadOnlyCollection<string> FromTextOptions;
 		public static readonly ReadOnlyCollection<string> ToTextOptions;
+		public static readonly ReadOnlyCollection<string> InputDirectoryOptions;
+		public static readonly ReadOnlyCollection<string> RecursiveOptions;
+		public static readonly ReadOnlyCollection<string> ExtensionOptions;
 		public static readonly ReadOnlyCollection<string> HelpOptions;
 		public static readonly ReadOnlyCollection<string> VersionOptions;
 
@@ -51,6 +54,9 @@ namespace Gimela.Toolkit.CommandLines.Replace
 			OutputFileOptions = new ReadOnlyCollection<string>(new string[] { "o", "outputfile" });
 			FromTextOptions = new ReadOnlyCollection<string>(new string[] { "f", "fromstring" });
 			ToTextOptions = new ReadOnlyCollection<string>(new string[] { "t", "tostring" });
+			InputDirectoryOptions = new ReadOnlyCollection<string>(new string[] { "d", "dir", "directory" });
+			RecursiveOptions = new ReadOnlyCollection<string>(new string[] { "r", "recursive" });
+			ExtensionOptions = new ReadOnlyCollection<string>(new string[] { "e", "extension" });
 			HelpOptions = new ReadOnlyCollection<string>(new string[] { "h", "help" });
 			VersionOptions = new ReadOnlyCollection<string>(new string[] { "v", "version" });
 
@@ -59,6 +65,9 @@ namespace Gimela.Toolkit.CommandLines.Replace
 			Options.Add(ReplaceOptionType.OutputFile, OutputFileOptions);
 			Options.Add(ReplaceOptionType.FromText, FromTextOptions);
 			Options.Add(ReplaceOptionType.ToText, ToTextOptions);
+			Options.Add(ReplaceOptionType.InputDirectory, InputDirectoryOptions);
+			Options.Add(ReplaceOptionType.Recursive, RecursiveOptions);
+			Options.Add(ReplaceOptionType.Extension, ExtensionOptions);
 			Options.Add(ReplaceOptionType.Help, HelpOptions);
 			Options.Add(ReplaceOptionType.Version, VersionOptions);
 		}
@@ -67,6 +76,7 @@ namespace Gimela.Toolkit.CommandLines.Replace
 		{
 			List<string> singleOptionList = new List<string>();
 
+			singleOptionList.AddRange(ReplaceOptions.RecursiveOptions);
 			singleOptionList.AddRange(ReplaceOptions.HelpOptions);
 			singleOptionList.AddRange(ReplaceOptions.VersionOptions);
 
@@ -99,6 +109,13 @@ OPTIONS
 	{0}{0}Represents a string to look for and to represents its replacement.
 	-t, --to=STRING
 	{0}{0}Represents a string to replace. 
+	-d, --dir, --directory=DIRECTORY
+	{0}{0}The input directory, read files in this directory.
+	-r, --recursive
+	{0}{0}Read all files under each directory recursively.
+	-e, --extension=FILTER_EXTENSION_LIST
+	{0}{0}Filter the files in input directory with FILTER_EXTENSION_LIST.
+	{0}{0}Splits filter string to list with ',' or ';'.
 	-h, --help 
 	{0}{0}Display this help and exit.
 	-v, --version
@@ -108,6 +125,10 @@ EXAMPLES
 
 	replace -i example.txt -f chundong -t gaochundong
 	Replace the word 'chundong' with the word 'gaochundong' in the example.txt file.
+
+	replace -f chundong -t gaochundong -d 'C:\Projects' -e '.cs,.csproj' -r
+	Search all files in directory 'C:\Logs', match the file extension in '.cs,.vb,.log',
+	and replace the word 'chundong' with the word 'gaochundong' in the all matched file.
 
 AUTHOR
 

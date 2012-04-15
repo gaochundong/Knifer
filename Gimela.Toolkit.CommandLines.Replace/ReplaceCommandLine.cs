@@ -32,6 +32,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Gimela.Toolkit.CommandLines.Foundation;
 
 namespace Gimela.Toolkit.CommandLines.Replace
@@ -41,6 +42,7 @@ namespace Gimela.Toolkit.CommandLines.Replace
     #region Fields
 
     private ReplaceCommandLineOptions options;
+    private readonly string executingFile = Assembly.GetExecutingAssembly().Location;
 
     #endregion
 
@@ -88,8 +90,16 @@ namespace Gimela.Toolkit.CommandLines.Replace
     {
       try
       {
-        string path = WildcardCharacterHelper.TranslateWildcardFilePath(options.InputFile);
-        Replace(path);
+        if (options.IsSetInputDirectory)
+        {
+          string path = WildcardCharacterHelper.TranslateWildcardFilePath(options.InputDirectory);
+          ReplaceDirectory(path);
+        }
+        else
+        {
+          string path = WildcardCharacterHelper.TranslateWildcardFilePath(options.InputFile);
+          ReplaceFile(path);
+        }
       }
       catch (CommandLineException ex)
       {
@@ -97,69 +107,141 @@ namespace Gimela.Toolkit.CommandLines.Replace
       }
     }
 
-    private void Replace(string path)
+    private void ReplaceDirectory(string path)
     {
-      FileInfo file = new FileInfo(path);
-      if (!file.Exists)
+      DirectoryInfo directory = new DirectoryInfo(path);
+      if (!directory.Exists)
       {
         throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
-          "No such file -- {0}", file.FullName));
+          "No such directory -- {0}", directory.FullName));
       }
       else
       {
-        try
+        FileInfo[] files = directory.GetFiles();
+        foreach (var file in files.OrderBy(f => f.Name))
         {
-          string renamedFile = file.FullName + ".original";
-          File.Delete(renamedFile);
+          ReplaceFile(file.FullName);
+        }
 
-          using (StreamReader sr = new StreamReader(file.FullName))
-          using (StreamWriter sw = new StreamWriter(renamedFile, false))
+        if (options.IsSetRecursive)
+        {
+          DirectoryInfo[] directories = directory.GetDirectories();
+          foreach (var item in directories.OrderBy(d => d.Name))
           {
-            while (!sr.EndOfStream)
-            {
-              sw.WriteLine(sr.ReadLine().Replace(options.FromText, options.ToText));
-            }
+            ReplaceDirectory(item.FullName);
           }
-
-          if (options.IsSetOutputFile)
-          {
-            string outputPath = WildcardCharacterHelper.TranslateWildcardFilePath(options.OutputFile);
-            File.Delete(outputPath);
-            File.Move(renamedFile, outputPath);
-          }
-          else
-          {
-            File.Delete(file.FullName);
-            File.Move(renamedFile, file.FullName);
-          }
-          File.Delete(renamedFile);
-        }
-        catch (UnauthorizedAccessException ex)
-        {
-          throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
-            "Operation exception -- {0}, {1}", file.FullName, ex.Message));
-        }
-        catch (PathTooLongException ex)
-        {
-          throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
-            "Operation exception -- {0}, {1}", file.FullName, ex.Message));
-        }
-        catch (DirectoryNotFoundException ex)
-        {
-          throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
-            "Operation exception -- {0}, {1}", file.FullName, ex.Message));
-        }
-        catch (NotSupportedException ex)
-        {
-          throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
-            "Operation exception -- {0}, {1}", file.FullName, ex.Message));
-        }
-        catch (IOException ex)
-        {
-          throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
-            "Operation exception -- {0}, {1}", file.FullName, ex.Message));
         }
       }
+    }
+
+    private void ReplaceFile(string path)
+    {
+      if (IsCanReplaceFile(path))
+      {
+        FileInfo file = new FileInfo(path);
+        if (!file.Exists)
+        {
+          throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+            "No such file -- {0}", file.FullName));
+        }
+        else
+        {
+          try
+          {
+            string renamedFile = file.FullName + ".original";
+            File.Delete(renamedFile);
+
+            using (StreamReader sr = new StreamReader(file.FullName))
+            using (StreamWriter sw = new StreamWriter(renamedFile, false, System.Text.Encoding.UTF8))
+            {
+              while (!sr.EndOfStream)
+              {
+                sw.WriteLine(sr.ReadLine().Replace(options.FromText, options.ToText));
+              }
+            }
+
+            if (options.IsSetOutputFile)
+            {
+              string outputPath = WildcardCharacterHelper.TranslateWildcardFilePath(options.OutputFile);
+              File.Delete(outputPath);
+              File.Move(renamedFile, outputPath);
+              OutputText(string.Format(CultureInfo.CurrentCulture, "File : {0}", outputPath));
+            }
+            else
+            {
+              File.Delete(file.FullName);
+              File.Move(renamedFile, file.FullName);
+              OutputText(string.Format(CultureInfo.CurrentCulture, "File : {0}", file.FullName));
+            }
+            File.Delete(renamedFile);
+          }
+          catch (UnauthorizedAccessException ex)
+          {
+            throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+              "Operation exception -- {0}, {1}", file.FullName, ex.Message));
+          }
+          catch (PathTooLongException ex)
+          {
+            throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+              "Operation exception -- {0}, {1}", file.FullName, ex.Message));
+          }
+          catch (DirectoryNotFoundException ex)
+          {
+            throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+              "Operation exception -- {0}, {1}", file.FullName, ex.Message));
+          }
+          catch (NotSupportedException ex)
+          {
+            throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+              "Operation exception -- {0}, {1}", file.FullName, ex.Message));
+          }
+          catch (IOException ex)
+          {
+            throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+              "Operation exception -- {0}, {1}", file.FullName, ex.Message));
+          }
+        }
+      }
+    }
+
+    private bool IsCanReplaceFile(string file)
+    {
+      bool result = false;
+
+      if (string.IsNullOrEmpty(file))
+      {
+        result = false;
+      }
+      else if (executingFile == file)
+      {
+        result = false;
+      }
+      else if (file.ToUpperInvariant().EndsWith(".EXE", StringComparison.CurrentCulture))
+      {
+        result = false;
+      }
+      else if (options.Extensions.Count > 0)
+      {
+        bool isFound = false;
+        foreach (var filter in options.Extensions)
+        {
+          if (file.EndsWith(filter, StringComparison.CurrentCulture))
+          {
+            isFound = true;
+            break;
+          }
+        }
+        if (isFound)
+        {
+          result = true;
+        }
+      }
+      else
+      {
+        result = true;
+      }
+
+      return result;
     }
 
     #endregion
@@ -200,6 +282,17 @@ namespace Gimela.Toolkit.CommandLines.Replace
             case ReplaceOptionType.ToText:
               targetOptions.ToText = commandLineOptions.Arguments[arg];
               break;
+            case ReplaceOptionType.InputDirectory:
+              targetOptions.IsSetInputDirectory = true;
+              targetOptions.InputDirectory = commandLineOptions.Arguments[arg];
+              break;
+            case ReplaceOptionType.Recursive:
+              targetOptions.IsSetRecursive = true;
+              break;
+            case ReplaceOptionType.Extension:
+              targetOptions.Extensions.AddRange(
+                commandLineOptions.Arguments[arg].Trim().Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries).ToList());
+              break;
             case ReplaceOptionType.Help:
               targetOptions.IsSetHelp = true;
               break;
@@ -225,11 +318,38 @@ namespace Gimela.Toolkit.CommandLines.Replace
     {
       if (!checkedOptions.IsSetHelp && !checkedOptions.IsSetVersion)
       {
-        if (string.IsNullOrEmpty(checkedOptions.InputFile))
+        if (checkedOptions.IsSetInputDirectory)
         {
-          throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
-            "Option used in invalid context -- {0}", "must specify a input file."));
+          if (string.IsNullOrEmpty(checkedOptions.InputDirectory))
+          {
+            throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+              "Option used in invalid context -- {0}", "must specify a input directory."));
+          }
+          if (!Directory.Exists(checkedOptions.InputDirectory))
+          {
+            throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+              "Option used in invalid context -- {0}", "no such input directory."));
+          }
+          if (checkedOptions.IsSetOutputFile)
+          {
+            throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+              "Option used in invalid context -- {0}", "donot support output file path when specify the input directory."));
+          }
         }
+        else
+        {
+          if (string.IsNullOrEmpty(checkedOptions.InputFile))
+          {
+            throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+              "Option used in invalid context -- {0}", "must specify a input file."));
+          }
+          if (checkedOptions.IsSetOutputFile && string.IsNullOrEmpty(checkedOptions.OutputFile))
+          {
+            throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+              "Option used in invalid context -- {0}", "bad output file path."));
+          }
+        }
+
         if (string.IsNullOrEmpty(checkedOptions.FromText))
         {
           throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
@@ -239,11 +359,6 @@ namespace Gimela.Toolkit.CommandLines.Replace
         {
           throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
             "Option used in invalid context -- {0}", "must specify a to string."));
-        }
-        if (checkedOptions.IsSetOutputFile && string.IsNullOrEmpty(checkedOptions.OutputFile))
-        {
-          throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
-            "Option used in invalid context -- {0}", "bad output file path."));
         }
       }
     }

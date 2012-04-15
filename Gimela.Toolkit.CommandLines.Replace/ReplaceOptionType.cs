@@ -35,6 +35,9 @@ namespace Gimela.Toolkit.CommandLines.Replace
     OutputFile,
     FromText,
     ToText,
+    InputDirectory,
+    Recursive,
+    Extension,
     Help,
     Version,
   }

@@ -125,7 +125,7 @@ namespace Gimela.Toolkit.CommandLines.AddText
             char[] buffer = new char[10000];
 
             using (StreamReader sr = new StreamReader(renamedFile))
-            using (StreamWriter sw = new StreamWriter(file.FullName, false))
+            using (StreamWriter sw = new StreamWriter(file.FullName, false, System.Text.Encoding.UTF8))
             {
               sw.Write(text);
 

@@ -127,7 +127,7 @@ namespace Gimela.Toolkit.CommandLines.Unique
             uniqueText.Sort();
           }
 
-          using (StreamWriter sw = new StreamWriter(renamedFile, false))
+          using (StreamWriter sw = new StreamWriter(renamedFile, false, System.Text.Encoding.UTF8))
           {
             foreach (var item in uniqueText)
             {
