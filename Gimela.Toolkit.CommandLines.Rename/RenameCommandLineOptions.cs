@@ -34,6 +34,7 @@ namespace Gimela.Toolkit.CommandLines.Rename
   {
     public RenameCommandLineOptions()
     {
+      Excludes = new List<string>();
     }
 
     public string RegexPattern { get; set; }
@@ -42,6 +43,8 @@ namespace Gimela.Toolkit.CommandLines.Rename
 
     public string OutputPattern { get; set; }
     public bool IsSetFolder { get; set; }
+
+    public List<string> Excludes { get; set; }
 
     public bool IsSetPadString { get; set; }
     public string PadString { get; set; }

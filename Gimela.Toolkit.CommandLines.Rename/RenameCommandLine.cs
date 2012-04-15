@@ -134,13 +134,16 @@ namespace Gimela.Toolkit.CommandLines.Rename
             directories = directory.GetDirectories();
             foreach (var item in directories.OrderBy(d => d.Name))
             {
-              if (item.Name.Contains(options.RegexPattern))
+              if (!options.Excludes.Contains(item.Name))
               {
-                string oldPath = item.FullName;
-                string newPath = Path.Combine(item.Parent.FullName, item.Name.Replace(options.RegexPattern, options.OutputPattern));
-                item.MoveTo(newPath);
-                OutputText(string.Format(CultureInfo.CurrentCulture, "Folder From: {0}", oldPath));
-                OutputText(string.Format(CultureInfo.CurrentCulture, "       To  : {0}", newPath));
+                if (item.Name.Contains(options.RegexPattern))
+                {
+                  string oldPath = item.FullName;
+                  string newPath = Path.Combine(item.Parent.FullName, item.Name.Replace(options.RegexPattern, options.OutputPattern));
+                  item.MoveTo(newPath);
+                  OutputText(string.Format(CultureInfo.CurrentCulture, "Folder From: {0}", oldPath));
+                  OutputText(string.Format(CultureInfo.CurrentCulture, "       To  : {0}", newPath));
+                }
               }
             }
           }
@@ -148,7 +151,10 @@ namespace Gimela.Toolkit.CommandLines.Rename
           directories = directory.GetDirectories();
           foreach (var item in directories.OrderBy(d => d.Name))
           {
-            SearchDirectory(item.FullName);
+            if (!options.Excludes.Contains(item.Name))
+            {
+              SearchDirectory(item.FullName);
+            }
           }
         }
       }
@@ -273,6 +279,10 @@ namespace Gimela.Toolkit.CommandLines.Rename
               break;
             case RenameOptionType.Folder:
               targetOptions.IsSetFolder = true;
+              break;
+            case RenameOptionType.Exclude:
+              targetOptions.Excludes.AddRange(
+                commandLineOptions.Arguments[arg].Trim().Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries).ToList());
               break;
             case RenameOptionType.PadString:
               targetOptions.IsSetPadString = true;

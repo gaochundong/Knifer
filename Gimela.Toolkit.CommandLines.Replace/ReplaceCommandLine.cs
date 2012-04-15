@@ -220,6 +220,10 @@ namespace Gimela.Toolkit.CommandLines.Replace
       {
         result = false;
       }
+      else if (file.ToUpperInvariant().EndsWith(".DLL", StringComparison.CurrentCulture))
+      {
+        result = false;
+      }
       else if (options.Extensions.Count > 0)
       {
         bool isFound = false;

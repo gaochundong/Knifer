@@ -40,6 +40,7 @@ namespace Gimela.Toolkit.CommandLines.Rename
 		public static readonly ReadOnlyCollection<string> RecursiveOptions;
 		public static readonly ReadOnlyCollection<string> OutputPatternOptions;
 		public static readonly ReadOnlyCollection<string> FolderOptions;
+		public static readonly ReadOnlyCollection<string> ExcludeOptions;
 		public static readonly ReadOnlyCollection<string> PadStringOptions;
 		public static readonly ReadOnlyCollection<string> HelpOptions;
 		public static readonly ReadOnlyCollection<string> VersionOptions;
@@ -54,6 +55,7 @@ namespace Gimela.Toolkit.CommandLines.Rename
 			RecursiveOptions = new ReadOnlyCollection<string>(new string[] { "r", "recursive" });
 			OutputPatternOptions = new ReadOnlyCollection<string>(new string[] { "o", "output" });
 			FolderOptions = new ReadOnlyCollection<string>(new string[] { "f", "folder" });
+			ExcludeOptions = new ReadOnlyCollection<string>(new string[] { "x", "exclude" });
 			PadStringOptions = new ReadOnlyCollection<string>(new string[] { "p", "pad" });
 			HelpOptions = new ReadOnlyCollection<string>(new string[] { "h", "help" });
 			VersionOptions = new ReadOnlyCollection<string>(new string[] { "v", "version" });
@@ -64,6 +66,7 @@ namespace Gimela.Toolkit.CommandLines.Rename
 			Options.Add(RenameOptionType.Recursive, RecursiveOptions);
 			Options.Add(RenameOptionType.OutputPattern, OutputPatternOptions);
 			Options.Add(RenameOptionType.Folder, FolderOptions);
+			Options.Add(RenameOptionType.Exclude, ExcludeOptions);
 			Options.Add(RenameOptionType.PadString, PadStringOptions);
 			Options.Add(RenameOptionType.Help, HelpOptions);
 			Options.Add(RenameOptionType.Version, VersionOptions);
@@ -109,6 +112,9 @@ OPTIONS
 	{0}{0}Use PATTERN as the output file name pattern.
 	-f, --folder
 	{0}{0}Also rename the folder.
+	-x, --exclude=EXCLUDE_LIST
+	{0}{0}Exclude the specified directory names.
+	{0}{0}Splits filter string to list with ',' or ';'.
 	-p, --pad=PAD_STRING
 	{0}{0}Pad a number with leading zeros.
 	-h, --help 
@@ -122,7 +128,7 @@ EXAMPLES
 	Search all files in directory 'C:\Logs', match the regex '^.*\.(\d+)\.log$',
 	and rename the files pad the integer with leading zeros '00000'.
 
-	rename.exe -e '.chundong.' -d 'C:\Logs' -o '.good.' -f -r
+	rename.exe -e '.chundong.' -d 'C:\Logs' -o '.good.' -x 'bin,obj' -f -r
 	Search all files in directory 'C:\Logs', match the pattern '.chundong.',
 	and rename the files and folders repalce '.chundong.' to '.good.'.
 

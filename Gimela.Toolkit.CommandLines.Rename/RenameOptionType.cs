@@ -36,6 +36,7 @@ namespace Gimela.Toolkit.CommandLines.Rename
     Recursive,
     OutputPattern,
     Folder,
+    Exclude,
     PadString,
     Help,
     Version,
