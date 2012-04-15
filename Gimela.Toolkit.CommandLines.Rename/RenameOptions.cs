@@ -38,6 +38,8 @@ namespace Gimela.Toolkit.CommandLines.Rename
 		public static readonly ReadOnlyCollection<string> RegexPatternOptions;
 		public static readonly ReadOnlyCollection<string> InputDirectoryOptions;
 		public static readonly ReadOnlyCollection<string> RecursiveOptions;
+		public static readonly ReadOnlyCollection<string> OutputPatternOptions;
+		public static readonly ReadOnlyCollection<string> FolderOptions;
 		public static readonly ReadOnlyCollection<string> PadStringOptions;
 		public static readonly ReadOnlyCollection<string> HelpOptions;
 		public static readonly ReadOnlyCollection<string> VersionOptions;
@@ -50,6 +52,8 @@ namespace Gimela.Toolkit.CommandLines.Rename
 			RegexPatternOptions = new ReadOnlyCollection<string>(new string[] { "e", "regex" });
 			InputDirectoryOptions = new ReadOnlyCollection<string>(new string[] { "d", "dir", "directory" });
 			RecursiveOptions = new ReadOnlyCollection<string>(new string[] { "r", "recursive" });
+			OutputPatternOptions = new ReadOnlyCollection<string>(new string[] { "o", "output" });
+			FolderOptions = new ReadOnlyCollection<string>(new string[] { "f", "folder" });
 			PadStringOptions = new ReadOnlyCollection<string>(new string[] { "p", "pad" });
 			HelpOptions = new ReadOnlyCollection<string>(new string[] { "h", "help" });
 			VersionOptions = new ReadOnlyCollection<string>(new string[] { "v", "version" });
@@ -58,6 +62,8 @@ namespace Gimela.Toolkit.CommandLines.Rename
 			Options.Add(RenameOptionType.RegexPattern, RegexPatternOptions);
 			Options.Add(RenameOptionType.InputDirectory, InputDirectoryOptions);
 			Options.Add(RenameOptionType.Recursive, RecursiveOptions);
+			Options.Add(RenameOptionType.OutputPattern, OutputPatternOptions);
+			Options.Add(RenameOptionType.Folder, FolderOptions);
 			Options.Add(RenameOptionType.PadString, PadStringOptions);
 			Options.Add(RenameOptionType.Help, HelpOptions);
 			Options.Add(RenameOptionType.Version, VersionOptions);
@@ -68,6 +74,7 @@ namespace Gimela.Toolkit.CommandLines.Rename
 			List<string> singleOptionList = new List<string>();
 
 			singleOptionList.AddRange(RenameOptions.RecursiveOptions);
+			singleOptionList.AddRange(RenameOptions.FolderOptions);
 			singleOptionList.AddRange(RenameOptions.HelpOptions);
 			singleOptionList.AddRange(RenameOptions.VersionOptions);
 
@@ -93,11 +100,15 @@ DESCRIPTION
 OPTIONS
 
 	-e PATTERN, --regex=PATTERN
-	{0}{0}Use PATTERN as the pattern.
+	{0}{0}Use PATTERN as the file matched pattern.
 	-d, --dir, --directory=DIRECTORY
 	{0}{0}The input directory, read files in this directory.
 	-r, --recursive
 	{0}{0}Read all files under each directory recursively.
+	-o PATTERN, --output=PATTERN
+	{0}{0}Use PATTERN as the output file name pattern.
+	-f, --folder
+	{0}{0}Also rename the folder.
 	-p, --pad=PAD_STRING
 	{0}{0}Pad a number with leading zeros.
 	-h, --help 
@@ -107,9 +118,13 @@ OPTIONS
 
 EXAMPLES
 
-	rename -e '^(.*\.)(\d+)(\.log)$' -d 'C:\Logs' -p '00000'
+	rename.exe -e '^(.*\.)(\d+)(\.log)$' -d 'C:\Logs' -p '00000'
 	Search all files in directory 'C:\Logs', match the regex '^.*\.(\d+)\.log$',
 	and rename the files pad the integer with leading zeros '00000'.
+
+	rename.exe -e '.chundong.' -d 'C:\Logs' -o '.good.' -f -r
+	Search all files in directory 'C:\Logs', match the pattern '.chundong.',
+	and rename the files and folders repalce '.chundong.' to '.good.'.
 
 AUTHOR
 

@@ -39,6 +39,11 @@ namespace Gimela.Toolkit.CommandLines.Rename
     public string RegexPattern { get; set; }
     public string InputDirectory { get; set; }
     public bool IsSetRecursive { get; set; }
+
+    public string OutputPattern { get; set; }
+    public bool IsSetFolder { get; set; }
+
+    public bool IsSetPadString { get; set; }
     public string PadString { get; set; }
 
     public bool IsSetHelp { get; set; }

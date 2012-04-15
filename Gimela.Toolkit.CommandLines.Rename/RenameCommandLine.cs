@@ -94,7 +94,14 @@ namespace Gimela.Toolkit.CommandLines.Rename
       try
       {
         string path = WildcardCharacterHelper.TranslateWildcardDirectoryPath(options.InputDirectory);
-        SearchDirectory(path);
+        if (options.IsSetPadString)
+        {
+          SearchDirectoryForPadString(path);
+        }
+        else
+        {
+          SearchDirectory(path);
+        }
       }
       catch (CommandLineException ex)
       {
@@ -120,7 +127,25 @@ namespace Gimela.Toolkit.CommandLines.Rename
 
         if (options.IsSetRecursive)
         {
-          DirectoryInfo[] directories = directory.GetDirectories();
+          DirectoryInfo[] directories;
+
+          if (options.IsSetFolder)
+          {
+            directories = directory.GetDirectories();
+            foreach (var item in directories.OrderBy(d => d.Name))
+            {
+              if (item.Name.Contains(options.RegexPattern))
+              {
+                string oldPath = item.FullName;
+                string newPath = Path.Combine(item.Parent.FullName, item.Name.Replace(options.RegexPattern, options.OutputPattern));
+                item.MoveTo(newPath);
+                OutputText(string.Format(CultureInfo.CurrentCulture, "Folder From: {0}", oldPath));
+                OutputText(string.Format(CultureInfo.CurrentCulture, "       To  : {0}", newPath));
+              }
+            }
+          }
+
+          directories = directory.GetDirectories();
           foreach (var item in directories.OrderBy(d => d.Name))
           {
             SearchDirectory(item.FullName);
@@ -139,13 +164,60 @@ namespace Gimela.Toolkit.CommandLines.Rename
       }
       else
       {
+        if (file.Name.Contains(options.RegexPattern))
+        {
+          string newPath = Path.Combine(file.Directory.FullName, file.Name.Replace(options.RegexPattern, options.OutputPattern));
+          file.MoveTo(newPath);
+          OutputText(string.Format(CultureInfo.CurrentCulture, "File From: {0}", path));
+          OutputText(string.Format(CultureInfo.CurrentCulture, "     To  : {0}", newPath));
+        }
+      }
+    }
+
+    private void SearchDirectoryForPadString(string path)
+    {
+      DirectoryInfo directory = new DirectoryInfo(path);
+      if (!directory.Exists)
+      {
+        throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+          "No such directory -- {0}", directory.FullName));
+      }
+      else
+      {
+        FileInfo[] files = directory.GetFiles();
+        foreach (var file in files.OrderBy(f => f.Name))
+        {
+          RenameFileWithPadString(file.FullName);
+        }
+
+        if (options.IsSetRecursive)
+        {
+          DirectoryInfo[] directories = directory.GetDirectories();
+          foreach (var item in directories.OrderBy(d => d.Name))
+          {
+            SearchDirectory(item.FullName);
+          }
+        }
+      }
+    }
+
+    private void RenameFileWithPadString(string path)
+    {
+      FileInfo file = new FileInfo(path);
+      if (!file.Exists)
+      {
+        throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+          "No such file -- {0}", file.FullName));
+      }
+      else
+      {
         Regex r = new Regex(options.RegexPattern, RegexOptions.None);
         Match m = r.Match(file.Name);
         if (m.Success)
         {
           if (m.Groups.Count >= 4)
           {
-            string pattern = string.Format(CultureInfo.CurrentCulture, 
+            string pattern = string.Format(CultureInfo.CurrentCulture,
               "#0%#1:{0}%#2%", options.PadString);
             pattern = pattern.Replace("#", "{").Replace("%", "}");
             string newName = string.Format(CultureInfo.CurrentCulture,
@@ -196,7 +268,14 @@ namespace Gimela.Toolkit.CommandLines.Rename
             case RenameOptionType.Recursive:
               targetOptions.IsSetRecursive = true;
               break;
+            case RenameOptionType.OutputPattern:
+              targetOptions.OutputPattern = commandLineOptions.Arguments[arg];
+              break;
+            case RenameOptionType.Folder:
+              targetOptions.IsSetFolder = true;
+              break;
             case RenameOptionType.PadString:
+              targetOptions.IsSetPadString = true;
               targetOptions.PadString = commandLineOptions.Arguments[arg];
               break;
             case RenameOptionType.Help:
@@ -221,12 +300,6 @@ namespace Gimela.Toolkit.CommandLines.Rename
           throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
             "Option used in invalid context -- {0}", "must specify a regex pattern."));
         }
-        if (!checkedOptions.RegexPattern.Contains("(")
-          || !checkedOptions.RegexPattern.Contains(")"))
-        {
-          throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
-            "Option used in invalid context -- {0}", "regex pattern must contain a pair of '()'."));
-        }
         if (string.IsNullOrEmpty(checkedOptions.InputDirectory))
         {
           throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
@@ -237,10 +310,26 @@ namespace Gimela.Toolkit.CommandLines.Rename
           throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
             "Option used in invalid context -- {0}", "no such input directory."));
         }
-        if (string.IsNullOrEmpty(checkedOptions.PadString))
+        if (checkedOptions.IsSetPadString)
         {
-          throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
-            "Option used in invalid context -- {0}", "bad pad string format."));
+          if (string.IsNullOrEmpty(checkedOptions.PadString))
+          {
+            throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+              "Option used in invalid context -- {0}", "bad pad string format."));
+          }
+          if (!checkedOptions.RegexPattern.Contains("(") || !checkedOptions.RegexPattern.Contains(")"))
+          {
+            throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+              "Option used in invalid context -- {0}", "regex pattern must contain a pair of '()'."));
+          }
+        }
+        else
+        {
+          if (string.IsNullOrEmpty(checkedOptions.OutputPattern))
+          {
+            throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+              "Option used in invalid context -- {0}", "bad output pattern."));
+          }
         }
       }
     }

@@ -34,6 +34,8 @@ namespace Gimela.Toolkit.CommandLines.Rename
     RegexPattern,
     InputDirectory,
     Recursive,
+    OutputPattern,
+    Folder,
     PadString,
     Help,
     Version,
