@@ -126,8 +126,8 @@ EXAMPLES
 	replace -i example.txt -f chundong -t gaochundong
 	Replace the word 'chundong' with the word 'gaochundong' in the example.txt file.
 
-	replace -f chundong -t gaochundong -d 'C:\Projects' -e '.cs,.csproj' -r
-	Search all files in directory 'C:\Logs', match the file extension in '.cs,.vb,.log',
+	replace -f chundong -t gaochundong -d 'C:\Projects' -e '.cs,.csproj,.sln' -r
+	Search all files in directory 'C:\Logs', match file extensions in '.cs,.csproj,.sln',
 	and replace the word 'chundong' with the word 'gaochundong' in the all matched file.
 
 AUTHOR
