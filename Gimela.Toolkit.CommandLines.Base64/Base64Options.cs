@@ -76,7 +76,6 @@ namespace Gimela.Toolkit.CommandLines.Base64
 
 		#region Usage
 
-		public const string Version = @"Base64 v1.0";
 		public static readonly string Usage = string.Format(CultureInfo.CurrentCulture, @"
 NAME
 

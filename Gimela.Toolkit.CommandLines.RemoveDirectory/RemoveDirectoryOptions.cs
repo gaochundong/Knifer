@@ -73,7 +73,6 @@ namespace Gimela.Toolkit.CommandLines.RemoveDirectory
 
 		#region Usage
 
-		public const string Version = @"RemoveDirectory v1.0";
 		public static readonly string Usage = string.Format(CultureInfo.CurrentCulture, @"
 NAME
 

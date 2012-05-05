@@ -63,7 +63,6 @@ namespace Gimela.Toolkit.CommandLines.Environment
 
 		#region Usage
 
-		public const string Version = @"Environment v1.0";
 		public static readonly string Usage = string.Format(CultureInfo.CurrentCulture, @"
 NAME
 

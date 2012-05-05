@@ -71,7 +71,7 @@ namespace Gimela.Toolkit.CommandLines.RemoveDirectory
       }
       else if (options.IsSetVersion)
       {
-        RaiseCommandLineUsage(this, RemoveDirectoryOptions.Version);
+        RaiseCommandLineUsage(this, Version);
       }
       else
       {

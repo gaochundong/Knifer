@@ -71,7 +71,7 @@ namespace Gimela.Toolkit.CommandLines.Count
       }
       else if (options.IsSetVersion)
       {
-        RaiseCommandLineUsage(this, CountOptions.Version);
+        RaiseCommandLineUsage(this, Version);
       }
       else
       {

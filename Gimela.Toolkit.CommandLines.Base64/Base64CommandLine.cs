@@ -71,7 +71,7 @@ namespace Gimela.Toolkit.CommandLines.Base64
       }
       else if (options.IsSetVersion)
       {
-        RaiseCommandLineUsage(this, Base64Options.Version);
+        RaiseCommandLineUsage(this, Version);
       }
       else
       {

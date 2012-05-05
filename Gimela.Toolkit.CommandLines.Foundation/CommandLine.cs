@@ -30,6 +30,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Text;
 
 namespace Gimela.Toolkit.CommandLines.Foundation
 {
@@ -127,6 +128,57 @@ namespace Gimela.Toolkit.CommandLines.Foundation
     {
       RaiseCommandLineDataChanged(this, string.Format(CultureInfo.CurrentCulture,
         "{0}{1}", text, Environment.NewLine));
+    }
+
+    protected void OutputFormatText(string format, params object[] args)
+    {
+      RaiseCommandLineDataChanged(this, string.Format(CultureInfo.CurrentCulture, format, args));
+    }
+
+    protected void OutputFormatText(string format, object arg0)
+    {
+      OutputFormatText(format, arg0);
+    }
+
+    protected void OutputFormatText(string format, object arg0, object arg1)
+    {
+      OutputFormatText(format, arg0, arg1);
+    }
+
+    protected void OutputFormatText(string format, object arg0, object arg1, object arg2)
+    {
+      OutputFormatText(format, arg0, arg1, arg2);
+    }
+
+    #endregion
+
+    #region Version
+
+    public virtual string Version
+    {
+      get
+      {
+        StringBuilder sb = new StringBuilder();
+
+        sb.AppendLine();
+
+        sb.AppendLine(string.Format(CultureInfo.CurrentCulture, "{0} {1}",
+          VersionHelper.GetExecutingAssemblyName(),
+          VersionHelper.GetExecutingAssemblyVersion()));
+
+        sb.AppendLine();
+
+        sb.AppendLine(string.Format(CultureInfo.CurrentCulture, "Company  : {0}",
+          VersionHelper.GetExecutingAssemblyCompanyName()));
+
+        sb.AppendLine(string.Format(CultureInfo.CurrentCulture, "Product  : {0}",
+          VersionHelper.GetExecutingAssemblyProductName()));
+
+        sb.AppendLine(string.Format(CultureInfo.CurrentCulture, "Copyright: {0}",
+          VersionHelper.GetExecutingAssemblyCopyright()));
+
+        return sb.ToString();
+      }
     }
 
     #endregion

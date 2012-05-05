@@ -71,7 +71,7 @@ namespace Gimela.Toolkit.CommandLines.Join
       }
       else if (options.IsSetVersion)
       {
-        RaiseCommandLineUsage(this, JoinOptions.Version);
+        RaiseCommandLineUsage(this, Version);
       }
       else
       {

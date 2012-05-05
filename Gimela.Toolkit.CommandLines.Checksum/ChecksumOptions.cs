@@ -72,7 +72,6 @@ namespace Gimela.Toolkit.CommandLines.Checksum
 
 		#region Usage
 
-		public const string Version = @"Checksum v1.0";
 		public static readonly string Usage = string.Format(CultureInfo.CurrentCulture, @"
 NAME
 

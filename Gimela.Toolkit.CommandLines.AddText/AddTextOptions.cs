@@ -80,7 +80,6 @@ namespace Gimela.Toolkit.CommandLines.AddText
 
 		#region Usage
 
-		public const string Version = @"AddText v1.0";
 		public static readonly string Usage = string.Format(CultureInfo.CurrentCulture, @"
 NAME
 

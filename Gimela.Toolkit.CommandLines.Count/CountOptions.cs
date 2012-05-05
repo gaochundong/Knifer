@@ -70,7 +70,6 @@ namespace Gimela.Toolkit.CommandLines.Count
 
 		#region Usage
 
-		public const string Version = @"Count v1.0";
 		public static readonly string Usage = string.Format(CultureInfo.CurrentCulture, @"
 NAME
 

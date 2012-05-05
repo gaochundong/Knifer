@@ -72,7 +72,7 @@ namespace Gimela.Toolkit.CommandLines.Encode
       }
       else if (options.IsSetVersion)
       {
-        RaiseCommandLineUsage(this, EncodeOptions.Version);
+        RaiseCommandLineUsage(this, Version);
       }
       else
       {

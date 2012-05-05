@@ -7,25 +7,28 @@ This toolkit includes a set of tools that can be run from the Windows command-li
 Command List
 -----------------------
 
-+ tail 		- show the last parts of a file
-+ head 		- show the top parts of a file
-+ grep 		- search a regex pattern in a file
-+ encode 	- encode or change the encoding of a file
-+ checksum 	- checksum value of a text or file
-+ base64 	- translate string to base64 text
-+ count 	- count number of file types in a folder
-+ find 		- find a file in directory
-+ env 		- show system environments
-+ split 	- split a file to multi-files
-+ join 		- join multi-files to a single file
-+ rm 		- remove a file
-+ removedir - remove a directory
 + addtext 	- add text on the beginning of a file
++ base64 	- translate string to base64 text
++ checksum 	- checksum value of a text or file
++ count 	- count number of file types in a folder
++ encode 	- encode or change the encoding of a file
++ env 		- show system environments
++ extract 	- extract regex matches to files
++ find 		- find a file in directory
++ grep 		- search a regex pattern in a file
++ head 		- show the top parts of a file
++ join 		- join multi-files to a single file
++ kill		- terminate a process
++ ls		- list contents in directory
++ ps		- report processes status
++ rm 		- remove a file
++ rmdir		- remove a directory
++ rename 	- rename specified files specified format
 + replace 	- replace string in place in a file
 + sort 		- sort lines of text files
++ split 	- split a file to multi-files
++ tail 		- show the last parts of a file
 + uniq 		- remove duplicate lines from a file
-+ extract 	- extract regex matches to files
-+ rename 	- rename specified files specified format
 
 
 Environment Requirement

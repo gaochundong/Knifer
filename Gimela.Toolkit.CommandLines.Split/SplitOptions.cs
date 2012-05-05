@@ -86,7 +86,6 @@ namespace Gimela.Toolkit.CommandLines.Split
 
 		#region Usage
 
-		public const string Version = @"Split v1.0";
 		public static readonly string Usage = string.Format(CultureInfo.CurrentCulture, @"
 NAME
 

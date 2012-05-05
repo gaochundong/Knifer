@@ -85,7 +85,6 @@ namespace Gimela.Toolkit.CommandLines.Replace
 
 		#region Usage
 
-		public const string Version = @"Replace v1.0";
 		public static readonly string Usage = string.Format(CultureInfo.CurrentCulture, @"
 NAME
 

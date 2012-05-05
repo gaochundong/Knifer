@@ -73,7 +73,6 @@ namespace Gimela.Toolkit.CommandLines.Find
 
 		#region Usage
 
-		public const string Version = @"Find v1.0";
 		public static readonly string Usage = string.Format(CultureInfo.CurrentCulture, @"
 NAME
 

@@ -10,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Chundong Gao")]
 [assembly: AssemblyProduct("Gimela Toolkit")]
-[assembly: AssemblyCopyright("Copyright © 2011-2012 Chundong Gao. All rights reserved.")]
+[assembly: AssemblyCopyright("Copyright (C) 2011-2012 Chundong Gao. All rights reserved.")]
 [assembly: AssemblyTrademark("Gimela")]
 [assembly: AssemblyCulture("")]
 

@@ -82,7 +82,6 @@ namespace Gimela.Toolkit.CommandLines.Encode
 
 		#region Usage
 
-		public const string Version = @"Encode v1.0";
 		public static readonly string Usage = string.Format(CultureInfo.CurrentCulture, @"
 NAME
 

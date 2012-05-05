@@ -70,7 +70,7 @@ namespace Gimela.Toolkit.CommandLines.Sort
       }
       else if (options.IsSetVersion)
       {
-        RaiseCommandLineUsage(this, SortOptions.Version);
+        RaiseCommandLineUsage(this, Version);
       }
       else
       {

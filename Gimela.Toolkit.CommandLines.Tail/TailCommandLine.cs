@@ -82,7 +82,7 @@ namespace Gimela.Toolkit.CommandLines.Tail
       }
       else if (options.IsSetVersion)
       {
-        RaiseCommandLineUsage(this, TailOptions.Version);
+        RaiseCommandLineUsage(this, Version);
         Terminate();
       }
       else

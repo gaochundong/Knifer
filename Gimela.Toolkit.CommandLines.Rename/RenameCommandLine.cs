@@ -75,7 +75,7 @@ namespace Gimela.Toolkit.CommandLines.Rename
       }
       else if (options.IsSetVersion)
       {
-        RaiseCommandLineUsage(this, RenameOptions.Version);
+        RaiseCommandLineUsage(this, Version);
       }
       else
       {

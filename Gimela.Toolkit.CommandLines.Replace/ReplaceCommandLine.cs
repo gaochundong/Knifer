@@ -72,7 +72,7 @@ namespace Gimela.Toolkit.CommandLines.Replace
       }
       else if (options.IsSetVersion)
       {
-        RaiseCommandLineUsage(this, ReplaceOptions.Version);
+        RaiseCommandLineUsage(this, Version);
       }
       else
       {

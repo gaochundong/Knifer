@@ -85,7 +85,6 @@ namespace Gimela.Toolkit.CommandLines.Extract
 
 		#region Usage
 
-		public const string Version = @"Extract v1.0";
 		public static readonly string Usage = string.Format(CultureInfo.CurrentCulture, @"
 NAME
 

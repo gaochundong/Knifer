@@ -66,7 +66,6 @@ namespace Gimela.Toolkit.CommandLines.Join
 
 		#region Usage
 
-		public const string Version = @"Join v1.0";
 		public static readonly string Usage = string.Format(CultureInfo.CurrentCulture, @"
 NAME
 

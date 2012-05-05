@@ -77,7 +77,7 @@ namespace Gimela.Toolkit.CommandLines.Grep
       }
       else if (options.IsSetVersion)
       {
-        RaiseCommandLineUsage(this, GrepOptions.Version);
+        RaiseCommandLineUsage(this, Version);
       }
       else
       {

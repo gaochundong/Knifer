@@ -71,7 +71,7 @@ namespace Gimela.Toolkit.CommandLines.Checksum
       }
       else if (options.IsSetVersion)
       {
-        RaiseCommandLineUsage(this, ChecksumOptions.Version);
+        RaiseCommandLineUsage(this, Version);
       }
       else
       {

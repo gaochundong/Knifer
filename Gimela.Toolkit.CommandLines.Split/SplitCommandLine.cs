@@ -75,7 +75,7 @@ namespace Gimela.Toolkit.CommandLines.Split
       }
       else if (options.IsSetVersion)
       {
-        RaiseCommandLineUsage(this, SplitOptions.Version);
+        RaiseCommandLineUsage(this, Version);
       }
       else
       {

@@ -70,7 +70,7 @@ namespace Gimela.Toolkit.CommandLines.AddText
       }
       else if (options.IsSetVersion)
       {
-        RaiseCommandLineUsage(this, AddTextOptions.Version);
+        RaiseCommandLineUsage(this, Version);
       }
       else
       {

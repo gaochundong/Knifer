@@ -86,7 +86,6 @@ namespace Gimela.Toolkit.CommandLines.Rename
 
 		#region Usage
 
-		public const string Version = @"Rename v1.0";
 		public static readonly string Usage = string.Format(CultureInfo.CurrentCulture, @"
 NAME
 

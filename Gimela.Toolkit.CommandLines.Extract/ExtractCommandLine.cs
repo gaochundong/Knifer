@@ -75,7 +75,7 @@ namespace Gimela.Toolkit.CommandLines.Extract
       }
       else if (options.IsSetVersion)
       {
-        RaiseCommandLineUsage(this, ExtractOptions.Version);
+        RaiseCommandLineUsage(this, Version);
       }
       else
       {

@@ -71,7 +71,7 @@ namespace Gimela.Toolkit.CommandLines.Remove
       }
       else if (options.IsSetVersion)
       {
-        RaiseCommandLineUsage(this, RemoveOptions.Version);
+        RaiseCommandLineUsage(this, Version);
       }
       else
       {

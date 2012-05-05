@@ -70,7 +70,7 @@ namespace Gimela.Toolkit.CommandLines.Unique
       }
       else if (options.IsSetVersion)
       {
-        RaiseCommandLineUsage(this, UniqueOptions.Version);
+        RaiseCommandLineUsage(this, Version);
       }
       else
       {

@@ -45,6 +45,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gimela.Toolkit.CommandLines
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gimela.Toolkit.CommandLines.Rename", "Gimela.Toolkit.CommandLines.Rename\Gimela.Toolkit.CommandLines.Rename.csproj", "{8D0B9322-D62A-4C8F-84C5-920D55109A8A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gimela.Toolkit.CommandLines.ListDirectory", "Gimela.Toolkit.CommandLines.ListDirectory\Gimela.Toolkit.CommandLines.ListDirectory.csproj", "{F8D96B56-2BD2-41CC-B5EB-8C6DDE79EC16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gimela.Toolkit.CommandLines.ProcessStatus", "Gimela.Toolkit.CommandLines.ProcessStatus\Gimela.Toolkit.CommandLines.ProcessStatus.csproj", "{F32A04CD-0983-4433-8AC5-C543BC22652D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gimela.Toolkit.CommandLines.KillProcess", "Gimela.Toolkit.CommandLines.KillProcess\Gimela.Toolkit.CommandLines.KillProcess.csproj", "{69834309-70CD-4079-A6F8-FE8275406786}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Gimela.Toolkit.CommandLines.vsmdi
@@ -278,6 +284,36 @@ Global
 		{8D0B9322-D62A-4C8F-84C5-920D55109A8A}.Release|Mixed Platforms.Build.0 = Release|x86
 		{8D0B9322-D62A-4C8F-84C5-920D55109A8A}.Release|x86.ActiveCfg = Release|x86
 		{8D0B9322-D62A-4C8F-84C5-920D55109A8A}.Release|x86.Build.0 = Release|x86
+		{F8D96B56-2BD2-41CC-B5EB-8C6DDE79EC16}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{F8D96B56-2BD2-41CC-B5EB-8C6DDE79EC16}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{F8D96B56-2BD2-41CC-B5EB-8C6DDE79EC16}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{F8D96B56-2BD2-41CC-B5EB-8C6DDE79EC16}.Debug|x86.ActiveCfg = Debug|x86
+		{F8D96B56-2BD2-41CC-B5EB-8C6DDE79EC16}.Debug|x86.Build.0 = Debug|x86
+		{F8D96B56-2BD2-41CC-B5EB-8C6DDE79EC16}.Release|Any CPU.ActiveCfg = Release|x86
+		{F8D96B56-2BD2-41CC-B5EB-8C6DDE79EC16}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{F8D96B56-2BD2-41CC-B5EB-8C6DDE79EC16}.Release|Mixed Platforms.Build.0 = Release|x86
+		{F8D96B56-2BD2-41CC-B5EB-8C6DDE79EC16}.Release|x86.ActiveCfg = Release|x86
+		{F8D96B56-2BD2-41CC-B5EB-8C6DDE79EC16}.Release|x86.Build.0 = Release|x86
+		{F32A04CD-0983-4433-8AC5-C543BC22652D}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{F32A04CD-0983-4433-8AC5-C543BC22652D}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{F32A04CD-0983-4433-8AC5-C543BC22652D}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{F32A04CD-0983-4433-8AC5-C543BC22652D}.Debug|x86.ActiveCfg = Debug|x86
+		{F32A04CD-0983-4433-8AC5-C543BC22652D}.Debug|x86.Build.0 = Debug|x86
+		{F32A04CD-0983-4433-8AC5-C543BC22652D}.Release|Any CPU.ActiveCfg = Release|x86
+		{F32A04CD-0983-4433-8AC5-C543BC22652D}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{F32A04CD-0983-4433-8AC5-C543BC22652D}.Release|Mixed Platforms.Build.0 = Release|x86
+		{F32A04CD-0983-4433-8AC5-C543BC22652D}.Release|x86.ActiveCfg = Release|x86
+		{F32A04CD-0983-4433-8AC5-C543BC22652D}.Release|x86.Build.0 = Release|x86
+		{69834309-70CD-4079-A6F8-FE8275406786}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{69834309-70CD-4079-A6F8-FE8275406786}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{69834309-70CD-4079-A6F8-FE8275406786}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{69834309-70CD-4079-A6F8-FE8275406786}.Debug|x86.ActiveCfg = Debug|x86
+		{69834309-70CD-4079-A6F8-FE8275406786}.Debug|x86.Build.0 = Debug|x86
+		{69834309-70CD-4079-A6F8-FE8275406786}.Release|Any CPU.ActiveCfg = Release|x86
+		{69834309-70CD-4079-A6F8-FE8275406786}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{69834309-70CD-4079-A6F8-FE8275406786}.Release|Mixed Platforms.Build.0 = Release|x86
+		{69834309-70CD-4079-A6F8-FE8275406786}.Release|x86.ActiveCfg = Release|x86
+		{69834309-70CD-4079-A6F8-FE8275406786}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

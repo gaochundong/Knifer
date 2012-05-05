@@ -73,7 +73,6 @@ namespace Gimela.Toolkit.CommandLines.Sort
 
 		#region Usage
 
-		public const string Version = @"Sort v1.0";
 		public static readonly string Usage = string.Format(CultureInfo.CurrentCulture, @"
 NAME
 

@@ -69,7 +69,6 @@ namespace Gimela.Toolkit.CommandLines.Head
 
 		#region Usage
 
-		public const string Version = @"Head v1.0";
 		public static readonly string Usage = string.Format(CultureInfo.CurrentCulture, @"
 NAME
 

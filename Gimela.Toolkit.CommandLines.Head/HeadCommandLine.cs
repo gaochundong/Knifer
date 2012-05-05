@@ -69,7 +69,7 @@ namespace Gimela.Toolkit.CommandLines.Head
       }
       else if (options.IsSetVersion)
       {
-        RaiseCommandLineUsage(this, HeadOptions.Version);
+        RaiseCommandLineUsage(this, Version);
       }
       else
       {

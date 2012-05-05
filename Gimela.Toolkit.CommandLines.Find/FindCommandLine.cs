@@ -70,7 +70,7 @@ namespace Gimela.Toolkit.CommandLines.Find
       }
       else if (options.IsSetVersion)
       {
-        RaiseCommandLineUsage(this, FindOptions.Version);
+        RaiseCommandLineUsage(this, Version);
       }
       else
       {

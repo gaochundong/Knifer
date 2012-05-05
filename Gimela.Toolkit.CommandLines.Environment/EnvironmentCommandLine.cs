@@ -69,7 +69,7 @@ namespace Gimela.Toolkit.CommandLines.Environment
       }
       else if (options.IsSetVersion)
       {
-        RaiseCommandLineUsage(this, EnvironmentOptions.Version);
+        RaiseCommandLineUsage(this, Version);
       }
       else
       {
