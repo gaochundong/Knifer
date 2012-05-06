@@ -9,6 +9,7 @@ Command List
 
 + addtext 	- add text on the beginning of a file
 + base64 	- translate string to base64 text
++ cat	 	- show file content
 + checksum 	- checksum value of a text or file
 + count 	- count number of file types in a folder
 + encode 	- encode or change the encoding of a file
