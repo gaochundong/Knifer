@@ -135,21 +135,6 @@ namespace Gimela.Toolkit.CommandLines.Foundation
       RaiseCommandLineDataChanged(this, string.Format(CultureInfo.CurrentCulture, format, args));
     }
 
-    protected void OutputFormatText(string format, object arg0)
-    {
-      OutputFormatText(format, arg0);
-    }
-
-    protected void OutputFormatText(string format, object arg0, object arg1)
-    {
-      OutputFormatText(format, arg0, arg1);
-    }
-
-    protected void OutputFormatText(string format, object arg0, object arg1, object arg2)
-    {
-      OutputFormatText(format, arg0, arg1, arg2);
-    }
-
     #endregion
 
     #region Version
