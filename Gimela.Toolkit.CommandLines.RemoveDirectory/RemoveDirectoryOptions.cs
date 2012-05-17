@@ -114,7 +114,7 @@ OPTIONS
 
 EXAMPLES
 
-	removedir -d . -r -e object -f
+	rmdir -d . -r -e 'object' -f
 	Remove all the 'object' empty directories in the current directory
 	and any subdirectory.
 
