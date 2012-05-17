@@ -26,6 +26,7 @@ Command List
 + rmdir		- remove a directory
 + rename 	- rename specified files specified format
 + replace 	- replace string in place in a file
++ select 	- select files with specified file type
 + sort 		- sort lines of text files
 + split 	- split a file to multi-files
 + tail 		- show the last parts of a file
