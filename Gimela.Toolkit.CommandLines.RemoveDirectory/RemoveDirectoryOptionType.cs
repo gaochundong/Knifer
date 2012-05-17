@@ -34,6 +34,8 @@ namespace Gimela.Toolkit.CommandLines.RemoveDirectory
     Directory,
     Recursive,
     RegexPattern,
+    FixedString,
+    Empty,
     Help,
     Version,
   }

@@ -26,24 +26,19 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace Gimela.Toolkit.CommandLines.RemoveDirectory
+namespace Gimela.Toolkit.CommandLines.Select
 {
-  internal class RemoveDirectoryCommandLineOptions
+  internal enum SelectOptionType
   {
-    public RemoveDirectoryCommandLineOptions()
-    {
-    }
-
-    public string Directory { get; set; }
-
-    public bool IsSetRecursive { get; set; }
-
-    public string RegexPattern { get; set; }
-
-    public bool IsSetFixedString { get; set; }
-    public bool IsSetEmpty { get; set; }
-
-    public bool IsSetHelp { get; set; }
-    public bool IsSetVersion { get; set; }
+    None = 0,
+    Directory,
+    Recursive,
+    Extension,
+    Output,
+    Copy,
+    Move,
+    KeepDepth,
+    Help,
+    Version,
   }
 }

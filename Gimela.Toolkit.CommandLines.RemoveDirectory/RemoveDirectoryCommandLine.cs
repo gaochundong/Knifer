@@ -33,6 +33,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security;
+using System.Text.RegularExpressions;
 using Gimela.Toolkit.CommandLines.Foundation;
 
 namespace Gimela.Toolkit.CommandLines.RemoveDirectory
@@ -116,8 +117,19 @@ namespace Gimela.Toolkit.CommandLines.RemoveDirectory
           {
             try
             {
-              item.Delete(true);
-              OutputText(string.Format(CultureInfo.CurrentCulture, "Removed - {0}", item.FullName));
+              if (options.IsSetEmpty)
+              {
+                if (item.GetFiles().Length <= 0 && item.GetDirectories().Length <= 0)
+                {
+                  item.Delete(true);
+                  OutputText(string.Format(CultureInfo.CurrentCulture, "Removed - {0}", item.FullName));
+                }
+              }
+              else
+              {
+                item.Delete(true);
+                OutputText(string.Format(CultureInfo.CurrentCulture, "Removed - {0}", item.FullName));
+              }
             }
             catch (UnauthorizedAccessException ex)
             {
@@ -155,9 +167,20 @@ namespace Gimela.Toolkit.CommandLines.RemoveDirectory
     {
       bool result = false;
 
-      if (name == options.RegexPattern)
+      if (options.IsSetFixedString)
       {
-        result = true;
+        if (name == options.RegexPattern)
+        {
+          result = true;
+        }
+      }
+      else
+      {
+        Regex r = new Regex(options.RegexPattern);
+        if (r.IsMatch(name))
+        {
+          result = true;
+        }
       }
 
       return result;
@@ -196,6 +219,12 @@ namespace Gimela.Toolkit.CommandLines.RemoveDirectory
               break;
             case RemoveDirectoryOptionType.RegexPattern:
               targetOptions.RegexPattern = commandLineOptions.Arguments[arg];
+              break;
+            case RemoveDirectoryOptionType.FixedString:
+              targetOptions.IsSetFixedString = true;
+              break;
+            case RemoveDirectoryOptionType.Empty:
+              targetOptions.IsSetEmpty = true;
               break;
             case RemoveDirectoryOptionType.Help:
               targetOptions.IsSetHelp = true;

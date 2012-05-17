@@ -31,50 +31,56 @@ using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
-namespace Gimela.Toolkit.CommandLines.RemoveDirectory
+namespace Gimela.Toolkit.CommandLines.Select
 {
-	internal static class RemoveDirectoryOptions
+	internal static class SelectOptions
 	{
 		public static readonly ReadOnlyCollection<string> DirectoryOptions;
 		public static readonly ReadOnlyCollection<string> RecursiveOptions;
-		public static readonly ReadOnlyCollection<string> RegexPatternOptions;
-		public static readonly ReadOnlyCollection<string> FixedStringOptions;
-		public static readonly ReadOnlyCollection<string> EmptyOptions;
+		public static readonly ReadOnlyCollection<string> ExtensionOptions;
+		public static readonly ReadOnlyCollection<string> OutputOptions;
+		public static readonly ReadOnlyCollection<string> CopyOptions;
+		public static readonly ReadOnlyCollection<string> MoveOptions;
+		public static readonly ReadOnlyCollection<string> KeepDepthOptions;
 		public static readonly ReadOnlyCollection<string> HelpOptions;
 		public static readonly ReadOnlyCollection<string> VersionOptions;
 
-		public static readonly IDictionary<RemoveDirectoryOptionType, ICollection<string>> Options;
+		public static readonly IDictionary<SelectOptionType, ICollection<string>> Options;
 
 		[SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
-		static RemoveDirectoryOptions()
+		static SelectOptions()
 		{
-			DirectoryOptions = new ReadOnlyCollection<string>(new string[] { "d", "D", "directory" });
-			RecursiveOptions = new ReadOnlyCollection<string>(new string[] { "r", "R", "recursive" });
-			RegexPatternOptions = new ReadOnlyCollection<string>(new string[] { "e", "regex" });
-			FixedStringOptions = new ReadOnlyCollection<string>(new string[] { "f", "F", "fixedstring" });
-			EmptyOptions = new ReadOnlyCollection<string>(new string[] { "p", "empty" });
+			DirectoryOptions = new ReadOnlyCollection<string>(new string[] { "d", "directory" });
+			RecursiveOptions = new ReadOnlyCollection<string>(new string[] { "r", "recursive" });
+			ExtensionOptions = new ReadOnlyCollection<string>(new string[] { "e", "extension" });
+			OutputOptions = new ReadOnlyCollection<string>(new string[] { "o", "output" });
+			CopyOptions = new ReadOnlyCollection<string>(new string[] { "c", "copy" });
+			MoveOptions = new ReadOnlyCollection<string>(new string[] { "m", "move" });
+			KeepDepthOptions = new ReadOnlyCollection<string>(new string[] { "k", "keepdepth" });
 			HelpOptions = new ReadOnlyCollection<string>(new string[] { "h", "help" });
 			VersionOptions = new ReadOnlyCollection<string>(new string[] { "v", "version" });
 
-			Options = new Dictionary<RemoveDirectoryOptionType, ICollection<string>>();
-			Options.Add(RemoveDirectoryOptionType.Directory, DirectoryOptions);
-			Options.Add(RemoveDirectoryOptionType.Recursive, RecursiveOptions);
-			Options.Add(RemoveDirectoryOptionType.RegexPattern, RegexPatternOptions);
-			Options.Add(RemoveDirectoryOptionType.FixedString, FixedStringOptions);
-			Options.Add(RemoveDirectoryOptionType.Empty, EmptyOptions);
-			Options.Add(RemoveDirectoryOptionType.Help, HelpOptions);
-			Options.Add(RemoveDirectoryOptionType.Version, VersionOptions);
+			Options = new Dictionary<SelectOptionType, ICollection<string>>();
+			Options.Add(SelectOptionType.Directory, DirectoryOptions);
+			Options.Add(SelectOptionType.Recursive, RecursiveOptions);
+			Options.Add(SelectOptionType.Extension, ExtensionOptions);
+			Options.Add(SelectOptionType.Output, OutputOptions);
+			Options.Add(SelectOptionType.Copy, CopyOptions);
+			Options.Add(SelectOptionType.Move, MoveOptions);
+			Options.Add(SelectOptionType.KeepDepth, KeepDepthOptions);
+			Options.Add(SelectOptionType.Help, HelpOptions);
+			Options.Add(SelectOptionType.Version, VersionOptions);
 		}
 
 		public static List<string> GetSingleOptions()
 		{
 			List<string> singleOptionList = new List<string>();
 
-			singleOptionList.AddRange(RemoveDirectoryOptions.RecursiveOptions);
-			singleOptionList.AddRange(RemoveDirectoryOptions.FixedStringOptions);
-			singleOptionList.AddRange(RemoveDirectoryOptions.EmptyOptions);
-			singleOptionList.AddRange(RemoveDirectoryOptions.HelpOptions);
-			singleOptionList.AddRange(RemoveDirectoryOptions.VersionOptions);
+			singleOptionList.AddRange(SelectOptions.RecursiveOptions);
+			singleOptionList.AddRange(SelectOptions.CopyOptions);
+			singleOptionList.AddRange(SelectOptions.MoveOptions);
+			singleOptionList.AddRange(SelectOptions.HelpOptions);
+			singleOptionList.AddRange(SelectOptions.VersionOptions);
 
 			return singleOptionList;
 		}
@@ -84,29 +90,33 @@ namespace Gimela.Toolkit.CommandLines.RemoveDirectory
 		public static readonly string Usage = string.Format(CultureInfo.CurrentCulture, @"
 NAME
 
-	rmdir - remove directories 
+	select - select files with specified file type
 
 SYNOPSIS
 
-	rmdir [OPTION]... DIRECTORY...
+	select [OPTION]...
 
 DESCRIPTION
 
-	Remove the DIRECTORY(ies).
+	Find files with specified file type and copy or move files. 
 
 OPTIONS
 
-	-d, -D, --directory=DIRECTORY
-	{0}{0}Specify a directory, a path name of a starting point 
-	{0}{0}in the directory hierarchy.
-	-r, -R, --recursive
-	{0}{0}Remove the contents of directories recursively.
-	-e, --regex=PATTERN
-	{0}{0}Directory name matches regular expression pattern. 
-	-f, -F, --fixedstring
-	{0}{0}Indicate that the regex pattern string is fixed string.
-	-p, --empty
-	{0}{0}Only remove the empty folders.
+	-d, --directory=DIR
+	{0}{0}Specify a directory, read all files in this directory.
+	-r, --recursive
+	{0}{0}Read all files under each directory recursively.
+	-e, --extension=FILEEXTENSION
+	{0}{0}Indicate the file extension type to be searched.
+	{0}{0}Splits filter string to list with ',' or ';'.
+	-o, --output=OUTPUT
+	{0}{0}Specify a output directory, copy or move files into it.
+	-c, --copy
+	{0}{0}Copy to output folder when found files.
+	-m, --move
+	{0}{0}Move to output folder when found files.
+	-k, --keepdepth=DEPTH
+	{0}{0}Keep the file path depth in source directory to output folder.
 	-h, --help 
 	{0}{0}Display this help and exit.
 	-v, --version
@@ -114,9 +124,8 @@ OPTIONS
 
 EXAMPLES
 
-	removedir -d . -r -e object -f
-	Remove all the 'object' empty directories in the current directory
-	and any subdirectory.
+	select -d 'E:\Books' -r -e '.pdf' -o 'E:\tmp' -c -k 3
+	Find '.pdf' files in 'E:\Books' and copy to folder 'E:\tmp'.
 
 AUTHOR
 
@@ -133,9 +142,9 @@ COPYRIGHT
 
 		#endregion
 
-		public static RemoveDirectoryOptionType GetOptionType(string option)
+		public static SelectOptionType GetOptionType(string option)
 		{
-			RemoveDirectoryOptionType optionType = RemoveDirectoryOptionType.None;
+			SelectOptionType optionType = SelectOptionType.None;
 
 			foreach (var pair in Options)
 			{
