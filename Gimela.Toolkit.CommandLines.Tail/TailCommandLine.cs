@@ -53,6 +53,7 @@ namespace Gimela.Toolkit.CommandLines.Tail
     private Encoding encoding = Encoding.ASCII;
     private byte[] newLine = Encoding.ASCII.GetBytes("\n");
     private long readLineCount = 0;
+    private AutoResetEvent signal = new AutoResetEvent(false);
 
     #endregion
 
@@ -154,11 +155,21 @@ namespace Gimela.Toolkit.CommandLines.Tail
       {
         RaiseCommandLineException(this, ex);
       }
+      catch (ArgumentException)
+      {
+        signal.Reset();
+        if (!signal.WaitOne(TimeSpan.FromSeconds(5)))
+        {
+          RestartWatch();
+        }
+      }
     }
 
     [SuppressMessage("Microsoft.Security", "CA2122:DoNotIndirectlyExposeMethodsWithLinkDemands")]
     private void StopWatch()
     {
+      signal.Set();
+
       if (fileSystemWatcher != null)
       {
         fileSystemWatcher.Created -= new FileSystemEventHandler(OnFileCreated);
