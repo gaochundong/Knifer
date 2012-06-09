@@ -224,7 +224,7 @@ OPTIONS
 
 EXAMPLES
 
-	grep 'chundong' *.txt
+	grep 'chundong' ./*.txt
 	Search all .txt files in the current directory, and print the 
 	file name and lines that contain 'chundong'.
 

@@ -111,7 +111,12 @@ namespace Gimela.Toolkit.CommandLines.Grep
           {
             if (WildcardCharacterHelper.IsContainsWildcard(path))
             {
-              FileInfo[] files = new DirectoryInfo(Path.GetDirectoryName(path)).GetFiles();
+              string dir = path;
+              if (!path.Contains("\\") && !path.Contains("/"))
+              {
+                dir = Environment.CurrentDirectory + Path.DirectorySeparatorChar + path;
+              }
+              FileInfo[] files = new DirectoryInfo(Path.GetDirectoryName(dir)).GetFiles();
               foreach (var file in files.OrderBy(f => f.Name))
               {
                 Regex r = new Regex(WildcardCharacterHelper.TranslateWildcardToRegex(path));
@@ -127,6 +132,10 @@ namespace Gimela.Toolkit.CommandLines.Grep
             }
           }
         }
+      }
+      catch (ArgumentException ex)
+      {
+        RaiseCommandLineException(this, new CommandLineException("Path is invalid.", ex));
       }
       catch (CommandLineException ex)
       {
