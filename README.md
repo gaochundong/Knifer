@@ -1,5 +1,5 @@
-Command-Line Toolkit
-====================
+CmdKnife
+========
 
 This toolkit includes a set of tools that can be run from the Windows command-line to simplify and speed up common tasks.
 
@@ -43,7 +43,7 @@ Bug tracker
 
 Have a bug? Please create an issue here on GitHub!
 
-+ https://github.com/gaochundong/Gimela.Toolkit.CommandLines/issues
++ https://github.com/gaochundong/CmdKnife/issues
 
 
 Authors
