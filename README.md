@@ -9,9 +9,9 @@ Command List
 
 + addtext 	- add text on the beginning of a file
 + base64 	- translate string to base64 text
-+ cat	 	- show file content
++ cat	 	   - show file content
 + checksum 	- checksum value of a text or file
-+ count 	- count number of file types in a folder
++ count 	   - count number of file types in a folder
 + encode 	- encode or change the encoding of a file
 + env 		- show system environments
 + extract 	- extract regex matches to files
@@ -20,15 +20,15 @@ Command List
 + head 		- show the top parts of a file
 + join 		- join multi-files to a single file
 + kill		- terminate a process
-+ ls		- list contents in directory
-+ ps		- report processes status
-+ rm 		- remove a file
++ ls		   - list contents in directory
++ ps		   - report processes status
++ rm 		   - remove a file
 + rmdir		- remove a directory
 + rename 	- rename specified files specified format
 + replace 	- replace string in place in a file
 + select 	- select files with specified file type
 + sort 		- sort lines of text files
-+ split 	- split a file to multi-files
++ split 	   - split a file to multi-files
 + tail 		- show the last parts of a file
 + uniq 		- remove duplicate lines from a file
 
@@ -49,9 +49,7 @@ Have a bug? Please create an issue here on GitHub!
 Authors
 -------
 
-**Dennis Gao** 
-
-+ http://about.me/gaochundong
++ **Dennis Gao** http://about.me/gaochundong
 
 
 Copyright and license
