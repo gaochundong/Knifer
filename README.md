@@ -55,7 +55,7 @@ Authors
 Copyright and license
 ---------------------
 
-Copyright (c) 2011-2012 Chundong Gao
+Copyright (c) 2011-2012 Dennis Gao
 All rights reserved.
 
 Licensed under the BSD License.
