@@ -45,13 +45,6 @@ Have a bug? Please create an issue here on GitHub!
 
 + https://github.com/gaochundong/Knifer/issues
 
-
-Authors
--------
-
-+ **Dennis Gao** http://about.me/gaochundong
-
-
 Copyright and license
 ---------------------
 
