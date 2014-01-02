@@ -11,6 +11,7 @@ Command List
 + base64 	- translate string to base64 text
 + cat	 	- show file content
 + checksum 	- checksum value of a text or file
++ copysame  - copy same name files from src to dest
 + count 	- count number of file types in a folder
 + encode 	- encode or change the encoding of a file
 + env 		- show system environments
