@@ -1,6 +1,6 @@
 ﻿﻿/*
  * [The "BSD Licence"]
- * Copyright (c) 2011-2012 Chundong Gao
+ * Copyright (c) 2011-2013 Chundong Gao
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without

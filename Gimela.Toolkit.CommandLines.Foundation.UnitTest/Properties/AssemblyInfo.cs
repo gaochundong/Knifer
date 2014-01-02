@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Chundong Gao")]
 [assembly: AssemblyProduct("Gimela Toolkit Library")]
-[assembly: AssemblyCopyright("Copyright (C) 2011-2012 Chundong Gao. All rights reserved.")]
+[assembly: AssemblyCopyright("Copyright (C) 2011-2013 Chundong Gao. All rights reserved.")]
 [assembly: AssemblyTrademark("Gimela")]
 [assembly: AssemblyCulture("")]
 
@@ -30,5 +30,5 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("1.5.8.0")]
-[assembly: AssemblyFileVersion("1.5.8.0")]
+[assembly: AssemblyVersion("1.6.0.0")]
+[assembly: AssemblyFileVersion("1.6.0.0")]
