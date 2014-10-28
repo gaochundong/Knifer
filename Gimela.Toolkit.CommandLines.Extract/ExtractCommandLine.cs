@@ -124,7 +124,7 @@ namespace Gimela.Toolkit.CommandLines.Extract
       else
       {
         FileInfo[] files = directory.GetFiles();
-        foreach (var file in files.OrderBy(f => f.Name))
+        foreach (var file in files.OrderBy(f => f.LastWriteTime).ThenBy(f => f.Name))
         {
           ExtractFile(file.FullName);
         }

@@ -117,7 +117,7 @@ namespace Gimela.Toolkit.CommandLines.Grep
                 dir = Environment.CurrentDirectory + Path.DirectorySeparatorChar + path;
               }
               FileInfo[] files = new DirectoryInfo(Path.GetDirectoryName(dir)).GetFiles();
-              foreach (var file in files.OrderBy(f => f.Name))
+              foreach (var file in files.OrderBy(f => f.LastWriteTime).ThenBy(f => f.Name))
               {
                 Regex r = new Regex(WildcardCharacterHelper.TranslateWildcardToRegex(path));
                 if (r.IsMatch(file.FullName) || r.IsMatch(file.Name))
@@ -179,7 +179,7 @@ namespace Gimela.Toolkit.CommandLines.Grep
         else
         {
           FileInfo[] files = directory.GetFiles();
-          foreach (var file in files.OrderBy(f => f.Name))
+          foreach (var file in files.OrderBy(f => f.LastWriteTime).ThenBy(f => f.Name))
           {
             GrepFile(file.FullName);
           }

@@ -120,7 +120,7 @@ namespace Gimela.Toolkit.CommandLines.Rename
       else
       {
         FileInfo[] files = directory.GetFiles();
-        foreach (var file in files.OrderBy(f => f.Name))
+        foreach (var file in files.OrderBy(f => f.LastWriteTime).ThenBy(f => f.Name))
         {
           RenameFile(file.FullName);
         }
@@ -191,7 +191,7 @@ namespace Gimela.Toolkit.CommandLines.Rename
       else
       {
         FileInfo[] files = directory.GetFiles();
-        foreach (var file in files.OrderBy(f => f.Name))
+        foreach (var file in files.OrderBy(f => f.LastWriteTime).ThenBy(f => f.Name))
         {
           RenameFileWithPadString(file.FullName);
         }

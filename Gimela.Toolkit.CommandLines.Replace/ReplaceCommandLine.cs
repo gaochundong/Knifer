@@ -118,7 +118,7 @@ namespace Gimela.Toolkit.CommandLines.Replace
       else
       {
         FileInfo[] files = directory.GetFiles();
-        foreach (var file in files.OrderBy(f => f.Name))
+        foreach (var file in files.OrderBy(f => f.LastWriteTime).ThenBy(f => f.Name))
         {
           ReplaceFile(file.FullName);
         }
