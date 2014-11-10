@@ -460,6 +460,11 @@ namespace Gimela.Toolkit.CommandLines.Grep
     {
       try
       {
+        if (Directory.Exists(options.OutputFile))
+        {
+          throw new UnauthorizedAccessException("The specified path is a directory, please specify a file path.");
+        }
+
         using (StreamWriter sw = new StreamWriter(options.OutputFile, true, System.Text.Encoding.UTF8))
         {
           sw.AutoFlush = true;

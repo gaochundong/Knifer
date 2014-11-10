@@ -45,7 +45,7 @@ namespace Gimela.Toolkit.CommandLines.Extract
 
     private ExtractCommandLineOptions options;
     private readonly string executingFile = Assembly.GetExecutingAssembly().Location;
-    private List<string> matchSaltList = new List<string>();
+    private Dictionary<string, string> matchSaltList = new Dictionary<string, string>();
 
     #endregion
 
@@ -103,8 +103,8 @@ namespace Gimela.Toolkit.CommandLines.Extract
         OutputText(Environment.NewLine);
         OutputText(string.Format(CultureInfo.CurrentCulture, "Extract Begin Time : {0}", executeBeginTime.ToString(@"yyyy-MM-dd HH:mm:ss")));
         OutputText(string.Format(CultureInfo.CurrentCulture, "Extract End   Time : {0}", executeEndTime.ToString(@"yyyy-MM-dd HH:mm:ss")));
-        OutputText(string.Format(CultureInfo.CurrentCulture, "Extract Total Time : {0}", 
-          string.Format("{0:D2}h:{1:D2}m:{2:D2}s:{3:D3}ms", 
+        OutputText(string.Format(CultureInfo.CurrentCulture, "Extract Total Time : {0}",
+          string.Format("{0:D2}h:{1:D2}m:{2:D2}s:{3:D3}ms",
           duration.Hours, duration.Minutes, duration.Seconds, duration.Milliseconds)));
       }
       catch (CommandLineException ex)
@@ -189,21 +189,21 @@ namespace Gimela.Toolkit.CommandLines.Extract
           {
             if (!options.Excludes.Contains(matchSalt.Groups[1].ToString()))
             {
-              if (!matchSaltList.Contains(matchSalt.Groups[1].ToString()))
+              if (!matchSaltList.ContainsKey(matchSalt.Groups[1].ToString()))
               {
-                matchSaltList.Add(matchSalt.Groups[1].ToString());
+                matchSaltList.Add(matchSalt.Groups[1].ToString(), matchSalt.Groups[1].ToString());
               }
             }
-          }
 
-          foreach (var salt in matchSaltList)
-          {
-            Regex r = new Regex(salt, RegexOptions.None);
-            Match m = r.Match(readText[i]);
-            if (m.Success)
+            foreach (var salt in matchSaltList.Keys)
             {
-              OutputFileData(salt, path, i + 1, readText[i]);
-            }            
+              Regex r = new Regex(salt, RegexOptions.None);
+              Match m = r.Match(readText[i]);
+              if (m.Success)
+              {
+                OutputFileData(salt, path, i + 1, readText[i]);
+              }
+            }
           }
         }
       }
