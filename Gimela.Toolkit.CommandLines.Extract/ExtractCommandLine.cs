@@ -187,22 +187,16 @@ namespace Gimela.Toolkit.CommandLines.Extract
           Match matchSalt = regexSalt.Match(readText[i]);
           if (matchSalt.Success)
           {
-            if (!options.Excludes.Contains(matchSalt.Groups[1].ToString()))
+            for (int k = 1; k < matchSalt.Groups.Count; k++)
             {
-              if (!matchSaltList.ContainsKey(matchSalt.Groups[1].ToString()))
-              {
-                matchSaltList.Add(matchSalt.Groups[1].ToString(), matchSalt.Groups[1].ToString());
-              }
-            }
+              if (options.Excludes.Contains(matchSalt.Groups[k].ToString())) continue;
 
-            foreach (var salt in matchSaltList.Keys)
-            {
-              Regex r = new Regex(salt, RegexOptions.None);
-              Match m = r.Match(readText[i]);
-              if (m.Success)
+              if (!matchSaltList.ContainsKey(matchSalt.Groups[k].ToString()))
               {
-                OutputFileData(salt, path, i + 1, readText[i]);
+                matchSaltList.Add(matchSalt.Groups[k].ToString(), matchSalt.Groups[k].ToString());
               }
+
+              OutputFileData(matchSalt.Groups[k].ToString(), path, i + 1, readText[i]);
             }
           }
         }
