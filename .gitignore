@@ -11,3 +11,6 @@
 *.resources
 *.baml
 *.suo
+*.user
+bin/
+obj/
