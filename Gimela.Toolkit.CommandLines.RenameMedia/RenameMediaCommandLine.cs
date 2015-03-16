@@ -152,7 +152,7 @@ namespace Gimela.Toolkit.CommandLines.RenameMedia
               "{0}_{1}{2}",
               file.LastWriteTime.ToString(@"yyyyMMddHHmmss"),
               random.Next(100000, 999999).ToString(),
-              file.Extension);
+              file.Extension.ToLowerInvariant());
           }
           else
           {
@@ -161,7 +161,7 @@ namespace Gimela.Toolkit.CommandLines.RenameMedia
               options.Prefix,
               file.LastWriteTime.ToString(@"yyyyMMddHHmmss"),
               random.Next(100000, 999999).ToString(),
-              file.Extension);
+              file.Extension.ToLowerInvariant());
           }
 
           string newPath = Path.Combine(file.Directory.FullName, newName);
