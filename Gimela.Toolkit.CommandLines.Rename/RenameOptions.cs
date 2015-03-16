@@ -129,7 +129,7 @@ EXAMPLES
 
 	rename.exe -e '.chundong.' -d 'C:\Logs' -o '.good.' -x 'bin,obj' -f -r
 	Search all files in directory 'C:\Logs', match the pattern '.chundong.',
-	and rename the files and folders repalce '.chundong.' to '.good.'.
+	and rename the files and folders replace '.chundong.' to '.good.'.
 
 AUTHOR
 
