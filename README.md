@@ -26,6 +26,7 @@ Command List
 + rm 		- remove a file
 + rmdir		- remove a directory
 + rename 	- rename specified files specified format
++ renamem   - rename specified medias specified format
 + replace 	- replace string in place in a file
 + select 	- select files with specified file type
 + sort 		- sort lines of text files
@@ -49,7 +50,7 @@ Have a bug? Please create an issue here on GitHub!
 Copyright and license
 ---------------------
 
-Copyright (c) 2011-2013 Dennis Gao
+Copyright (c) 2011-2015 Dennis Gao
 All rights reserved.
 
 Licensed under the BSD License.
