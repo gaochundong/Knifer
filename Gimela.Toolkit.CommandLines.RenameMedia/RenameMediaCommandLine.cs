@@ -139,8 +139,6 @@ namespace Gimela.Toolkit.CommandLines.RenameMedia
       }
       else
       {
-        Random random = new Random(DateTime.Now.Millisecond);
-
         Regex r = new Regex(WildcardCharacterHelper.TranslateWildcardToRegex(options.RegexPattern), RegexOptions.IgnoreCase);
         Match m = r.Match(file.Name);
         if (m.Success)
@@ -149,18 +147,18 @@ namespace Gimela.Toolkit.CommandLines.RenameMedia
           if (string.IsNullOrWhiteSpace(options.Prefix))
           {
             newName = string.Format(CultureInfo.CurrentCulture,
-              "{0}_{1}{2}",
+              "{0}-{1}{2}",
               file.LastWriteTime.ToString(@"yyyyMMddHHmmss"),
-              random.Next(100000, 999999).ToString(),
+              Guid.NewGuid(),
               file.Extension.ToLowerInvariant());
           }
           else
           {
             newName = string.Format(CultureInfo.CurrentCulture,
-              "{0}_{1}_{2}{3}",
+              "{0}-{1}-{2}{3}",
               options.Prefix,
               file.LastWriteTime.ToString(@"yyyyMMddHHmmss"),
-              random.Next(100000, 999999).ToString(),
+              Guid.NewGuid(),
               file.Extension.ToLowerInvariant());
           }
 
