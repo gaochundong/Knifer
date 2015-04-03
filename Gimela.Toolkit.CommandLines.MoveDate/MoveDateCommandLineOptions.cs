@@ -26,16 +26,20 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace Gimela.Toolkit.CommandLines.RenameMedia
+using System.Collections.Generic;
+
+namespace Gimela.Toolkit.CommandLines.MoveDate
 {
-  internal enum RenameMediaOptionType
+  internal class MoveDateCommandLineOptions
   {
-    None = 0,
-    RegexPattern,
-    InputDirectory,
-    Recursive,
-    Prefix,
-    Help,
-    Version,
+    public MoveDateCommandLineOptions()
+    {
+    }
+
+    public string RegexPattern { get; set; }
+    public string InputDirectory { get; set; }
+
+    public bool IsSetHelp { get; set; }
+    public bool IsSetVersion { get; set; }
   }
 }

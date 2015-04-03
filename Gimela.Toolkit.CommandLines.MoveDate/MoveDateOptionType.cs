@@ -26,15 +26,13 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace Gimela.Toolkit.CommandLines.RenameMedia
+namespace Gimela.Toolkit.CommandLines.MoveDate
 {
-  internal enum RenameMediaOptionType
+  internal enum MoveDateOptionType
   {
     None = 0,
     RegexPattern,
     InputDirectory,
-    Recursive,
-    Prefix,
     Help,
     Version,
   }
