@@ -22,6 +22,7 @@ Command List
 + join 		- join multi-files to a single file
 + kill		- terminate a process
 + ls		- list contents in directory
++ movedate  - move files to file last modified date folder
 + ps		- report processes status
 + rm 		- remove a file
 + rmdir		- remove a directory
