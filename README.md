@@ -18,6 +18,7 @@ Command List
 + extract 	- extract regex matches to files
 + find 		- find a file in directory
 + grep 		- search a regex pattern in a file
++ grepcopy	- search pattern in files then copy to folder
 + head 		- show the top parts of a file
 + join 		- join multi-files to a single file
 + kill		- terminate a process
