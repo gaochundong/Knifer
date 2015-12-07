@@ -35,18 +35,26 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\SolutionVersion.cs">
       <Link>SolutionVersion.cs</Link>
     </Compile>
+    <Compile Include="PrettifyXmlCommandLine.cs" />
+    <Compile Include="PrettifyXmlCommandLineOptions.cs" />
+    <Compile Include="PrettifyXmlOptions.cs" />
+    <Compile Include="PrettifyXmlOptionType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Gimela.Toolkit.CommandLines.Foundation\Gimela.Toolkit.CommandLines.Foundation.csproj">
+      <Project>{90c802a2-2899-4ffa-9a82-0f8f38e3ba36}</Project>
+      <Name>Gimela.Toolkit.CommandLines.Foundation</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

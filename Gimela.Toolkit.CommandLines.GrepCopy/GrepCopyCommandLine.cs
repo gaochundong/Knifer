@@ -556,7 +556,7 @@ namespace Gimela.Toolkit.CommandLines.GrepCopy
 
                 string newPath = Path.Combine(options.CopyFolder, file.Name);
 
-                file.CopyTo(newPath);
+                file.CopyTo(newPath, true);
             }
             catch (DirectoryNotFoundException ex)
             {

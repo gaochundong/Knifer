@@ -29,11 +29,11 @@
 namespace Gimela.Toolkit.CommandLines.MoveDate
 {
     internal enum MoveDateOptionType
-  {
-    None = 0,
-    RegexPattern,
-    InputDirectory,
-    Help,
-    Version,
-  }
+    {
+        None = 0,
+        RegexPattern,
+        InputDirectory,
+        Help,
+        Version,
+    }
 }

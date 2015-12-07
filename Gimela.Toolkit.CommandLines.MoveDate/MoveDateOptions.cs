@@ -34,42 +34,42 @@ using System.Globalization;
 namespace Gimela.Toolkit.CommandLines.MoveDate
 {
     internal static class MoveDateOptions
-	{
-		public static readonly ReadOnlyCollection<string> RegexPatternOptions;
-		public static readonly ReadOnlyCollection<string> InputDirectoryOptions;
-		public static readonly ReadOnlyCollection<string> HelpOptions;
-		public static readonly ReadOnlyCollection<string> VersionOptions;
+    {
+        public static readonly ReadOnlyCollection<string> RegexPatternOptions;
+        public static readonly ReadOnlyCollection<string> InputDirectoryOptions;
+        public static readonly ReadOnlyCollection<string> HelpOptions;
+        public static readonly ReadOnlyCollection<string> VersionOptions;
 
-		public static readonly IDictionary<MoveDateOptionType, ICollection<string>> Options;
+        public static readonly IDictionary<MoveDateOptionType, ICollection<string>> Options;
 
-		[SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
-		static MoveDateOptions()
-		{
-			RegexPatternOptions = new ReadOnlyCollection<string>(new string[] { "e", "regex" });
-			InputDirectoryOptions = new ReadOnlyCollection<string>(new string[] { "d", "dir", "directory" });
-			HelpOptions = new ReadOnlyCollection<string>(new string[] { "h", "help" });
-			VersionOptions = new ReadOnlyCollection<string>(new string[] { "v", "version" });
+        [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
+        static MoveDateOptions()
+        {
+            RegexPatternOptions = new ReadOnlyCollection<string>(new string[] { "e", "regex" });
+            InputDirectoryOptions = new ReadOnlyCollection<string>(new string[] { "d", "dir", "directory" });
+            HelpOptions = new ReadOnlyCollection<string>(new string[] { "h", "help" });
+            VersionOptions = new ReadOnlyCollection<string>(new string[] { "v", "version" });
 
-			Options = new Dictionary<MoveDateOptionType, ICollection<string>>();
-			Options.Add(MoveDateOptionType.RegexPattern, RegexPatternOptions);
-			Options.Add(MoveDateOptionType.InputDirectory, InputDirectoryOptions);
-			Options.Add(MoveDateOptionType.Help, HelpOptions);
-			Options.Add(MoveDateOptionType.Version, VersionOptions);
-		}
+            Options = new Dictionary<MoveDateOptionType, ICollection<string>>();
+            Options.Add(MoveDateOptionType.RegexPattern, RegexPatternOptions);
+            Options.Add(MoveDateOptionType.InputDirectory, InputDirectoryOptions);
+            Options.Add(MoveDateOptionType.Help, HelpOptions);
+            Options.Add(MoveDateOptionType.Version, VersionOptions);
+        }
 
-		public static List<string> GetSingleOptions()
-		{
-			List<string> singleOptionList = new List<string>();
+        public static List<string> GetSingleOptions()
+        {
+            List<string> singleOptionList = new List<string>();
 
-			singleOptionList.AddRange(MoveDateOptions.HelpOptions);
-			singleOptionList.AddRange(MoveDateOptions.VersionOptions);
+            singleOptionList.AddRange(MoveDateOptions.HelpOptions);
+            singleOptionList.AddRange(MoveDateOptions.VersionOptions);
 
-			return singleOptionList;
-		}
+            return singleOptionList;
+        }
 
-		#region Usage
+        #region Usage
 
-		public static readonly string Usage = string.Format(CultureInfo.CurrentCulture, @"
+        public static readonly string Usage = string.Format(CultureInfo.CurrentCulture, @"
 NAME
 
 	movedate - move files to file last modified date folder
@@ -112,25 +112,25 @@ COPYRIGHT
 	Copyright (C) 2011-2015 Chundong Gao. All Rights Reserved.
 ", @" ");
 
-		#endregion
+        #endregion
 
-		public static MoveDateOptionType GetOptionType(string option)
-		{
-			MoveDateOptionType optionType = MoveDateOptionType.None;
+        public static MoveDateOptionType GetOptionType(string option)
+        {
+            MoveDateOptionType optionType = MoveDateOptionType.None;
 
-			foreach (var pair in Options)
-			{
-				foreach (var item in pair.Value)
-				{
-					if (item == option)
-					{
-						optionType = pair.Key;
-						break;
-					}
-				}
-			}
+            foreach (var pair in Options)
+            {
+                foreach (var item in pair.Value)
+                {
+                    if (item == option)
+                    {
+                        optionType = pair.Key;
+                        break;
+                    }
+                }
+            }
 
-			return optionType;
-		}
-	}
+            return optionType;
+        }
+    }
 }

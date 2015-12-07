@@ -24,6 +24,7 @@ Command List
 + kill		- terminate a process
 + ls		- list contents in directory
 + movedate  - move files to file last modified date folder
++ prettifyxml   - prettify xml files in folder
 + ps		- report processes status
 + rm 		- remove a file
 + rmdir		- remove a directory

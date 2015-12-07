@@ -26,18 +26,13 @@
 * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-using Gimela.Toolkit.CommandLines.Foundation;
-
 namespace Gimela.Toolkit.CommandLines.PrettifyXml
 {
-    class Program
+    internal enum PrettifyXmlOptionType
     {
-        static void Main(string[] args)
-        {
-            using (var command = new PrettifyXmlCommandLine(args))
-            {
-                CommandLineBootstrap.Start(command);
-            }
-        }
+        None = 0,
+        InputDirectory,
+        Help,
+        Version,
     }
 }

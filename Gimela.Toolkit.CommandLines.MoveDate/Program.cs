@@ -31,13 +31,13 @@ using Gimela.Toolkit.CommandLines.Foundation;
 namespace Gimela.Toolkit.CommandLines.MoveDate
 {
     class Program
-  {
-    static void Main(string[] args)
     {
-      using (CommandLine command = new MoveDateCommandLine(args))
-      {
-        CommandLineBootstrap.Start(command);
-      }
+        static void Main(string[] args)
+        {
+            using (var command = new MoveDateCommandLine(args))
+            {
+                CommandLineBootstrap.Start(command);
+            }
+        }
     }
-  }
 }

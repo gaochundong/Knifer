@@ -30,15 +30,15 @@
 namespace Gimela.Toolkit.CommandLines.MoveDate
 {
     internal class MoveDateCommandLineOptions
-  {
-    public MoveDateCommandLineOptions()
     {
+        public MoveDateCommandLineOptions()
+        {
+        }
+
+        public string RegexPattern { get; set; }
+        public string InputDirectory { get; set; }
+
+        public bool IsSetHelp { get; set; }
+        public bool IsSetVersion { get; set; }
     }
-
-    public string RegexPattern { get; set; }
-    public string InputDirectory { get; set; }
-
-    public bool IsSetHelp { get; set; }
-    public bool IsSetVersion { get; set; }
-  }
 }
