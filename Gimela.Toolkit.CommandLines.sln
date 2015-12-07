@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gimela.Toolkit.CommandLines.Tail", "Gimela.Toolkit.CommandLines.Tail\Gimela.Toolkit.CommandLines.Tail.csproj", "{83C2C1BD-CD2F-451A-9E53-6FBB4AC358C9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gimela.Toolkit.CommandLines.Foundation", "Gimela.Toolkit.CommandLines.Foundation\Gimela.Toolkit.CommandLines.Foundation.csproj", "{90C802A2-2899-4FFA-9A82-0F8F38E3BA36}"
@@ -68,9 +70,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gimela.Toolkit.CommandLines.MoveDate", "Gimela.Toolkit.CommandLines.MoveDate\Gimela.Toolkit.CommandLines.MoveDate.csproj", "{F835E9A3-7F89-4352-A58C-4DEABA1C9F45}"
 EndProject
 Global
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = Gimela.Toolkit.CommandLines.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -383,5 +382,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = Gimela.Toolkit.CommandLines.vsmdi
 	EndGlobalSection
 EndGlobal
