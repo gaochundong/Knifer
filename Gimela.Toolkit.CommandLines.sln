@@ -59,6 +59,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{
 	ProjectSection(SolutionItems) = preProject
 		LICENSE = LICENSE
 		README.md = README.md
+		SolutionVersion.cs = SolutionVersion.cs
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gimela.Toolkit.CommandLines.CopySame", "Gimela.Toolkit.CommandLines.CopySame\Gimela.Toolkit.CommandLines.CopySame.csproj", "{7D88BEA9-CEB6-4187-9360-7B189858992B}"

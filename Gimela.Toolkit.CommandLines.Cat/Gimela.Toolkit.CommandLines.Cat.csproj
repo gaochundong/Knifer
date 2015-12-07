@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SolutionVersion.cs">
+      <Link>SolutionVersion.cs</Link>
+    </Compile>
     <Compile Include="CatCommandLine.cs" />
     <Compile Include="CatCommandLineOptions.cs" />
     <Compile Include="CatOptions.cs" />

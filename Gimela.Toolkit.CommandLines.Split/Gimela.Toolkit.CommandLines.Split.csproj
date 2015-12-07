@@ -42,6 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SolutionVersion.cs">
+      <Link>SolutionVersion.cs</Link>
+    </Compile>
     <Compile Include="SplitCommandLine.cs" />
     <Compile Include="SplitCommandLineOptions.cs" />
     <Compile Include="SplitOptions.cs" />
