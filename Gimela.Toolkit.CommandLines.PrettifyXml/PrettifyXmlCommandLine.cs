@@ -114,46 +114,44 @@ namespace Gimela.Toolkit.CommandLines.PrettifyXml
                     FileInfo[] files = dir.GetFiles("*.xml", SearchOption.TopDirectoryOnly);
                     foreach (var file in files)
                     {
-                        string unformattedXml = null;
-
-                        using (var stream = file.OpenRead())
-                        using (var reader = new StreamReader(stream))
+                        try
                         {
-                            unformattedXml = reader.ReadToEnd();
+                            string unformattedXml = null;
+
+                            using (var stream = file.OpenRead())
+                            using (var reader = new StreamReader(stream))
+                            {
+                                unformattedXml = reader.ReadToEnd();
+                            }
+
+                            string formattedXml = XElement.Parse(unformattedXml).ToString();
+
+                            using (var writer = new StreamWriter(file.FullName, false, Encoding.UTF8))
+                            {
+                                writer.AutoFlush = true;
+                                writer.Write(formattedXml);
+                            }
+
+                            OutputText(string.Format(CultureInfo.CurrentCulture, "Prettify Xml: {0}", file.FullName));
                         }
-
-                        string formattedXml = XElement.Parse(unformattedXml).ToString();
-
-                        using (var writer = new StreamWriter(file.FullName, false, Encoding.UTF8))
+                        catch (UnauthorizedAccessException ex)
                         {
-                            writer.AutoFlush = true;
-                            writer.Write(formattedXml);
+                            throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+                              "Operation exception -- {0}, {1}", file.FullName, ex.Message));
                         }
-
-                        OutputText(string.Format(CultureInfo.CurrentCulture, "Prettify Xml: {0}", file.FullName));
+                        catch (NotSupportedException ex)
+                        {
+                            throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+                              "Operation exception -- {0}, {1}", file.FullName, ex.Message));
+                        }
+                        catch (IOException ex)
+                        {
+                            throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+                              "Operation exception -- {0}, {1}", file.FullName, ex.Message));
+                        }
                     }
                 }
-                catch (UnauthorizedAccessException ex)
-                {
-                    throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
-                      "Operation exception -- {0}, {1}", dir.FullName, ex.Message));
-                }
-                catch (PathTooLongException ex)
-                {
-                    throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
-                      "Operation exception -- {0}, {1}", dir.FullName, ex.Message));
-                }
                 catch (DirectoryNotFoundException ex)
-                {
-                    throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
-                      "Operation exception -- {0}, {1}", dir.FullName, ex.Message));
-                }
-                catch (NotSupportedException ex)
-                {
-                    throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
-                      "Operation exception -- {0}, {1}", dir.FullName, ex.Message));
-                }
-                catch (IOException ex)
                 {
                     throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
                       "Operation exception -- {0}, {1}", dir.FullName, ex.Message));
