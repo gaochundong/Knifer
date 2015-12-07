@@ -664,7 +664,7 @@ namespace Gimela.Toolkit.CommandLines.GrepCopy
                 if (!checkedOptions.IsSetPath || checkedOptions.FilePaths.Count <= 0)
                 {
                     throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
-                      "Option used in invalid context -- {0}", "must specify a path for grep."));
+                      "Option used in invalid context -- {0}", "must specify a path for grepcopy."));
                 }
                 if (checkedOptions.IsSetOutputFile && string.IsNullOrEmpty(checkedOptions.OutputFile))
                 {
