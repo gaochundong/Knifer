@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.Select
 {
-  internal class SelectCommandLineOptions
+    internal class SelectCommandLineOptions
   {
     public SelectCommandLineOptions()
     {

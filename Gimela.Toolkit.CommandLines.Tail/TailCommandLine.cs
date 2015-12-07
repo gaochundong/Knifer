@@ -26,7 +26,6 @@
 * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-using Gimela.Toolkit.CommandLines.Foundation;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -35,10 +34,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using Gimela.Toolkit.CommandLines.Foundation;
 
 namespace Gimela.Toolkit.CommandLines.Tail
 {
-  public class TailCommandLine : CommandLine
+    public class TailCommandLine : CommandLine
   {
     #region Fields
 

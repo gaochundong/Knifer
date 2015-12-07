@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.Tail
 {
-  internal class TailCommandLineOptions
+    internal class TailCommandLineOptions
   {
     internal TailCommandLineOptions()
     {

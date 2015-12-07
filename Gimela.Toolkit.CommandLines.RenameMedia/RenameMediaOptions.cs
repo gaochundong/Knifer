@@ -33,7 +33,7 @@ using System.Globalization;
 
 namespace Gimela.Toolkit.CommandLines.RenameMedia
 {
-  internal static class RenameMediaOptions
+    internal static class RenameMediaOptions
 	{
 		public static readonly ReadOnlyCollection<string> RegexPatternOptions;
 		public static readonly ReadOnlyCollection<string> InputDirectoryOptions;

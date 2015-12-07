@@ -32,7 +32,7 @@ using System.Text.RegularExpressions;
 
 namespace Gimela.Toolkit.CommandLines.Foundation
 {
-  public static class WildcardCharacterHelper
+    public static class WildcardCharacterHelper
   {
     public static bool IsContainsWildcard(string path)
     {

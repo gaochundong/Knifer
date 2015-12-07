@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.Cat
 {
-  internal class CatCommandLineOptions
+    internal class CatCommandLineOptions
   {
     public CatCommandLineOptions()
     {

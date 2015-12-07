@@ -33,7 +33,7 @@ using System.Globalization;
 
 namespace Gimela.Toolkit.CommandLines.KillProcess
 {
-  internal static class KillProcessOptions
+    internal static class KillProcessOptions
 	{
 		public static readonly ReadOnlyCollection<string> PidOptions;
 		public static readonly ReadOnlyCollection<string> NameOptions;

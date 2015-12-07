@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.Split
 {
-  internal enum SplitOptionType
+    internal enum SplitOptionType
   {
     None = 0,
     File,

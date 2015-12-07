@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.Cat
 {
-  internal enum CatOptionType
+    internal enum CatOptionType
   {
     None = 0,
     InputFile,

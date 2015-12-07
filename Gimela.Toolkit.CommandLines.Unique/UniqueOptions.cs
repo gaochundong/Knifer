@@ -33,7 +33,7 @@ using System.Globalization;
 
 namespace Gimela.Toolkit.CommandLines.Unique
 {
-  internal static class UniqueOptions
+    internal static class UniqueOptions
 	{
 		public static readonly ReadOnlyCollection<string> InputFileOptions;
 		public static readonly ReadOnlyCollection<string> OutputFileOptions;

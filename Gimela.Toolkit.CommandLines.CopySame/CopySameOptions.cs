@@ -33,7 +33,7 @@ using System.Globalization;
 
 namespace Gimela.Toolkit.CommandLines.CopySame
 {
-  internal static class CopySameOptions
+    internal static class CopySameOptions
   {
     public static readonly ReadOnlyCollection<string> FromOptions;
     public static readonly ReadOnlyCollection<string> ToOptions;

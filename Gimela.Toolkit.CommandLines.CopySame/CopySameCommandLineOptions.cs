@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.CopySame
 {
-  internal class CopySameCommandLineOptions
+    internal class CopySameCommandLineOptions
   {
     public CopySameCommandLineOptions()
     {

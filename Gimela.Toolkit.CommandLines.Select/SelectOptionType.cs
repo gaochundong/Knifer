@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.Select
 {
-  internal enum SelectOptionType
+    internal enum SelectOptionType
   {
     None = 0,
     Directory,

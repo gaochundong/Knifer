@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.Remove
 {
-  internal enum RemoveOptionType
+    internal enum RemoveOptionType
   {
     None = 0,
     File,

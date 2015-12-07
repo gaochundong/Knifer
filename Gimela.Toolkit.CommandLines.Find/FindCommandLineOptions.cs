@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.Find
 {
-  internal class FindCommandLineOptions
+    internal class FindCommandLineOptions
   {
     public FindCommandLineOptions()
     {

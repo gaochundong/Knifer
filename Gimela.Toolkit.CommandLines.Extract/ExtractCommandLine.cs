@@ -26,7 +26,6 @@
 * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-using Gimela.Toolkit.CommandLines.Foundation;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -36,10 +35,11 @@ using System.Linq;
 using System.Reflection;
 using System.Security;
 using System.Text.RegularExpressions;
+using Gimela.Toolkit.CommandLines.Foundation;
 
 namespace Gimela.Toolkit.CommandLines.Extract
 {
-  public class ExtractCommandLine : CommandLine
+    public class ExtractCommandLine : CommandLine
   {
     #region Fields
 

@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.Count
 {
-  internal enum CountOptionType
+    internal enum CountOptionType
   {
     None = 0,
     Directory,

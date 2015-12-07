@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.KillProcess
 {
-  internal enum KillProcessOptionType
+    internal enum KillProcessOptionType
   {
     None = 0,
     Pid,

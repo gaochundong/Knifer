@@ -30,7 +30,7 @@ using System.Collections.Generic;
 
 namespace Gimela.Toolkit.CommandLines.Join
 {
-  internal class JoinCommandLineOptions
+    internal class JoinCommandLineOptions
   {
     public JoinCommandLineOptions()
     {

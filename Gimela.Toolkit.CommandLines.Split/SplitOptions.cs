@@ -33,7 +33,7 @@ using System.Globalization;
 
 namespace Gimela.Toolkit.CommandLines.Split
 {
-  internal static class SplitOptions
+    internal static class SplitOptions
 	{
 		public static readonly ReadOnlyCollection<string> FileOptions;
 		public static readonly ReadOnlyCollection<string> PrefixOptions;

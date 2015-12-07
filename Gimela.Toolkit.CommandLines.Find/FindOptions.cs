@@ -33,7 +33,7 @@ using System.Globalization;
 
 namespace Gimela.Toolkit.CommandLines.Find
 {
-  internal static class FindOptions
+    internal static class FindOptions
 	{
 		public static readonly ReadOnlyCollection<string> RegexPatternOptions;
 		public static readonly ReadOnlyCollection<string> DirectoryOptions;

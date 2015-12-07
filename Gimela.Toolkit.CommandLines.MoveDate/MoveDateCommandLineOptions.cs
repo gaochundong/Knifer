@@ -29,7 +29,7 @@
 
 namespace Gimela.Toolkit.CommandLines.MoveDate
 {
-  internal class MoveDateCommandLineOptions
+    internal class MoveDateCommandLineOptions
   {
     public MoveDateCommandLineOptions()
     {

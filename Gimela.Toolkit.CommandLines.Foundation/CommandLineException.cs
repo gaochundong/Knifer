@@ -31,7 +31,7 @@ using System.Runtime.Serialization;
 
 namespace Gimela.Toolkit.CommandLines.Foundation
 {
-  [Serializable]
+    [Serializable]
   public class CommandLineException : Exception
   {
     public CommandLineException()

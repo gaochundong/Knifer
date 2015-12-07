@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.RemoveDirectory
 {
-  internal class RemoveDirectoryCommandLineOptions
+    internal class RemoveDirectoryCommandLineOptions
   {
     public RemoveDirectoryCommandLineOptions()
     {

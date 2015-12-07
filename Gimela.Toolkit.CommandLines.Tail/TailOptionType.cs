@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.Tail
 {
-  internal enum TailOptionType
+    internal enum TailOptionType
   {
     None = 0,
     Retry,

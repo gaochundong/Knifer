@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.RenameMedia
 {
-  internal enum RenameMediaOptionType
+    internal enum RenameMediaOptionType
   {
     None = 0,
     RegexPattern,

@@ -30,7 +30,7 @@ using System.Text;
 
 namespace Gimela.Toolkit.CommandLines.Encode
 {
-  internal class EncodeCommandLineOptions
+    internal class EncodeCommandLineOptions
   {
     public EncodeCommandLineOptions()
     {

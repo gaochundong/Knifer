@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.MoveDate
 {
-  internal enum MoveDateOptionType
+    internal enum MoveDateOptionType
   {
     None = 0,
     RegexPattern,

@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.Split
 {
-  internal class SplitCommandLineOptions
+    internal class SplitCommandLineOptions
   {
     public SplitCommandLineOptions()
     {

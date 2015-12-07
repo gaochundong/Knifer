@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.Sort
 {
-  internal enum SortOptionType
+    internal enum SortOptionType
   {
     None = 0,
     InputFile,

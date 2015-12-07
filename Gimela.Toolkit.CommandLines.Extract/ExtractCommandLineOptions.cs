@@ -30,7 +30,7 @@ using System.Collections.Generic;
 
 namespace Gimela.Toolkit.CommandLines.Extract
 {
-  internal class ExtractCommandLineOptions
+    internal class ExtractCommandLineOptions
   {
     public ExtractCommandLineOptions()
     {

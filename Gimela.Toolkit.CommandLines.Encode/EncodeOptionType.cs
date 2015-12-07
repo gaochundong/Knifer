@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.Encode
 {
-  internal enum EncodeOptionType
+    internal enum EncodeOptionType
   {
     None = 0,
     InputFile,

@@ -33,7 +33,7 @@ using System.Globalization;
 
 namespace Gimela.Toolkit.CommandLines.Base64
 {
-  internal static class Base64Options
+    internal static class Base64Options
 	{
 		public static readonly ReadOnlyCollection<string> DecodeOptions;
 		public static readonly ReadOnlyCollection<string> EncodingOptions;

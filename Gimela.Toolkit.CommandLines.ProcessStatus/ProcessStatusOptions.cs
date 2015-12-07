@@ -33,7 +33,7 @@ using System.Globalization;
 
 namespace Gimela.Toolkit.CommandLines.ProcessStatus
 {
-  internal static class ProcessStatusOptions
+    internal static class ProcessStatusOptions
 	{
 		public static readonly ReadOnlyCollection<string> HelpOptions;
 		public static readonly ReadOnlyCollection<string> VersionOptions;

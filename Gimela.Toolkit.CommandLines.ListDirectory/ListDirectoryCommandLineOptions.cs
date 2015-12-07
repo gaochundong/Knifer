@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.ListDirectory
 {
-  internal class ListDirectoryCommandLineOptions
+    internal class ListDirectoryCommandLineOptions
   {
     public ListDirectoryCommandLineOptions()
     {

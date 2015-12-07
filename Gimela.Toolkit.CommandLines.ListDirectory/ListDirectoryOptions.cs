@@ -33,7 +33,7 @@ using System.Globalization;
 
 namespace Gimela.Toolkit.CommandLines.ListDirectory
 {
-  internal static class ListDirectoryOptions
+    internal static class ListDirectoryOptions
 	{
 		public static readonly ReadOnlyCollection<string> InputDirectoryOptions;
 		public static readonly ReadOnlyCollection<string> DirectoryOptions;

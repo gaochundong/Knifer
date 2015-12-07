@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.Extract
 {
-  internal enum ExtractOptionType
+    internal enum ExtractOptionType
   {
     None = 0,
     RegexPattern,

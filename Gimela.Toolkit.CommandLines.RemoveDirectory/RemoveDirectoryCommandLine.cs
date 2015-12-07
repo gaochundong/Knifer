@@ -26,7 +26,6 @@
 * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-using Gimela.Toolkit.CommandLines.Foundation;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -35,10 +34,11 @@ using System.IO;
 using System.Linq;
 using System.Security;
 using System.Text.RegularExpressions;
+using Gimela.Toolkit.CommandLines.Foundation;
 
 namespace Gimela.Toolkit.CommandLines.RemoveDirectory
 {
-  public class RemoveDirectoryCommandLine : CommandLine
+    public class RemoveDirectoryCommandLine : CommandLine
   {
     #region Fields
 

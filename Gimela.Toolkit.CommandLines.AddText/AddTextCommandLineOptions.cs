@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.AddText
 {
-  internal class AddTextCommandLineOptions
+    internal class AddTextCommandLineOptions
   {
     public AddTextCommandLineOptions()
     {

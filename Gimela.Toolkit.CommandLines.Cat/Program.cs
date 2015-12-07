@@ -30,7 +30,7 @@ using Gimela.Toolkit.CommandLines.Foundation;
 
 namespace Gimela.Toolkit.CommandLines.Cat
 {
-  class Program
+    class Program
   {
     static void Main(string[] args)
     {

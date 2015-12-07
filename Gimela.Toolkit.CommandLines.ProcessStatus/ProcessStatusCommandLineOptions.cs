@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.ProcessStatus
 {
-  internal class ProcessStatusCommandLineOptions
+    internal class ProcessStatusCommandLineOptions
   {
     public ProcessStatusCommandLineOptions()
     {

@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.ProcessStatus
 {
-  internal enum ProcessStatusOptionType
+    internal enum ProcessStatusOptionType
   {
     None = 0,
     Help,

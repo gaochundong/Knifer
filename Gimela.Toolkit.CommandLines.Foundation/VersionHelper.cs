@@ -31,7 +31,7 @@ using System.Reflection;
 
 namespace Gimela.Toolkit.CommandLines.Foundation
 {
-  public static class VersionHelper
+    public static class VersionHelper
   {
     public static string GetExecutingAssemblyName()
     {

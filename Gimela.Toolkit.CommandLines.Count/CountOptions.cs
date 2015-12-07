@@ -33,7 +33,7 @@ using System.Globalization;
 
 namespace Gimela.Toolkit.CommandLines.Count
 {
-  internal static class CountOptions
+    internal static class CountOptions
 	{
 		public static readonly ReadOnlyCollection<string> DirectoryOptions;
 		public static readonly ReadOnlyCollection<string> RecursiveOptions;

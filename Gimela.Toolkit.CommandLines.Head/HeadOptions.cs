@@ -33,7 +33,7 @@ using System.Globalization;
 
 namespace Gimela.Toolkit.CommandLines.Head
 {
-  internal static class HeadOptions
+    internal static class HeadOptions
 	{
 		public static readonly ReadOnlyCollection<string> FileOptions;
 		public static readonly ReadOnlyCollection<string> NumberOptions;

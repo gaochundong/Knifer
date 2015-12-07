@@ -26,7 +26,6 @@
 * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-using Gimela.Toolkit.CommandLines.Foundation;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -34,10 +33,11 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Gimela.Toolkit.CommandLines.Foundation;
 
 namespace Gimela.Toolkit.CommandLines.Replace
 {
-  public class ReplaceCommandLine : CommandLine
+    public class ReplaceCommandLine : CommandLine
   {
     #region Fields
 

@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.Checksum
 {
-  internal enum ChecksumOptionType
+    internal enum ChecksumOptionType
   {
     None = 0,
     Algorithm,

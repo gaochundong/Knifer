@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.Head
 {
-  internal class HeadCommandLineOptions
+    internal class HeadCommandLineOptions
   {
     public HeadCommandLineOptions()
     {

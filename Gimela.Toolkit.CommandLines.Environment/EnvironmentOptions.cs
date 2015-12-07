@@ -33,7 +33,7 @@ using System.Globalization;
 
 namespace Gimela.Toolkit.CommandLines.Environment
 {
-  internal static class EnvironmentOptions
+    internal static class EnvironmentOptions
 	{
 		public static readonly ReadOnlyCollection<string> HelpOptions;
 		public static readonly ReadOnlyCollection<string> VersionOptions;

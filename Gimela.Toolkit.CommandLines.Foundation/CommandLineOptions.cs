@@ -30,11 +30,11 @@ using System.Collections.Generic;
 
 namespace Gimela.Toolkit.CommandLines.Foundation
 {
-  /// <summary>
-  /// Contains the parsed command line options. This consists of two
-  /// lists, one of argument pairs, and one of stand-alone parameters.
-  /// </summary>
-  public class CommandLineOptions
+    /// <summary>
+    /// Contains the parsed command line options. This consists of two
+    /// lists, one of argument pairs, and one of stand-alone parameters.
+    /// </summary>
+    public class CommandLineOptions
   {
     private List<string> parameters = new List<string>();
     private Dictionary<string, string> arguments = new Dictionary<string, string>();

@@ -33,7 +33,7 @@ using System.Globalization;
 
 namespace Gimela.Toolkit.CommandLines.Checksum
 {
-  internal static class ChecksumOptions
+    internal static class ChecksumOptions
 	{
 		public static readonly ReadOnlyCollection<string> AlgorithmOptions;
 		public static readonly ReadOnlyCollection<string> FileOptions;

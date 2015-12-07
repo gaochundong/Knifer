@@ -30,7 +30,7 @@ using System;
 
 namespace Gimela.Toolkit.CommandLines.Foundation
 {
-  public static class CommandLineBootstrap
+    public static class CommandLineBootstrap
   {
     public static void Start(CommandLine command)
     {

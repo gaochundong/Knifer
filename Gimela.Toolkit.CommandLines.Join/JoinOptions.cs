@@ -33,7 +33,7 @@ using System.Globalization;
 
 namespace Gimela.Toolkit.CommandLines.Join
 {
-  internal static class JoinOptions
+    internal static class JoinOptions
 	{
 		public static readonly ReadOnlyCollection<string> OutputFileOptions;
 		public static readonly ReadOnlyCollection<string> HelpOptions;

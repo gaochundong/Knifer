@@ -34,7 +34,7 @@ using System.Text;
 
 namespace Gimela.Toolkit.CommandLines.Foundation
 {
-  public abstract class CommandLine : ICommandLine
+    public abstract class CommandLine : ICommandLine
   {
     #region Ctors
 

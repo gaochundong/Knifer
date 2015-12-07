@@ -33,7 +33,7 @@ using System.Globalization;
 
 namespace Gimela.Toolkit.CommandLines.Rename
 {
-  internal static class RenameOptions
+    internal static class RenameOptions
 	{
 		public static readonly ReadOnlyCollection<string> RegexPatternOptions;
 		public static readonly ReadOnlyCollection<string> InputDirectoryOptions;

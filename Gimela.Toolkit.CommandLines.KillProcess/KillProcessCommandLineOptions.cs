@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.KillProcess
 {
-  internal class KillProcessCommandLineOptions
+    internal class KillProcessCommandLineOptions
   {
     public KillProcessCommandLineOptions()
     {

@@ -33,7 +33,7 @@ using System.Globalization;
 
 namespace Gimela.Toolkit.CommandLines.MoveDate
 {
-  internal static class MoveDateOptions
+    internal static class MoveDateOptions
 	{
 		public static readonly ReadOnlyCollection<string> RegexPatternOptions;
 		public static readonly ReadOnlyCollection<string> InputDirectoryOptions;

@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.Environment
 {
-  internal class EnvironmentCommandLineOptions
+    internal class EnvironmentCommandLineOptions
   {
     public EnvironmentCommandLineOptions()
     {

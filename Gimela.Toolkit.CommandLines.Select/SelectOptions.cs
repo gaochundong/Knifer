@@ -33,7 +33,7 @@ using System.Globalization;
 
 namespace Gimela.Toolkit.CommandLines.Select
 {
-  internal static class SelectOptions
+    internal static class SelectOptions
 	{
 		public static readonly ReadOnlyCollection<string> DirectoryOptions;
 		public static readonly ReadOnlyCollection<string> RecursiveOptions;

@@ -29,7 +29,7 @@ using System.Collections.Generic;
 
 namespace Gimela.Toolkit.CommandLines.Replace
 {
-  internal class ReplaceCommandLineOptions
+    internal class ReplaceCommandLineOptions
   {
     public ReplaceCommandLineOptions()
     {

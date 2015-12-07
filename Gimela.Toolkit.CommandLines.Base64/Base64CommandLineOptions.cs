@@ -30,7 +30,7 @@ using System.Text;
 
 namespace Gimela.Toolkit.CommandLines.Base64
 {
-  internal class Base64CommandLineOptions
+    internal class Base64CommandLineOptions
   {
     public Base64CommandLineOptions()
     {

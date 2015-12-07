@@ -31,7 +31,7 @@ using System.Globalization;
 
 namespace Gimela.Toolkit.CommandLines.Foundation
 {
-  public class CommandLineExceptionEventArgs : EventArgs
+    public class CommandLineExceptionEventArgs : EventArgs
   {
     public CommandLineException Exception { get; set; }
 

@@ -31,7 +31,7 @@ using System.Globalization;
 
 namespace Gimela.Toolkit.CommandLines.Foundation
 {
-  public class CommandLineUsageEventArgs : EventArgs
+    public class CommandLineUsageEventArgs : EventArgs
   {
     public string Usage { get; set; }
 

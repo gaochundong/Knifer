@@ -33,7 +33,7 @@ using System.Globalization;
 
 namespace Gimela.Toolkit.CommandLines.Sort
 {
-  internal static class SortOptions
+    internal static class SortOptions
 	{
 		public static readonly ReadOnlyCollection<string> InputFileOptions;
 		public static readonly ReadOnlyCollection<string> OutputFileOptions;

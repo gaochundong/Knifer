@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.ListDirectory
 {
-  internal enum ListDirectoryOptionType
+    internal enum ListDirectoryOptionType
   {
     None = 0,
     InputDirectory,

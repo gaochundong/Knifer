@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.Unique
 {
-  internal enum UniqueOptionType
+    internal enum UniqueOptionType
   {
     None = 0,
     InputFile,

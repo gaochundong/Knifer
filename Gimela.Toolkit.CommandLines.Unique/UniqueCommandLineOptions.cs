@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.Unique
 {
-  internal class UniqueCommandLineOptions
+    internal class UniqueCommandLineOptions
   {
     public UniqueCommandLineOptions()
     {

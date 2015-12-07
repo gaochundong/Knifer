@@ -33,7 +33,7 @@ using System.Globalization;
 
 namespace Gimela.Toolkit.CommandLines.Tail
 {
-  internal static class TailOptions
+    internal static class TailOptions
 	{
 		public static readonly ReadOnlyCollection<string> RetryOptions;
 		public static readonly ReadOnlyCollection<string> FollowOptions;

@@ -26,18 +26,18 @@
 * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-using Gimela.Toolkit.CommandLines.Foundation;
-using Gimela.Toolkit.CommandLines.Tail;
 using System;
 using System.Threading;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Threading;
+using Gimela.Toolkit.CommandLines.Foundation;
+using Gimela.Toolkit.CommandLines.Tail;
 
 namespace Gimela.Toolkit.CommandLines.TailUI
 {
-  public partial class MainWindow : Window
+    public partial class MainWindow : Window
   {
     private const string TailCommand = @"Tail";
     private const string CancelCommand = @"Cancel";

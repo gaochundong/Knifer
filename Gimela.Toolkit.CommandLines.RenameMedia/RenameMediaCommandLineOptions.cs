@@ -29,7 +29,7 @@
 
 namespace Gimela.Toolkit.CommandLines.RenameMedia
 {
-  internal class RenameMediaCommandLineOptions
+    internal class RenameMediaCommandLineOptions
   {
     public RenameMediaCommandLineOptions()
     {

@@ -33,7 +33,7 @@ using System.Globalization;
 
 namespace Gimela.Toolkit.CommandLines.RemoveDirectory
 {
-  internal static class RemoveDirectoryOptions
+    internal static class RemoveDirectoryOptions
 	{
 		public static readonly ReadOnlyCollection<string> DirectoryOptions;
 		public static readonly ReadOnlyCollection<string> RecursiveOptions;

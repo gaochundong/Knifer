@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.Count
 {
-  internal class CountCommandLineOptions
+    internal class CountCommandLineOptions
   {
     public CountCommandLineOptions()
     {

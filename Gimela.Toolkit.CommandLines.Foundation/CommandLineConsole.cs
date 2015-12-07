@@ -30,7 +30,7 @@ using System;
 
 namespace Gimela.Toolkit.CommandLines.Foundation
 {
-  public static class CommandLineConsole
+    public static class CommandLineConsole
   {
     public static void OnCommandLineException(object sender, CommandLineExceptionEventArgs e)
     {

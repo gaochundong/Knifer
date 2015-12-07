@@ -33,7 +33,7 @@ using System.Globalization;
 
 namespace Gimela.Toolkit.CommandLines.Replace
 {
-  internal static class ReplaceOptions
+    internal static class ReplaceOptions
 	{
 		public static readonly ReadOnlyCollection<string> InputFileOptions;
 		public static readonly ReadOnlyCollection<string> OutputFileOptions;

@@ -33,7 +33,7 @@ using System.Globalization;
 
 namespace Gimela.Toolkit.CommandLines.Cat
 {
-  internal static class CatOptions
+    internal static class CatOptions
 	{
 		public static readonly ReadOnlyCollection<string> InputFileOptions;
 		public static readonly ReadOnlyCollection<string> LineNumberOptions;

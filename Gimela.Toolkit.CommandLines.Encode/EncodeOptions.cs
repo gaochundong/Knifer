@@ -33,7 +33,7 @@ using System.Globalization;
 
 namespace Gimela.Toolkit.CommandLines.Encode
 {
-  internal static class EncodeOptions
+    internal static class EncodeOptions
 	{
 		public static readonly ReadOnlyCollection<string> InputFileOptions;
 		public static readonly ReadOnlyCollection<string> OutputFileOptions;

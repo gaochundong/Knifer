@@ -31,7 +31,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Gimela.Toolkit.CommandLines.Checksum
 {
-  [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "CRC")]
+    [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "CRC")]
   internal static class CRC32CryptoServiceProvider
   {
     private static readonly long[] crc32Table = new long[]{  

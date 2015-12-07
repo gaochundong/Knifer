@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.Sort
 {
-  internal class SortCommandLineOptions
+    internal class SortCommandLineOptions
   {
     public SortCommandLineOptions()
     {

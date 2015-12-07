@@ -32,10 +32,10 @@ using System.Linq;
 
 namespace Gimela.Toolkit.CommandLines.Foundation
 {
-  /// <summary>
-  /// Command line parsing
-  /// </summary>
-  public static class CommandLineParser
+    /// <summary>
+    /// Command line parsing
+    /// </summary>
+    public static class CommandLineParser
   {
     private const char OptionEqualChar = '=';
     private static readonly char[] OptionStartWithChars = new char[] { '-' };

@@ -33,7 +33,7 @@ using System.Globalization;
 
 namespace Gimela.Toolkit.CommandLines.Extract
 {
-  internal static class ExtractOptions
+    internal static class ExtractOptions
 	{
 		public static readonly ReadOnlyCollection<string> RegexPatternOptions;
 		public static readonly ReadOnlyCollection<string> InputDirectoryOptions;

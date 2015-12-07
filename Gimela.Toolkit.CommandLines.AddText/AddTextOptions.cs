@@ -33,7 +33,7 @@ using System.Globalization;
 
 namespace Gimela.Toolkit.CommandLines.AddText
 {
-  internal static class AddTextOptions
+    internal static class AddTextOptions
 	{
 		public static readonly ReadOnlyCollection<string> TopOptions;
 		public static readonly ReadOnlyCollection<string> BottomOptions;

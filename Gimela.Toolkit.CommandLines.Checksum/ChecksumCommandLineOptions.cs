@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.Checksum
 {
-  internal class ChecksumCommandLineOptions
+    internal class ChecksumCommandLineOptions
   {
     public ChecksumCommandLineOptions()
     {

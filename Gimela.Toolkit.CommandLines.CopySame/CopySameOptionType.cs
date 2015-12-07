@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.CopySame
 {
-  internal enum CopySameOptionType
+    internal enum CopySameOptionType
   {
     None = 0,
     Source,

@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.Rename
 {
-  internal enum RenameOptionType
+    internal enum RenameOptionType
   {
     None = 0,
     RegexPattern,

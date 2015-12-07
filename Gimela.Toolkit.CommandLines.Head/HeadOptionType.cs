@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.Head
 {
-  internal enum HeadOptionType
+    internal enum HeadOptionType
   {
     None = 0,
     File,

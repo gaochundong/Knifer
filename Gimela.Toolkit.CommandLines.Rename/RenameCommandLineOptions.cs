@@ -30,7 +30,7 @@ using System.Collections.Generic;
 
 namespace Gimela.Toolkit.CommandLines.Rename
 {
-  internal class RenameCommandLineOptions
+    internal class RenameCommandLineOptions
   {
     public RenameCommandLineOptions()
     {

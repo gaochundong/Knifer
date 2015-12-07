@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.Environment
 {
-  internal enum EnvironmentOptionType
+    internal enum EnvironmentOptionType
   {
     None = 0,
     Help,

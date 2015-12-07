@@ -28,7 +28,7 @@
 
 namespace Gimela.Toolkit.CommandLines.Find
 {
-  internal enum FindOptionType
+    internal enum FindOptionType
   {
     None = 0,
     RegexPattern,

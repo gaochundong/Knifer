@@ -30,7 +30,7 @@ using System.Collections.Generic;
 
 namespace Gimela.Toolkit.CommandLines.Remove
 {
-  internal class RemoveCommandLineOptions
+    internal class RemoveCommandLineOptions
   {
     public RemoveCommandLineOptions()
     {

@@ -30,7 +30,7 @@ using System;
 
 namespace Gimela.Toolkit.CommandLines.Foundation
 {
-  public interface ICommandLine : IDisposable
+    public interface ICommandLine : IDisposable
   {
     void Execute();
 
