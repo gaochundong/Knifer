@@ -52,7 +52,7 @@ Have a bug? Please create an issue here on GitHub!
 Copyright and license
 ---------------------
 
-Copyright (c) 2011-2015 Dennis Gao
+Copyright (c) 2011-2015 Chundong Gao
 All rights reserved.
 
 Licensed under the BSD License.
