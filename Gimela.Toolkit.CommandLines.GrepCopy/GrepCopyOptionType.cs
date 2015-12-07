@@ -38,6 +38,7 @@ namespace Gimela.Toolkit.CommandLines.GrepCopy
         InvertMatch,
         OutputFile,
         Count,
+        CopyFolder,
         FilesWithoutMatch,
         FilesWithMatchs,
         NoMessages,

@@ -155,7 +155,11 @@ namespace Gimela.Toolkit.CommandLines.GrepCopy
                 }
                 else
                 {
-                    MatchFile(path);
+                    int matchingLineCount = MatchFile(path);
+                    if (matchingLineCount > 0)
+                    {
+                        CopyFolder(path);
+                    }
                 }
             }
         }
@@ -257,7 +261,7 @@ namespace Gimela.Toolkit.CommandLines.GrepCopy
             return result;
         }
 
-        private void MatchFile(string path)
+        private int MatchFile(string path)
         {
             List<string> readText = new List<string>();
             Stream stream = null;
@@ -280,6 +284,7 @@ namespace Gimela.Toolkit.CommandLines.GrepCopy
             }
 
             int matchingLineCount = 0;
+
             for (int i = 0; i < readText.Count; i++)
             {
                 if (options.IsSetFixedStrings)
@@ -367,10 +372,13 @@ namespace Gimela.Toolkit.CommandLines.GrepCopy
                     OutputFilesWithMatch(path);
                 }
             }
-            else if (options.IsSetCount)
+
+            if (options.IsSetCount)
             {
                 OutputFileMatchingLineCount(path, matchingLineCount);
             }
+
+            return matchingLineCount;
         }
 
         private void OutputFilesWithoutMatch(string path)
@@ -528,6 +536,55 @@ namespace Gimela.Toolkit.CommandLines.GrepCopy
             }
         }
 
+        private void CopyFolder(string path)
+        {
+            if (!options.IsSetCopyFolder) return;
+
+            try
+            {
+                FileInfo file = new FileInfo(path);
+                if (!file.Exists)
+                {
+                    throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+                      "No such file -- {0}", file.FullName));
+                }
+
+                if (!Directory.Exists(options.CopyFolder))
+                {
+                    Directory.CreateDirectory(options.CopyFolder);
+                }
+
+                string newPath = Path.Combine(options.CopyFolder, file.Name);
+
+                file.CopyTo(newPath);
+            }
+            catch (DirectoryNotFoundException ex)
+            {
+                throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+                  "Copy folder failed -- {0}, {1}", options.CopyFolder, ex.Message));
+            }
+            catch (PathTooLongException ex)
+            {
+                throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+                  "Copy folder failed -- {0}, {1}", options.CopyFolder, ex.Message));
+            }
+            catch (IOException ex)
+            {
+                throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+                  "Copy folder failed -- {0}, {1}", options.CopyFolder, ex.Message));
+            }
+            catch (SecurityException ex)
+            {
+                throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+                  "Copy folder failed -- {0}, {1}", options.CopyFolder, ex.Message));
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+                  "Copy folder failed -- {0}, {1}", options.CopyFolder, ex.Message));
+            }
+        }
+
         #endregion
 
         #region Parse Options
@@ -573,6 +630,10 @@ namespace Gimela.Toolkit.CommandLines.GrepCopy
                         case GrepCopyOptionType.OutputFile:
                             targetOptions.IsSetOutputFile = true;
                             targetOptions.OutputFile = commandLineOptions.Arguments[arg];
+                            break;
+                        case GrepCopyOptionType.CopyFolder:
+                            targetOptions.IsSetCopyFolder = true;
+                            targetOptions.CopyFolder = commandLineOptions.Arguments[arg];
                             break;
                         case GrepCopyOptionType.Count:
                             targetOptions.IsSetCount = true;
@@ -670,6 +731,11 @@ namespace Gimela.Toolkit.CommandLines.GrepCopy
                 {
                     throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
                       "Option used in invalid context -- {0}", "bad output file path format."));
+                }
+                if (checkedOptions.IsSetCopyFolder && string.IsNullOrEmpty(checkedOptions.CopyFolder))
+                {
+                    throw new CommandLineException(string.Format(CultureInfo.CurrentCulture,
+                      "Option used in invalid context -- {0}", "bad copy folder path format."));
                 }
             }
         }

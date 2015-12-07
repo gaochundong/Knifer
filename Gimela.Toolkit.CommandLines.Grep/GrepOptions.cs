@@ -33,103 +33,103 @@ using System.Globalization;
 
 namespace Gimela.Toolkit.CommandLines.Grep
 {
-  internal static class GrepOptions
-	{
-		public static readonly ReadOnlyCollection<string> RegexPatternOptions;
-		public static readonly ReadOnlyCollection<string> FileOptions;
-		public static readonly ReadOnlyCollection<string> FixedStringsOptions;
-		public static readonly ReadOnlyCollection<string> IgnoreCaseOptions;
-		public static readonly ReadOnlyCollection<string> InvertMatchOptions;
-		public static readonly ReadOnlyCollection<string> OutputFileOptions;
-		public static readonly ReadOnlyCollection<string> CountOptions;
-		public static readonly ReadOnlyCollection<string> FilesWithoutMatchOptions;
-		public static readonly ReadOnlyCollection<string> FilesWithMatchsOptions;
-		public static readonly ReadOnlyCollection<string> NoMessagesOptions;
-		public static readonly ReadOnlyCollection<string> WithFileNameOptions;
-		public static readonly ReadOnlyCollection<string> NoFileNameOptions;
-		public static readonly ReadOnlyCollection<string> LineNumberOptions;
-		public static readonly ReadOnlyCollection<string> DirectoryOptions;
-		public static readonly ReadOnlyCollection<string> ExcludeFilesOptions;
-		public static readonly ReadOnlyCollection<string> ExcludeDirectoriesOptions;
-		public static readonly ReadOnlyCollection<string> IncludeFilesOptions;
-		public static readonly ReadOnlyCollection<string> RecursiveOptions;
-		public static readonly ReadOnlyCollection<string> HelpOptions;
-		public static readonly ReadOnlyCollection<string> VersionOptions;
+    internal static class GrepOptions
+    {
+        public static readonly ReadOnlyCollection<string> RegexPatternOptions;
+        public static readonly ReadOnlyCollection<string> FileOptions;
+        public static readonly ReadOnlyCollection<string> FixedStringsOptions;
+        public static readonly ReadOnlyCollection<string> IgnoreCaseOptions;
+        public static readonly ReadOnlyCollection<string> InvertMatchOptions;
+        public static readonly ReadOnlyCollection<string> OutputFileOptions;
+        public static readonly ReadOnlyCollection<string> CountOptions;
+        public static readonly ReadOnlyCollection<string> FilesWithoutMatchOptions;
+        public static readonly ReadOnlyCollection<string> FilesWithMatchsOptions;
+        public static readonly ReadOnlyCollection<string> NoMessagesOptions;
+        public static readonly ReadOnlyCollection<string> WithFileNameOptions;
+        public static readonly ReadOnlyCollection<string> NoFileNameOptions;
+        public static readonly ReadOnlyCollection<string> LineNumberOptions;
+        public static readonly ReadOnlyCollection<string> DirectoryOptions;
+        public static readonly ReadOnlyCollection<string> ExcludeFilesOptions;
+        public static readonly ReadOnlyCollection<string> ExcludeDirectoriesOptions;
+        public static readonly ReadOnlyCollection<string> IncludeFilesOptions;
+        public static readonly ReadOnlyCollection<string> RecursiveOptions;
+        public static readonly ReadOnlyCollection<string> HelpOptions;
+        public static readonly ReadOnlyCollection<string> VersionOptions;
 
-		public static readonly IDictionary<GrepOptionType, ICollection<string>> Options;
+        public static readonly IDictionary<GrepOptionType, ICollection<string>> Options;
 
-		[SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
-		static GrepOptions()
-		{
-			RegexPatternOptions = new ReadOnlyCollection<string>(new string[] { "e", "regex" });
-			FileOptions = new ReadOnlyCollection<string>(new string[] { "f", "file" });
-			FixedStringsOptions = new ReadOnlyCollection<string>(new string[] { "F", "fixed-strings" });
-			IgnoreCaseOptions = new ReadOnlyCollection<string>(new string[] { "i", "ignore-case" });
-			InvertMatchOptions = new ReadOnlyCollection<string>(new string[] { "V", "invert-match" });
-			OutputFileOptions = new ReadOnlyCollection<string>(new string[] { "o", "output" });
-			CountOptions = new ReadOnlyCollection<string>(new string[] { "c", "count" });
-			FilesWithoutMatchOptions = new ReadOnlyCollection<string>(new string[] { "L", "files-without-match" });
-			FilesWithMatchsOptions = new ReadOnlyCollection<string>(new string[] { "l", "files-with-matches" });
-			NoMessagesOptions = new ReadOnlyCollection<string>(new string[] { "s", "no-messages" });
-			WithFileNameOptions = new ReadOnlyCollection<string>(new string[] { "P", "with-filename" });
-			NoFileNameOptions = new ReadOnlyCollection<string>(new string[] { "p", "no-filename" });
-			LineNumberOptions = new ReadOnlyCollection<string>(new string[] { "n", "line-number" });
-			DirectoryOptions = new ReadOnlyCollection<string>(new string[] { "d", "directory" });
-			ExcludeFilesOptions = new ReadOnlyCollection<string>(new string[] { "exclude" });
-			ExcludeDirectoriesOptions = new ReadOnlyCollection<string>(new string[] { "exclude-dir" });
-			IncludeFilesOptions = new ReadOnlyCollection<string>(new string[] { "include" });
-			RecursiveOptions = new ReadOnlyCollection<string>(new string[] { "r", "recursive" });
-			HelpOptions = new ReadOnlyCollection<string>(new string[] { "h", "help" });
-			VersionOptions = new ReadOnlyCollection<string>(new string[] { "v", "version" });
+        [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
+        static GrepOptions()
+        {
+            RegexPatternOptions = new ReadOnlyCollection<string>(new string[] { "e", "regex" });
+            FileOptions = new ReadOnlyCollection<string>(new string[] { "f", "file" });
+            FixedStringsOptions = new ReadOnlyCollection<string>(new string[] { "F", "fixed-strings" });
+            IgnoreCaseOptions = new ReadOnlyCollection<string>(new string[] { "i", "ignore-case" });
+            InvertMatchOptions = new ReadOnlyCollection<string>(new string[] { "V", "invert-match" });
+            OutputFileOptions = new ReadOnlyCollection<string>(new string[] { "o", "output" });
+            CountOptions = new ReadOnlyCollection<string>(new string[] { "c", "count" });
+            FilesWithoutMatchOptions = new ReadOnlyCollection<string>(new string[] { "L", "files-without-match" });
+            FilesWithMatchsOptions = new ReadOnlyCollection<string>(new string[] { "l", "files-with-matches" });
+            NoMessagesOptions = new ReadOnlyCollection<string>(new string[] { "s", "no-messages" });
+            WithFileNameOptions = new ReadOnlyCollection<string>(new string[] { "P", "with-filename" });
+            NoFileNameOptions = new ReadOnlyCollection<string>(new string[] { "p", "no-filename" });
+            LineNumberOptions = new ReadOnlyCollection<string>(new string[] { "n", "line-number" });
+            DirectoryOptions = new ReadOnlyCollection<string>(new string[] { "d", "directory" });
+            ExcludeFilesOptions = new ReadOnlyCollection<string>(new string[] { "exclude" });
+            ExcludeDirectoriesOptions = new ReadOnlyCollection<string>(new string[] { "exclude-dir" });
+            IncludeFilesOptions = new ReadOnlyCollection<string>(new string[] { "include" });
+            RecursiveOptions = new ReadOnlyCollection<string>(new string[] { "r", "recursive" });
+            HelpOptions = new ReadOnlyCollection<string>(new string[] { "h", "help" });
+            VersionOptions = new ReadOnlyCollection<string>(new string[] { "v", "version" });
 
-			Options = new Dictionary<GrepOptionType, ICollection<string>>();
-			Options.Add(GrepOptionType.RegexPattern, RegexPatternOptions);
-			Options.Add(GrepOptionType.File, FileOptions);
-			Options.Add(GrepOptionType.FixedStrings, FixedStringsOptions);
-			Options.Add(GrepOptionType.IgnoreCase, IgnoreCaseOptions);
-			Options.Add(GrepOptionType.InvertMatch, InvertMatchOptions);
-			Options.Add(GrepOptionType.OutputFile, OutputFileOptions);
-			Options.Add(GrepOptionType.Count, CountOptions);
-			Options.Add(GrepOptionType.FilesWithoutMatch, FilesWithoutMatchOptions);
-			Options.Add(GrepOptionType.FilesWithMatchs, FilesWithMatchsOptions);
-			Options.Add(GrepOptionType.NoMessages, NoMessagesOptions);
-			Options.Add(GrepOptionType.WithFileName, WithFileNameOptions);
-			Options.Add(GrepOptionType.NoFileName, NoFileNameOptions);
-			Options.Add(GrepOptionType.LineNumber, LineNumberOptions);
-			Options.Add(GrepOptionType.Directory, DirectoryOptions);
-			Options.Add(GrepOptionType.ExcludeFiles, ExcludeFilesOptions);
-			Options.Add(GrepOptionType.ExcludeDirectories, ExcludeDirectoriesOptions);
-			Options.Add(GrepOptionType.IncludeFiles, IncludeFilesOptions);
-			Options.Add(GrepOptionType.Recursive, RecursiveOptions);
-			Options.Add(GrepOptionType.Help, HelpOptions);
-			Options.Add(GrepOptionType.Version, VersionOptions);
-		}
+            Options = new Dictionary<GrepOptionType, ICollection<string>>();
+            Options.Add(GrepOptionType.RegexPattern, RegexPatternOptions);
+            Options.Add(GrepOptionType.File, FileOptions);
+            Options.Add(GrepOptionType.FixedStrings, FixedStringsOptions);
+            Options.Add(GrepOptionType.IgnoreCase, IgnoreCaseOptions);
+            Options.Add(GrepOptionType.InvertMatch, InvertMatchOptions);
+            Options.Add(GrepOptionType.OutputFile, OutputFileOptions);
+            Options.Add(GrepOptionType.Count, CountOptions);
+            Options.Add(GrepOptionType.FilesWithoutMatch, FilesWithoutMatchOptions);
+            Options.Add(GrepOptionType.FilesWithMatchs, FilesWithMatchsOptions);
+            Options.Add(GrepOptionType.NoMessages, NoMessagesOptions);
+            Options.Add(GrepOptionType.WithFileName, WithFileNameOptions);
+            Options.Add(GrepOptionType.NoFileName, NoFileNameOptions);
+            Options.Add(GrepOptionType.LineNumber, LineNumberOptions);
+            Options.Add(GrepOptionType.Directory, DirectoryOptions);
+            Options.Add(GrepOptionType.ExcludeFiles, ExcludeFilesOptions);
+            Options.Add(GrepOptionType.ExcludeDirectories, ExcludeDirectoriesOptions);
+            Options.Add(GrepOptionType.IncludeFiles, IncludeFilesOptions);
+            Options.Add(GrepOptionType.Recursive, RecursiveOptions);
+            Options.Add(GrepOptionType.Help, HelpOptions);
+            Options.Add(GrepOptionType.Version, VersionOptions);
+        }
 
-		public static List<string> GetSingleOptions()
-		{
-			List<string> singleOptionList = new List<string>();
+        public static List<string> GetSingleOptions()
+        {
+            List<string> singleOptionList = new List<string>();
 
-			singleOptionList.AddRange(GrepOptions.FixedStringsOptions);
-			singleOptionList.AddRange(GrepOptions.IgnoreCaseOptions);
-			singleOptionList.AddRange(GrepOptions.InvertMatchOptions);
-			singleOptionList.AddRange(GrepOptions.CountOptions);
-			singleOptionList.AddRange(GrepOptions.FilesWithoutMatchOptions);
-			singleOptionList.AddRange(GrepOptions.FilesWithMatchsOptions);
-			singleOptionList.AddRange(GrepOptions.NoMessagesOptions);
-			singleOptionList.AddRange(GrepOptions.WithFileNameOptions);
-			singleOptionList.AddRange(GrepOptions.NoFileNameOptions);
-			singleOptionList.AddRange(GrepOptions.LineNumberOptions);
-			singleOptionList.AddRange(GrepOptions.DirectoryOptions);
-			singleOptionList.AddRange(GrepOptions.RecursiveOptions);
-			singleOptionList.AddRange(GrepOptions.HelpOptions);
-			singleOptionList.AddRange(GrepOptions.VersionOptions);
+            singleOptionList.AddRange(GrepOptions.FixedStringsOptions);
+            singleOptionList.AddRange(GrepOptions.IgnoreCaseOptions);
+            singleOptionList.AddRange(GrepOptions.InvertMatchOptions);
+            singleOptionList.AddRange(GrepOptions.CountOptions);
+            singleOptionList.AddRange(GrepOptions.FilesWithoutMatchOptions);
+            singleOptionList.AddRange(GrepOptions.FilesWithMatchsOptions);
+            singleOptionList.AddRange(GrepOptions.NoMessagesOptions);
+            singleOptionList.AddRange(GrepOptions.WithFileNameOptions);
+            singleOptionList.AddRange(GrepOptions.NoFileNameOptions);
+            singleOptionList.AddRange(GrepOptions.LineNumberOptions);
+            singleOptionList.AddRange(GrepOptions.DirectoryOptions);
+            singleOptionList.AddRange(GrepOptions.RecursiveOptions);
+            singleOptionList.AddRange(GrepOptions.HelpOptions);
+            singleOptionList.AddRange(GrepOptions.VersionOptions);
 
-			return singleOptionList;
-		}
+            return singleOptionList;
+        }
 
-		#region Usage
+        #region Usage
 
-		public static readonly string Usage = string.Format(CultureInfo.CurrentCulture, @"
+        public static readonly string Usage = string.Format(CultureInfo.CurrentCulture, @"
 NAME
 
 	grep - search file(s) for lines that match a given pattern
@@ -257,25 +257,25 @@ COPYRIGHT
 	Copyright (C) 2011-2013 Chundong Gao. All Rights Reserved.
 ", @" ");
 
-		#endregion
+        #endregion
 
-		public static GrepOptionType GetOptionType(string option)
-		{
-			GrepOptionType optionType = GrepOptionType.None;
+        public static GrepOptionType GetOptionType(string option)
+        {
+            GrepOptionType optionType = GrepOptionType.None;
 
-			foreach (var pair in Options)
-			{
-				foreach (var item in pair.Value)
-				{
-					if (item == option)
-					{
-						optionType = pair.Key;
-						break;
-					}
-				}
-			}
+            foreach (var pair in Options)
+            {
+                foreach (var item in pair.Value)
+                {
+                    if (item == option)
+                    {
+                        optionType = pair.Key;
+                        break;
+                    }
+                }
+            }
 
-			return optionType;
-		}
-	}
+            return optionType;
+        }
+    }
 }

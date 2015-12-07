@@ -50,6 +50,9 @@ namespace Gimela.Toolkit.CommandLines.GrepCopy
         public bool IsSetOutputFile { get; set; }
         public string OutputFile { get; set; }
 
+        public bool IsSetCopyFolder { get; set; }
+        public string CopyFolder { get; set; }
+
         public bool IsSetCount { get; set; }
         public bool IsSetFilesWithoutMatch { get; set; }
         public bool IsSetFilesWithMatchs { get; set; }

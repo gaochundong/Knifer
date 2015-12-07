@@ -28,28 +28,28 @@
 
 namespace Gimela.Toolkit.CommandLines.Grep
 {
-  internal enum GrepOptionType
-  {
-    None = 0,
-    RegexPattern,
-    File,
-    FixedStrings,
-    IgnoreCase,
-    InvertMatch,
-    OutputFile,
-    Count,
-    FilesWithoutMatch,
-    FilesWithMatchs,
-    NoMessages,
-    WithFileName,
-    NoFileName,
-    LineNumber,
-    Directory,
-    ExcludeFiles,
-    ExcludeDirectories,
-    IncludeFiles,
-    Recursive,
-    Help,
-    Version,
-  }
+    internal enum GrepOptionType
+    {
+        None = 0,
+        RegexPattern,
+        File,
+        FixedStrings,
+        IgnoreCase,
+        InvertMatch,
+        OutputFile,
+        Count,
+        FilesWithoutMatch,
+        FilesWithMatchs,
+        NoMessages,
+        WithFileName,
+        NoFileName,
+        LineNumber,
+        Directory,
+        ExcludeFiles,
+        ExcludeDirectories,
+        IncludeFiles,
+        Recursive,
+        Help,
+        Version,
+    }
 }

@@ -42,6 +42,7 @@ namespace Gimela.Toolkit.CommandLines.GrepCopy
         public static readonly ReadOnlyCollection<string> InvertMatchOptions;
         public static readonly ReadOnlyCollection<string> OutputFileOptions;
         public static readonly ReadOnlyCollection<string> CountOptions;
+        public static readonly ReadOnlyCollection<string> CopyFolderOptions;
         public static readonly ReadOnlyCollection<string> FilesWithoutMatchOptions;
         public static readonly ReadOnlyCollection<string> FilesWithMatchsOptions;
         public static readonly ReadOnlyCollection<string> NoMessagesOptions;
@@ -68,6 +69,7 @@ namespace Gimela.Toolkit.CommandLines.GrepCopy
             InvertMatchOptions = new ReadOnlyCollection<string>(new string[] { "V", "invert-match" });
             OutputFileOptions = new ReadOnlyCollection<string>(new string[] { "o", "output" });
             CountOptions = new ReadOnlyCollection<string>(new string[] { "c", "count" });
+            CopyFolderOptions = new ReadOnlyCollection<string>(new string[] { "t", "copy-folder" });
             FilesWithoutMatchOptions = new ReadOnlyCollection<string>(new string[] { "L", "files-without-match" });
             FilesWithMatchsOptions = new ReadOnlyCollection<string>(new string[] { "l", "files-with-matches" });
             NoMessagesOptions = new ReadOnlyCollection<string>(new string[] { "s", "no-messages" });
@@ -90,6 +92,7 @@ namespace Gimela.Toolkit.CommandLines.GrepCopy
             Options.Add(GrepCopyOptionType.InvertMatch, InvertMatchOptions);
             Options.Add(GrepCopyOptionType.OutputFile, OutputFileOptions);
             Options.Add(GrepCopyOptionType.Count, CountOptions);
+            Options.Add(GrepCopyOptionType.CopyFolder, CopyFolderOptions);
             Options.Add(GrepCopyOptionType.FilesWithoutMatch, FilesWithoutMatchOptions);
             Options.Add(GrepCopyOptionType.FilesWithMatchs, FilesWithMatchsOptions);
             Options.Add(GrepCopyOptionType.NoMessages, NoMessagesOptions);
@@ -218,6 +221,11 @@ OPTIONS
 	{0}{0}Search only files whose base name matches GLOB (using wildcard 
 	{0}{0}matching as described under --exclude).
 
+    Copy Folder Control
+
+	-t, --copy-folder=FOLDER
+	{0}{0}Copy all the matched files into target folder. 
+
 	Other Options
 
 	-h, --help 
@@ -227,25 +235,10 @@ OPTIONS
 
 EXAMPLES
 
-	grepcopy 'chundong' ./*.txt
-	Search all .txt files in the current directory, and print the 
-	file name and lines that contain 'chundong'.
-
-	grepcopy 'chundong' 'C:\Logs' -d -F -n
+	grepcopy -e 'chundong' -d 'C:\Logs' -t 'C:\matched' -n -F
 	Search all files in 'C:\Logs' directory, and print the 
-	file name and lines number that contain 'chundong'.
-
-	grepcopy 'chundong' 'C:\Logs' -d -F -c
-	Search all files in 'C:\Logs' directory, and print the 
-	file name and lines count that contain 'chundong'.
-
-	grepcopy -e 'chundong.*' 'C:\Logs' -d -c
-	Search all files in 'C:\Logs' directory, and print the 
-	file name and lines count that match regex 'chundong.*'.
-
-	grepcopy -e 'Exception' -d 'C:\Logs' -o 'C:\exceptions.log' -n -F
-	Search all files in 'C:\Logs' directory, and print the 
-	file name and lines number that match string 'Exception'.
+	file name and lines number that match string 'chundong'.
+	Then copy all the matched files into 'C:\matched' folder.
 
 AUTHOR
 
