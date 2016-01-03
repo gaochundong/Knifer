@@ -32,26 +32,26 @@ using System.Runtime.Serialization;
 namespace Gimela.Toolkit.CommandLines.Foundation
 {
     [Serializable]
-  public class CommandLineException : Exception
-  {
-    public CommandLineException()
-      : this("Exception occurred when processing command line.")
+    public class CommandLineException : Exception
     {
-    }
+        public CommandLineException()
+          : this("Exception occurred when processing command line.")
+        {
+        }
 
-    public CommandLineException(string message)
-      : this(message, null)
-    {
-    }
+        public CommandLineException(string message)
+          : this(message, null)
+        {
+        }
 
-    public CommandLineException(string message, Exception innerException)
-      : base(message, innerException)
-    {
-    }
+        public CommandLineException(string message, Exception innerException)
+          : base(message, innerException)
+        {
+        }
 
-    protected CommandLineException(SerializationInfo info, StreamingContext context)
-      : base(info, context)
-    {
+        protected CommandLineException(SerializationInfo info, StreamingContext context)
+          : base(info, context)
+        {
+        }
     }
-  }
 }

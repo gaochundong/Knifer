@@ -31,11 +31,11 @@ using System;
 namespace Gimela.Toolkit.CommandLines.Foundation
 {
     public interface ICommandLine : IDisposable
-  {
-    void Execute();
+    {
+        void Execute();
 
-    void Terminate();
+        void Terminate();
 
-    bool IsExecuting { get; }
-  }
+        bool IsExecuting { get; }
+    }
 }
